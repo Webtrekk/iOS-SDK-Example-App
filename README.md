@@ -13,7 +13,6 @@ sudo gem install cocoapods
 # clone this repository
 https://github.com/Webtrekk/iOS-SDK-Example-App.git
 
-
 # Run CocoaPods to install all Pods
 pod install
 
