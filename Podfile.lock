@@ -1,0 +1,40 @@
+PODS:
+  - Nimble (7.0.2)
+  - OHHTTPStubs (6.0.0):
+    - OHHTTPStubs/Default (= 6.0.0)
+  - OHHTTPStubs/Core (6.0.0)
+  - OHHTTPStubs/Default (6.0.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (6.0.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (6.0.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (6.0.0)
+  - OHHTTPStubs/Swift (6.0.0):
+    - OHHTTPStubs/Default
+  - ReachabilitySwift (3)
+  - Webtrekk (4.5.0):
+    - ReachabilitySwift (~> 3.0.0)
+
+DEPENDENCIES:
+  - Nimble (~> 7.0.1)
+  - OHHTTPStubs (~> 6.0.0)
+  - OHHTTPStubs/Swift (~> 6.0.0)
+  - Webtrekk (from `..`)
+
+EXTERNAL SOURCES:
+  Webtrekk:
+    :path: ..
+
+SPEC CHECKSUMS:
+  Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
+  OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  Webtrekk: 612f321bf70259123a406304d7534d0c6c11c16e
+
+PODFILE CHECKSUM: a254549bc4fe44d81e323c3672c1ea523667381b
+
+COCOAPODS: 1.3.1
