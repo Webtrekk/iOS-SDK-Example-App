@@ -768,6 +768,7 @@
 				TargetAttributes = {
 					4951622A1D1DFC1E0006A82D = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = B7E25J2PRJ;
 						LastSwiftMigration = 0800;
 						TestTargetID = 9F415F531D5CAD09002CB83F;
 					};
@@ -1455,6 +1456,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A18E2020C0C8D790D45199E /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = B7E25J2PRJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Tests",
@@ -1480,6 +1482,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D29455AE99F8B7F5F76E838A /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = B7E25J2PRJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Tests",

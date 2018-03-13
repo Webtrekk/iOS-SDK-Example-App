@@ -2,7 +2,7 @@ use_frameworks!
 
 install! "cocoapods", :share_schemes_for_development_pods => false
 
-pod "Webtrekk", :path => ".."
+pod "Webtrekk"
 
 
 def base_pods
@@ -41,7 +41,7 @@ abstract_target "watchOS" do
     
     target "WatchApp" do
         target "WatchApp Extension" do
-        pod "Webtrekk", :path => ".."
+        pod "Webtrekk"
         base_pods
         end
     end
