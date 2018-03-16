@@ -28,9 +28,30 @@ class ActionTest: WTBaseTestNew {
         doURLSendTestAction() {
             let track = WebtrekkTracking.instance()
         
-            track.trackAction(ActionEvent(actionProperties: ActionProperties(name: "actionName", details: [1: "actionpar1", 2: "actionPar2"]),
-                                          pageProperties: PageProperties(name: "someName"),
-                                          sessionDetails: [1: "sessionpar1", 2: "sessionpar2"]))
+            let actionPropertiesL = ActionProperties(
+                name: "actionName",
+                details: [
+                    1: "actionpar1",
+                    2: "actionPar2"
+                ]
+            )
+            
+            let pagePropertiesL = PageProperties(
+                name: "someName"
+            )
+            
+            let sessionDetailsL = [
+                1: "sessionpar1",
+                2: "sessionpar2"
+            ]
+            
+            let actionEvent = ActionEvent(
+                actionProperties: actionPropertiesL,
+                pageProperties: pagePropertiesL,
+                sessionDetails: sessionDetailsL
+            )
+            
+            track.trackAction(actionEvent)
         }
         
         doURLSendTestCheck() { parametersArr in

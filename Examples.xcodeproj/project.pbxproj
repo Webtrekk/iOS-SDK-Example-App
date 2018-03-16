@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		28178808EE741308C90A2105 /* Pods_tvOS_SampleTVApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C545A3285EEC349D19BBAFE5 /* Pods_tvOS_SampleTVApp.framework */; };
 		4E5CDE7B178AC071E41B18DC /* Pods_WatchApp_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D69B1D268FC4FC9375115AC4 /* Pods_WatchApp_Extension.framework */; };
+		5A784BD2205A8B0200601EC3 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A784BD5205A8B0200601EC3 /* Webtrekk.framework */; };
+		5A784BD3205A8B0200601EC3 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A784BD6205A8B0200601EC3 /* Webtrekk.framework */; };
+		5A784BD4205A8B0200601EC3 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A784BD7205A8B0200601EC3 /* Webtrekk.framework */; };
 		6E99EB9F814BBECBBEB91478 /* Pods_watchOS_WatchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADB103160F53E54F123F1A5 /* Pods_watchOS_WatchApp.framework */; };
 		9F06B91B1DD4898D003D15EC /* NextPageInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06B9191DD48837003D15EC /* NextPageInterfaceController.swift */; };
 		9F06B91E1DD4AB00003D15EC /* HTTPTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F06B91C1DD4AA67003D15EC /* HTTPTester.swift */; };
@@ -28,7 +31,6 @@
 		9F415F291D5C7C81002CB83F /* AAMigrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F415F151D5C7C6D002CB83F /* AAMigrationTest.swift */; };
 		9F415F2C1D5C7C81002CB83F /* HttpBaseTestNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F415F181D5C7C6D002CB83F /* HttpBaseTestNew.swift */; };
 		9F415F311D5C7C81002CB83F /* stub.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F415F1D1D5C7C6D002CB83F /* stub.jpg */; };
-		9F415F351D5C80B4002CB83F /* WebtrekkOld.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F415F331D5C8090002CB83F /* WebtrekkOld.framework */; };
 		9F415F6A1D5CAD21002CB83F /* NextScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F415F071D5C7C59002CB83F /* NextScreenController.swift */; };
 		9F415F6B1D5CAD21002CB83F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F415F081D5C7C59002CB83F /* ViewController.swift */; };
 		9F415F6C1D5CAD21002CB83F /* webtrekk_config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9F415F091D5C7C59002CB83F /* webtrekk_config.xml */; };
@@ -196,6 +198,9 @@
 		497AAE311D22D2780094B8B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		497AAE321D22D28A0094B8B4 /* Webtrekk.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Webtrekk.podspec; path = ../Webtrekk.podspec; sourceTree = "<group>"; };
 		5A5FD30387E23C3D47A6A426 /* Pods-iOS-Example-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-Example-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS-Example-Tests/Pods-iOS-Example-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		5A784BD5205A8B0200601EC3 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A784BD6205A8B0200601EC3 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A784BD7205A8B0200601EC3 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6375DA6909329821D1F09E12 /* Pods-iOS-ModuleTest-TestsOld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-ModuleTest-TestsOld.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS-ModuleTest-TestsOld/Pods-iOS-ModuleTest-TestsOld.debug.xcconfig"; sourceTree = "<group>"; };
 		6492142764889CD44F2C5F6F /* Pods-iOS-Example-ModuleTest-TestsOld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-Example-ModuleTest-TestsOld.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS-Example-ModuleTest-TestsOld/Pods-iOS-Example-ModuleTest-TestsOld.debug.xcconfig"; sourceTree = "<group>"; };
 		6AAC8103EE115751C73EA318 /* Pods-iOS-ModuleTest-TestsOld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-ModuleTest-TestsOld.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS-ModuleTest-TestsOld/Pods-iOS-ModuleTest-TestsOld.release.xcconfig"; sourceTree = "<group>"; };
@@ -324,7 +329,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F415F351D5C80B4002CB83F /* WebtrekkOld.framework in Frameworks */,
+				5A784BD2205A8B0200601EC3 /* Webtrekk.framework in Frameworks */,
+				5A784BD3205A8B0200601EC3 /* Webtrekk.framework in Frameworks */,
+				5A784BD4205A8B0200601EC3 /* Webtrekk.framework in Frameworks */,
 				A9C514BF2D2B3FEF8F5D2490 /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,6 +562,9 @@
 		A3DFB00630AF1B828E7E41A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A784BD5205A8B0200601EC3 /* Webtrekk.framework */,
+				5A784BD6205A8B0200601EC3 /* Webtrekk.framework */,
+				5A784BD7205A8B0200601EC3 /* Webtrekk.framework */,
 				9FB10A031E28E6E9005D6656 /* AdSupport.framework */,
 				9F4160021D5CE337002CB83F /* Pods_TestsOld.framework */,
 				9F415FC21D5CDCCB002CB83F /* Nimble.framework */,
@@ -768,13 +778,14 @@
 				TargetAttributes = {
 					4951622A1D1DFC1E0006A82D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = B7E25J2PRJ;
+						DevelopmentTeam = EZPY3L3K5H;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 9F415F531D5CAD09002CB83F;
 					};
 					9F415F531D5CAD09002CB83F = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8JS62GK93M;
+						DevelopmentTeam = EZPY3L3K5H;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
@@ -784,23 +795,23 @@
 					};
 					9FC1837F1DAE1D64000F6106 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 8JS62GK93M;
+						DevelopmentTeam = EZPY3L3K5H;
 						ProvisioningStyle = Automatic;
 					};
 					9FC1838F1DAE1D64000F6106 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 8JS62GK93M;
+						DevelopmentTeam = EZPY3L3K5H;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 9FC1837F1DAE1D64000F6106;
 					};
 					9FFF2E7C1DCCC5CB00DB0F84 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 8JS62GK93M;
+						DevelopmentTeam = EZPY3L3K5H;
 						ProvisioningStyle = Automatic;
 					};
 					9FFF2E881DCCC5CB00DB0F84 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 8JS62GK93M;
+						DevelopmentTeam = EZPY3L3K5H;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1386,6 +1397,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1434,6 +1446,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1456,7 +1469,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A18E2020C0C8D790D45199E /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = B7E25J2PRJ;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Tests",
@@ -1473,6 +1490,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = webtrekk.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModuleTest.app/ModuleTest";
 			};
@@ -1482,7 +1500,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D29455AE99F8B7F5F76E838A /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = B7E25J2PRJ;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Tests",
@@ -1498,6 +1520,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = webtrekk.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModuleTest.app/ModuleTest";
 			};
@@ -1510,7 +1533,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ModuleTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/ModuleTest/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1530,7 +1553,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ModuleTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/ModuleTest/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1552,10 +1575,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/TVSupport/SampleTVApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.webtrekk.SampleTVApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webtrekk.SampleTVApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1573,10 +1596,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/TVSupport/SampleTVApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.webtrekk.SampleTVApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webtrekk.SampleTVApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1593,7 +1616,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Tests",
@@ -1618,7 +1641,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Tests",
@@ -1643,7 +1666,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/WatchSupport/WatchApp Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1665,7 +1688,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/WatchSupport/WatchApp Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1688,7 +1711,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Webtrekk-iOS\"",
@@ -1714,7 +1737,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8JS62GK93M;
+				DEVELOPMENT_TEAM = EZPY3L3K5H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Webtrekk-iOS\"",
