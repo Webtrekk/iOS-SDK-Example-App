@@ -23,12 +23,12 @@ import Webtrekk
 
 class ParametersPriorityTest: WTBaseTestNew {
     
-    override func getConfigName() -> String?{
+    override func getConfigName() -> String? {
             return "webtrekk_prioritization_test"
     }
     
     //do just global parameter test
-    func testGlobalParameter(){
+    func testGlobalParameter() {
         doURLSendTestAction {
             let tracker = WebtrekkTracking.instance()
             setupGlobal(global: tracker.global)
@@ -37,7 +37,7 @@ class ParametersPriorityTest: WTBaseTestNew {
         }
         
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("trackPageName"))
             expect(parametersArr["uc707"]).to(equal("19860411"))
             expect(parametersArr["uc708"]).to(equal("GLCITY"))
@@ -236,6 +236,7 @@ class ParametersPriorityTest: WTBaseTestNew {
         
         doURLSendTestAction {
             mainViewController.beginAppearanceTransition(true, animated: false)
+            
             let tracker = WebtrekkTracking.instance()
             
             setupGlobal(global: tracker.global)
@@ -347,10 +348,16 @@ class ParametersPriorityTest: WTBaseTestNew {
     private func setupCodeConf() -> PageViewEvent{
         
         let userProperties = UserProperties(
-            birthday: UserProperties.Birthday(day: 12, month: 4, year: 1986),
+            birthday: UserProperties.Birthday(
+                day: 12,
+                month: 4,
+                year: 1986
+            ),
             city: "CodeCITY",
             country: "CodeCOUNTRY",
-            details: [10: "CodeuserCustomField10"],
+            details: [
+                10: "CodeuserCustomField10"
+            ],
             emailAddress: "Codesomeaddress@domain.com",
             emailReceiverId: "CodeEMAIL_RID",
             firstName: "CodeGNAME",
@@ -361,7 +368,8 @@ class ParametersPriorityTest: WTBaseTestNew {
             phoneNumber: "1234567891",
             street: "CodeSTREET",
             streetNumber: "Code123a",
-            zipCode: "10116")
+            zipCode: "10116"
+        )
         
         
         // TODO Product merge
@@ -369,32 +377,62 @@ class ParametersPriorityTest: WTBaseTestNew {
             currencyCode: "CodeCURRENCY",
             details: [10 : "CodeecomeCustomField10"],
             orderNumber: "CodeORDER_NUMBER",
-            products: [EcommerceProperties.Product(name: "CodeproductName1", categories: [11: "CodeproductCat11", 12: "CodeproductCat12"], price:"300", quantity: 3),
-                       EcommerceProperties.Product(name: "CodeproductName2", categories: [11: "CodeproductCat21", 12: "CodeproductCat22"], price:"400", quantity: 4)],
+            products: [
+                EcommerceProperties.Product(
+                    name: "CodeproductName1",
+                    categories: [
+                        11: "CodeproductCat11",
+                        12: "CodeproductCat12"
+                    ],
+                    price:"300",
+                    quantity: 3
+                ),
+                EcommerceProperties.Product(
+                    name: "CodeproductName2",
+                    categories: [
+                        11: "CodeproductCat21",
+                        12: "CodeproductCat22"
+                    ],
+                    price:"400",
+                    quantity: 4
+                )
+            ],
             status: .purchased,
             totalValue: "CodeORDER_TOTAL",
-            voucherValue: "CodeVOUCHER_VALUE")
+            voucherValue: "CodeVOUCHER_VALUE"
+        )
         
         let pageProperties = PageProperties(
             name: "CodepageNameNotauto",
-            details: [30: "CodepageCustom30"],
-            groups: [10: "CodepageCat10"],
+            details: [
+                30: "CodepageCustom30"
+            ],
+            groups: [
+                10: "CodepageCat10"
+            ],
             internalSearch: "CodeInternalSearch",
-            url: "Codehttp://www.webrekk.com")
+            url: "Codehttp://www.webrekk.com"
+        )
 
         
         let advProperties = AdvertisementProperties(
             id: "CodeADVERTISEMENT",
             action: "CodeADVERTISEMENT_ACTION",
-            details: [10: "CodeadvertCustom10"])
+            details: [
+                10: "CodeadvertCustom10"
+            ]
+        )
 
         let pageEvent = PageViewEvent(
             pageProperties: pageProperties,
             advertisementProperties: advProperties,
             ecommerceProperties: ecomProperties,
             ipAddress: "127.0.0.2",
-            sessionDetails: [10: "CodesessionCustom10"],
-            userProperties: userProperties)
+            sessionDetails: [
+                10: "CodesessionCustom10"
+            ],
+            userProperties: userProperties
+        )
         
         return pageEvent
     }
@@ -448,10 +486,17 @@ class ParametersPriorityTest: WTBaseTestNew {
     // set global code parameters
     private func setupGlobal(global: GlobalProperties){
         
-        global.userProperties.birthday = UserProperties.Birthday(day: 11, month: 4, year: 1986)
+        global.userProperties.birthday = UserProperties.Birthday(
+            day: 11,
+            month: 4,
+            year: 1986
+        )
         global.userProperties.city = "GLCITY"
         global.userProperties.country = "GLCOUNTRY"
-        global.userProperties.details = [10: "GLuserCustomField10", 11: "GLuserCustomField11"]
+        global.userProperties.details = [
+            10: "GLuserCustomField10",
+            11: "GLuserCustomField11"
+        ]
         global.userProperties.emailAddress = "GLsomeaddress@domain.com"
         global.userProperties.emailReceiverId = "GLEMAIL_RID"
         global.userProperties.firstName = "GLNAME"
@@ -466,27 +511,63 @@ class ParametersPriorityTest: WTBaseTestNew {
         
         
         global.ecommerceProperties.currencyCode = "GLCURRENCY"
-        global.ecommerceProperties.details = [10 : "GLecomeCustomField10", 11 : "GLecomeCustomField11"]
+        global.ecommerceProperties.details = [
+            10 : "GLecomeCustomField10",
+            11 : "GLecomeCustomField11"
+        ]
         global.ecommerceProperties.orderNumber = "GLORDER_NUMBER"
-        global.ecommerceProperties.products = [EcommerceProperties.Product(name: "GLproductName1", categories: [11: "GLproductCat11", 12: "GLproductCat12"], price:"100", quantity: 1),
-                                               EcommerceProperties.Product(name: "GLproductName2", categories: [11: "GLproductCat21", 12: "GLproductCat22"], price:"200", quantity: 2)]
+        global.ecommerceProperties.products = [
+            EcommerceProperties.Product(
+                name: "GLproductName1",
+                categories: [
+                    11: "GLproductCat11",
+                    12: "GLproductCat12"
+                ],
+                price: "100",
+                quantity: 1
+            ),
+            EcommerceProperties.Product(
+                name: "GLproductName2",
+                categories: [
+                    11: "GLproductCat21",
+                    12: "GLproductCat22"
+                ],
+                price: "200",
+                quantity: 2
+            )
+        ]
         global.ecommerceProperties.totalValue = "GLORDER_TOTAL"
         global.ecommerceProperties.voucherValue = "GLVOUCHER_VALUE"
         global.ecommerceProperties.status = .viewed
         
         
         global.pageProperties.name = "GLpageNameNotauto"
-        global.pageProperties.groups = [10: "GLpageCat10", 11: "GLpageCat11"]
+        global.pageProperties.groups = [
+            10: "GLpageCat10",
+            11: "GLpageCat11"
+        ]
         global.pageProperties.internalSearch = "GLInternalSearch"
         global.pageProperties.url = "GLhttp://www.webrekk.com"
-        global.pageProperties.details = [30: "GLpageCustom30", 31: "GLpageCustom31", 784: "GLpageCustom784"]
+        global.pageProperties.details = [
+            30: "GLpageCustom30",
+            31: "GLpageCustom31",
+            784: "GLpageCustom784"
+        ]
         
         global.advertisementProperties.id = "GLADVERTISEMENT"
         global.advertisementProperties.action = "GLADVERTISEMENT_ACTION"
-        global.advertisementProperties.details = [10: "GLadvertCustom10", 11: "GLadvertCustom11"]
+        global.advertisementProperties.details = [
+            10: "GLadvertCustom10",
+            11: "GLadvertCustom11"
+        ]
         
         global.ipAddress = "127.0.0.1"
         
-        global.sessionDetails = [10: "GLsessionCustom10", 11: "GLsessionCustom11", 804: "GLsessionCustom804", 809: "GLsessionCustom809"]
+        global.sessionDetails = [
+            10: "GLsessionCustom10",
+            11: "GLsessionCustom11",
+            804: "GLsessionCustom804",
+            809: "GLsessionCustom809"
+        ]
     }
 }
