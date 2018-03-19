@@ -28,18 +28,25 @@ class PageTest: WTBaseTestNew {
     
     func testKeyValue(){
         doURLSendTestAction(){
-            let defTracker = WebtrekkTracking.instance()
-            defTracker.global.variables["Key1"] = "value1"
-            defTracker.global.variables["Key2"] = "value2"
-            defTracker.global.variables["KeyOver1"] = "overValue1"
-            defTracker.trackPageView("pageName")
+            let tracker = WebtrekkTracking.instance()
+            
+            tracker.global = [
+                variables: [
+                    "Key1": "value1",
+                    "Key2": "value2",
+                    "KeyOver1": "overValue1"
+                ]
+            ]
+            tracker.trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestSimple______________")
+
             for (key, value) in parametersArr{
-                print(key+"="+value)
+                print(key + "=" + value)
             }
+
             expect(parametersArr["cp1"]).to(equal("value1"))
             expect(parametersArr["cp2"]).to(equal("value2"))
             expect(parametersArr["cb2"]).to(equal("value2"))
@@ -59,15 +66,30 @@ class PageTest: WTBaseTestNew {
         }
         
         
-        doURLSendTestAction(){
-                WebtrekkTracking.instance().trackPageView(PageProperties(name: "PageName", details: [20: "cp20Override"]))
+        doURLSendTestAction() {
+            let tracker = WebtrekkTracking.instance()
+            
+            let pagePropertiesL = PageProperties(
+                name: "PageName",
+                details: [
+                    20: "cp20Override"
+                ]
+            )
+
+            let pageEvent = PageViewEvent(
+                pageProperties: pagePropertiesL
+            )
+
+            tracker.trackPageView(pageEvent)
         }
 
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestSimple______________")
+
             for (key, value) in parametersArr{
-                print(key+"="+value)
+                print(key + "=" + value)
             }
+
             expect(parametersArr["cp1"]).to(equal("value1"))
             expect(parametersArr["cp2"]).to(equal("value2"))
             expect(parametersArr["cb2"]).to(equal("value2"))
@@ -76,7 +98,7 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["ca2"]).to(equal("value2"))
             expect(parametersArr["cg2"]).to(equal("value2"))
             expect(parametersArr["uc2"]).to(equal("value2"))
-            
+
             expect(parametersArr["cp20"]).to(equal("cp20Override"))
             expect(parametersArr["cb1"]).to(equal("test_ecomparam1"))
             expect(parametersArr["cc1"]).to(equal("test_adparam1"))
@@ -86,18 +108,16 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["uc1"]).to(equal("test_usercategory1"))
         }
     }
-    
-    func testCoding(){
-        
+
+    func testCoding() {
         var allAllowedSymbols = CharacterSet.urlQueryAllowed
-        
-        
+
         let coddedSymbols = "+=\"',/?:@&#$"
-        
+
         coddedSymbols.forEach { (ch) in
             allAllowedSymbols.remove(ch.unicodeScalars.first!)
         }
-
+        
         var allASCIISympbols1 = ""
         var allASCIISympbols2 = ""
 
@@ -112,20 +132,26 @@ class PageTest: WTBaseTestNew {
         let codedASCIISymbols1 = allASCIISympbols1.addingPercentEncoding(withAllowedCharacters: allAllowedSymbols)
         let codedASCIISymbols2 = allASCIISympbols2.addingPercentEncoding(withAllowedCharacters: allAllowedSymbols)
 
-        
-        
         doURLSendTestAction(){
-            let defTracker = WebtrekkTracking.instance()
-            defTracker.global.variables["Key1"] = allASCIISympbols1
-            defTracker.global.variables["Key2"] = allASCIISympbols2
-            defTracker.trackPageView("page,Name")
+            let tracker = WebtrekkTracking.instance()
+            
+            tracker.global = [
+                variables: [
+                    "Key1": allASCIISympbols1,
+                    "Key2": allASCIISympbols2
+                ]
+            ]
+
+            tracker.trackPageView("page,Name")
         }
         
         doURLSendTestCheck(){parametersArr in
             print("key value print for keyValueTestSimple______________")
-            for (key, value) in parametersArr{
-                print(key+"="+value)
+            
+            for (key, value) in parametersArr {
+                print(key + "=" + value)
             }
+            
             expect(parametersArr["cp1"]).to(equal(codedASCIISymbols1))
             expect(parametersArr["cp2"]).to(equal(codedASCIISymbols2))
             expect(parametersArr["cb2"]).to(equal(codedASCIISymbols2))
@@ -134,6 +160,7 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["ca2"]).to(equal(codedASCIISymbols2))
             expect(parametersArr["cg2"]).to(equal(codedASCIISymbols2))
             expect(parametersArr["uc2"]).to(equal(codedASCIISymbols2))
+            
             let pPar = parametersArr["p"] ?? ""
             let comaChar : [Character] = pPar.filter{ $0 == "," }
 
@@ -141,16 +168,15 @@ class PageTest: WTBaseTestNew {
             expect(comaChar.count).to(equal(9))
             expect(pPar).to(contain("page%2CName"))
         }
-
     }
     
     func testUserAgent(){
         doURLSendTestAction(){
-            let defTracker = WebtrekkTracking.instance()
-            defTracker.trackPageView("pageName")
+            let tracker = WebtrekkTracking.instance()
+            
+            tracker.trackPageView("pageName")
         }
-        
-        
+
         let operatingSystemName: String = {
             #if os(iOS)
                 return "iOS"
@@ -171,11 +197,8 @@ class PageTest: WTBaseTestNew {
             #endif
         }()
 
-        
-        
         let version = ProcessInfo().operatingSystemVersion
 
-        
         doURLSendTestCheck(){parametersArr in
             expect(parametersArr["X-WT-UA"]?.removingPercentEncoding!).to(equal("Tracking Library \(WebtrekkTracking.version) (\(operatingSystemName) \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(modelNumber); \(Locale.current.identifier))"))
         }
@@ -189,10 +212,19 @@ class PageTest: WTBaseTestNew {
 
         doURLSendTestAction() {
             let pageTracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
-            pageTracker.variables["Key1"]="value1"
-            pageTracker.variables["Key2"]="value2"
-            pageTracker.variables["KeyOver1"]="overValue1"
-            pageTracker.pageProperties.details = [1: "don't Override"]
+            
+            pageTracker.variables = [
+                "Key1": "value1",
+                "Key2": "value2",
+                "KeyOver1": "overValue1"
+            ]
+
+            pageTracker.pageProperties = [
+                details : [
+                    1: "don't Override"
+                ]
+            ]
+            
             self.mainViewController.beginAppearanceTransition(true, animated: false)
             self.mainViewController.endAppearanceTransition()
         }
@@ -226,16 +258,17 @@ class PageTest: WTBaseTestNew {
     }
     
     //To be done
-    private func oneTest()
-    {
+    private func oneTest() {
         doURLSendTestAction(){
-            WebtrekkTracking.instance().trackPageView("pageName")
+            let tracker = WebtrekkTracking.instance()
+            
+            tracker.trackPageView("pageName")
         }
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["one"]).to(equal("1"))
             expect(parametersArr["fns"]).to(equal("1"))
-            }
+        }
     }
     
     #if !os(tvOS)
@@ -291,14 +324,13 @@ class PageTest: WTBaseTestNew {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
         
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
                 expect(parametersArr["p"]).notTo(beNil())
             }
     }
     
     // MARK: auto track test
     func testAutoTrack() {
-        
         if self.mainViewController == nil {
             self.mainViewController = ViewController()
         }
@@ -309,7 +341,7 @@ class PageTest: WTBaseTestNew {
         }
         
         self.timeout = 10
-            doURLSendTestCheck(){parametersArr in
+            doURLSendTestCheck() { parametersArr in
                 expect(parametersArr["p"]).to(contain("autoPageName"))
                 expect(parametersArr["p"]).to(contain(self.libraryVersion!))
             }
@@ -317,32 +349,44 @@ class PageTest: WTBaseTestNew {
     }
     
     func testPageURLOverrideTest() {
-            // test incorrect pu parameter is set
-            doURLSendTestAction() {
+        // test incorrect pu parameter is set
+        doURLSendTestAction() {
+            let tracker = WebtrekkTracking.instance()
             
-            let track = WebtrekkTracking.instance()
-            
-            track.pageURL = "some incorrect url"
-            track.trackPageView(PageProperties(name: "SomePageName", url: "http://www.sample.com"))
+            let pagePropertiesL = PageProperties(
+                name: "SomePageName",
+                url: "http://www.sample.com"
+            )
+                
+            tracker.pageURL = "some incorrect url"
+
+            let pageEvent = PageViewEvent(
+                pageProperties: pagePropertiesL
+            )
+
+            tracker.trackPageView(pageEvent)
         }
 
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
                 expect(parametersArr["pu"]).to(contain("http%3A%2F%2Fwww.sample.com"))
         }
         
         // test correct pu parameter is set
         doURLSendTestAction() {
-            
-            let track = WebtrekkTracking.instance()
+            let tracker = WebtrekkTracking.instance()
             
             let pagePropertiesL = PageProperties(
                 name: "SomePageName",
                 url: "http://www.sample.com"
             )
             
-            track.pageURL = "https://www.webtrekk.com"
+            tracker.pageURL = "https://www.webtrekk.com"
             
-            track.trackPageView(pagePropertiesL)
+            let pageEvent = PageViewEvent(
+                pageProperties: pagePropertiesL
+            )
+            
+            tracker.trackPageView(pageEvent)
         }
 
         doURLSendTestCheck() { parametersArr in

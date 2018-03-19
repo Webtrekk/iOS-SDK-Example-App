@@ -25,126 +25,154 @@ class ParameterTest: WTBaseTestNew {
     
     var mainViewController: ViewController!
     
-    
-    override func getConfigName() -> String?{
+    override func getConfigName() -> String? {
         return String("webtrekk_config_no_autoTrack")
     }
 
-    
-    func testVariablesParameterGlobal()
-    {
+    func testVariablesParameterGlobal() {
         
-                doURLSendTestAction(){
-                     let tracker = WebtrekkTracking.instance()
-//                     tracker["ADVERTISEMENT"]="ADVERTISEMENT"
-//                     tracker["ADVERTISEMENT_ACTION"]="ADVERTISEMENT_ACTION"
-                     tracker["BIRTHDAY"]="19761008"
-//                     tracker["CITY"]="CITY"
-//                     tracker["COUNTRY"]="COUNTRY"
-                     tracker["CURRENCY"]="CURRENCY"
-                     tracker["CUSTOMER_ID"]="CUSTOMER_ID"
-                     tracker["EMAIL"]="EMAIL"
-                     tracker["EMAIL_RID"]="EMAIL_RID"
-//                     tracker["GNAME"]="GNAME"
-                     tracker["GENDER"]="1"
-                     tracker["INTERN_SEARCH"]="INTERN_SEARCH"
-//                     tracker["IP_ADDRESS"]="IP_ADDRESS"
-//                     tracker["SNAME"]="SNAME"
-//                     tracker["NEWSLETTER"]="NEWSLETTER"
-                     //tracker["ORDER_NUMBER"]="ORDER_NUMBER"
-//                     tracker["PAGE_URL"]="PAGE_URL"
-//                     tracker["PHONE"]="PHONE"
-                     //tracker["PRODUCT"]="PRODUCT"
-                     //tracker["PRODUCT_COST"]="PRODUCT_COST"
-                     //tracker["PRODUCT_COUNT"]="2"
-                     //tracker["PRODUCT_STATUS"]="conf"
-//                     tracker["STREET"]="STREET"
-//                     tracker["STREETNUMBER"]="STREETNUMBER"
-                     //tracker["ORDER_TOTAL"]="ORDER_TOTAL"
-                     //tracker["VOUCHER_VALUE"]="VOUCHER_VALUE"
-//                     tracker["ZIP"]="ZIP"
-                       tracker.trackPageView("somePageName")
-                }
-        
-                self.timeout = 10
-                doURLSendTestCheck(){parametersArr in
-//                    expect(parametersArr["mc"]).to(equal("ADVERTISEMENT"))
-//                    expect(parametersArr["mca"]).to(equal("ADVERTISEMENT_ACTION"))
-                    expect(parametersArr["uc707"]).to(equal("19761008"))
-//                    expect(parametersArr["uc708"]).to(equal("CITY"))
-//                    expect(parametersArr["uc709"]).to(equal("COUNTRY"))
-                    expect(parametersArr["cr"]).to(equal("CURRENCY"))
-                    expect(parametersArr["cd"]).to(equal("CUSTOMER_ID"))
-                    expect(parametersArr["uc700"]).to(equal("EMAIL"))
-                    expect(parametersArr["uc701"]).to(equal("EMAIL_RID"))
-//                    expect(parametersArr["uc703"]).to(equal("GNAME"))
-                    expect(parametersArr["uc706"]).to(equal("1"))
-                    expect(parametersArr["is"]).to(equal("INTERN_SEARCH"))
-//                    expect(parametersArr["X_WT_IP"]).to(equal("IP_ADDRESS"))
-//                    expect(parametersArr["uc704"]).to(equal("SNAME"))
-//                    expect(parametersArr["uc702"]).to(equal("NEWSLETTER"))
-                    //expect(parametersArr["oi"]).to(equal("ORDER_NUMBER"))
-//                    expect(parametersArr["pu"]).to(equal("PAGE_URL"))
-//                    expect(parametersArr["uc705"]).to(equal("PHONE"))
-//                    expect(parametersArr["ba"]).to(equal("PRODUCT"))
-//                    expect(parametersArr["co"]).to(equal("PRODUCT_COST"))
-//                    expect(parametersArr["qn"]).to(equal("2"))
-                    //expect(parametersArr["st"]).to(equal("conf"))
-//                    expect(parametersArr["uc711"]).to(equal("STREET"))
-//                    expect(parametersArr["uc712"]).to(equal("STREETNUMBER"))
-                    //expect(parametersArr["ov"]).to(equal("ORDER_TOTAL"))
-                    //expect(parametersArr["cb563"]).to(equal("VOUCHER_VALUE"))
-//                    expect(parametersArr["uc710"]).to(equal("ZIP"))
-                }
+        doURLSendTestAction(){
+            let tracker = WebtrekkTracking.instance()
+
+            tracker = [
+//                "ADVERTISEMENT": "ADVERTISEMENT",
+//                "ADVERTISEMENT_ACTION": "ADVERTISEMENT_ACTION",
+                "BIRTHDAY": "19761008",
+//                "CITY": "CITY",
+//                "COUNTRY": "COUNTRY",
+                "CURRENCY": "CURRENCY",
+                "CUSTOMER_ID": "CUSTOMER_ID",
+                "EMAIL": "EMAIL",
+                "EMAIL_RID": "EMAIL_RID",
+//                "GNAME": "GNAME",
+                "GENDER": "1",
+                "INTERN_SEARCH": "INTERN_SEARCH"
+//                "IP_ADDRESS": "IP_ADDRESS",
+//                "SNAME": "SNAME",
+//                "NEWSLETTER": "NEWSLETTER",
+//                "ORDER_NUMBER": "ORDER_NUMBER",
+//                "PAGE_URL": "PAGE_URL",
+//                "PHONE": "PHONE",
+//                "PRODUCT": "PRODUCT",
+//                "PRODUCT_COST": "PRODUCT_COST",
+//                "PRODUCT_COUNT": "2",
+//                "PRODUCT_STATUS": "conf",
+//                "STREET": "STREET",
+//                "STREETNUMBER": "STREETNUMBER",
+//                "ORDER_TOTAL": "ORDER_TOTAL",
+//                "VOUCHER_VALUE": "VOUCHER_VALUE",
+//                "ZIP": "ZIP"
+            ]
+
+             tracker.trackPageView("somePageName")
+        }
+
+        self.timeout = 10
+        doURLSendTestCheck(){parametersArr in
+//          expect(parametersArr["mc"]).to(equal("ADVERTISEMENT"))
+//          expect(parametersArr["mca"]).to(equal("ADVERTISEMENT_ACTION"))
+            expect(parametersArr["uc707"]).to(equal("19761008"))
+//          expect(parametersArr["uc708"]).to(equal("CITY"))
+//          expect(parametersArr["uc709"]).to(equal("COUNTRY"))
+            expect(parametersArr["cr"]).to(equal("CURRENCY"))
+            expect(parametersArr["cd"]).to(equal("CUSTOMER_ID"))
+            expect(parametersArr["uc700"]).to(equal("EMAIL"))
+            expect(parametersArr["uc701"]).to(equal("EMAIL_RID"))
+//          expect(parametersArr["uc703"]).to(equal("GNAME"))
+            expect(parametersArr["uc706"]).to(equal("1"))
+            expect(parametersArr["is"]).to(equal("INTERN_SEARCH"))
+//          expect(parametersArr["X_WT_IP"]).to(equal("IP_ADDRESS"))
+//          expect(parametersArr["uc704"]).to(equal("SNAME"))
+//          expect(parametersArr["uc702"]).to(equal("NEWSLETTER"))
+//          expect(parametersArr["oi"]).to(equal("ORDER_NUMBER"))
+//          expect(parametersArr["pu"]).to(equal("PAGE_URL"))
+//          expect(parametersArr["uc705"]).to(equal("PHONE"))
+//          expect(parametersArr["ba"]).to(equal("PRODUCT"))
+//          expect(parametersArr["co"]).to(equal("PRODUCT_COST"))
+//          expect(parametersArr["qn"]).to(equal("2"))
+//          expect(parametersArr["st"]).to(equal("conf"))
+//          expect(parametersArr["uc711"]).to(equal("STREET"))
+//          expect(parametersArr["uc712"]).to(equal("STREETNUMBER"))
+//          expect(parametersArr["ov"]).to(equal("ORDER_TOTAL"))
+//          expect(parametersArr["cb563"]).to(equal("VOUCHER_VALUE"))
+//          expect(parametersArr["uc710"]).to(equal("ZIP"))
+        }
     }
     
-    func testVariablesParameterScreen()
-    {
+    func testVariablesParameterScreen() {
         if self.mainViewController == nil {
             self.mainViewController = ViewController()
         }
 
-        
         doURLSendTestAction(){
             self.mainViewController.beginAppearanceTransition(true, animated: false)
             let tracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
 
-//          tracker.variables["ADVERTISEMENT"]="ADVERTISEMENT"
-//          tracker.variables["ADVERTISEMENT_ACTION"]="ADVERTISEMENT_ACTION"
-            tracker["BIRTHDAY"]="19761008"
-//          tracker.variables["CITY"]="CITY"
-//          tracker.variables["COUNTRY"]="COUNTRY"
-            tracker["CURRENCYOver"]="CURRENCYOver"
-            tracker["CUSTOMER_ID"]="CUSTOMER_ID"
-            tracker["EMAIL"]="EMAIL"
-            tracker["EMAIL_RID"]="EMAIL_RID"
-//          tracker.variables["GNAME"]="GNAME"
-            tracker["GENDER"]="1"
-            tracker["INTERN_SEARCHOver"]="INTERN_SEARCHOver"
-//          tracker["IP_ADDRESS"]="IP_ADDRESS"
-//          tracker["SNAME"]="SNAME"
-//          tracker["NEWSLETTER"]="NEWSLETTER"
-            tracker["ORDER_NUMBER"]="ORDER_NUMBER"
-//          tracker["PAGE_URL"]="PAGE_URL"
-//          tracker["PHONE"]="PHONE"
-            tracker["PRODUCT"]="PRODUCT"
-            tracker["PRODUCT_COST"]="PRODUCT_COST"
-            tracker["PRODUCT_COUNT"]="2"
-            tracker["PRODUCT_STATUS"]="conf"
-//          tracker["STREET"]="STREET"
-//          tracker["STREETNUMBER"]="STREETNUMBER"
-            tracker["ORDER_TOTAL"]="ORDER_TOTAL"
-            tracker["VOUCHER_VALUE"]="VOUCHER_VALUE"
-//          tracker["ZIP"]="ZIP"
-            
-            tracker.ecommerceProperties.products = [EcommerceProperties.Product(name: "productName1", categories: [11: "productCat11", 12: "productCat12"], price:"100", quantity: 1),
-                EcommerceProperties.Product(name: "productName2", categories: [11: "productCat21", 12: "productCat22"], price:"200", quantity: 2)]
-            tracker.ecommerceProperties.totalValue = "ORDER_TOTALCODE"
+            tracker = [
+//                "ADVERTISEMENT": "ADVERTISEMENT",
+//                "ADVERTISEMENT_ACTION": "ADVERTISEMENT_ACTION",
+                "BIRTHDAY": "19761008",
+//                "CITY": "CITY",
+//                "COUNTRY": "COUNTRY",
+                "CURRENCY": "CURRENCYOver",
+                "CUSTOMER_ID": "CUSTOMER_ID",
+                "EMAIL": "EMAIL",
+                "EMAIL_RID": "EMAIL_RID",
+//                "GNAME": "GNAME",
+                "GENDER": "1",
+                "INTERN_SEARCH": "INTERN_SEARCHOver",
+//                "IP_ADDRESS": "IP_ADDRESS",
+//                "SNAME": "SNAME",
+//                "NEWSLETTER": "NEWSLETTER",
+                "ORDER_NUMBER": "ORDER_NUMBER",
+//                "PAGE_URL": "PAGE_URL",
+//                "PHONE": "PHONE",
+                "PRODUCT": "PRODUCT",
+                "PRODUCT_COST": "PRODUCT_COST",
+                "PRODUCT_COUNT": "2",
+                "PRODUCT_STATUS": "conf",
+//                "STREET": "STREET",
+//                "STREETNUMBER": "STREETNUMBER",
+                "ORDER_TOTAL": "ORDER_TOTAL",
+                "VOUCHER_VALUE": "VOUCHER_VALUE",
+//                "ZIP": "ZIP"
+            ]
 
+            let ecommercePropertiesL = EcommerceProperties(
+                products: [
+                    EcommerceProperties.Product(
+                        name: "productName1",
+                        categories: [
+                            11: "productCat11",
+                            12: "productCat12"
+                        ],
+                        price:"100",
+                        quantity: 1
+                    ),
+                    EcommerceProperties.Product(
+                        name: "productName2",
+                        categories: [
+                            11: "productCat21",
+                            12: "productCat22"
+                        ],
+                        price:"200",
+                        quantity: 2
+                    )
+                ],
+                totalValue: "ORDER_TOTALCODE"
+            )
+
+            let pageEvent = PageViewEvent(
+                ecommerceProperties: ecomPropertiesL
+            )
+            
+            tracker.trackPageView(pageEvent)
+            
             self.mainViewController.endAppearanceTransition()
         }
         
         self.timeout = 10
+
         doURLSendTestCheck(){parametersArr in
 //          expect(parametersArr["mc"]).to(equal("ADVERTISEMENT"))
 //          expect(parametersArr["mca"]).to(equal("ADVERTISEMENT_ACTION"))
@@ -185,54 +213,112 @@ class ParameterTest: WTBaseTestNew {
         doURLSendTestAction(){
             self.mainViewController.beginAppearanceTransition(true, animated: false)
             let tracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
+            
             WebtrekkTracking.instance().pageURL = nil
-            tracker["CURRENCYOver"] = "CURRENCY"
-            tracker["CURRENCY"] = "GlobalIgnore"
+            tracker = [
+                "CURRENCYOver": "CURRENCY",
+                "CURRENCY": "GlobalIgnore"
+            ]
 
             //uncomment after fix with default memberwise initializer is done.
-            tracker.userProperties.birthday = UserProperties.Birthday(day: 11, month: 4, year: 1986)
-            tracker.userProperties.city = "CITY"
-            tracker.userProperties.country = "COUNTRY"
-            tracker.userProperties.details = [10: "userCustomField10"]
-            tracker.userProperties.emailAddress = "someaddress@domain.com"
-            tracker.userProperties.emailReceiverId = "EMAIL_RID"
-            tracker.userProperties.firstName = "GNAME"
-            tracker.userProperties.gender = .female
-            tracker.userProperties.id = "userID"
-            tracker.userProperties.lastName = "SNAME"
-            tracker.userProperties.newsletterSubscribed = false
-            tracker.userProperties.phoneNumber = "123456789"
-            tracker.userProperties.street = "STREET"
-            tracker.userProperties.streetNumber = "123a"
-            tracker.userProperties.zipCode = "10115"
             
+            let userPropertiesL = UserProperties(
+                birthday: UserProperties.Birthday(
+                    day: 11,
+                    month: 4,
+                    year: 1986
+                ),
+                city: "CITY",
+                country: "COUNTRY",
+                details: [
+                    10: "userCustomField10"
+                ],
+                emailAddress: "someaddress@domain.com",
+                emailReceiverId: "EMAIL_RID",
+                firstName: "GNAME",
+                lastName: "SNAME",
+                gender: .female,
+                id: "userID",
+                newsletterSubscribed: false,
+                phoneNumber: "123456789",
+                street: "STREET",
+                streetNumber: "123a",
+                zipCode: "10115"
+            )
+
+            let ecommercePropertiesL = EcommerceProperties(
+                currencyCode: "CURRENCYCodeIgnore",
+                details: [
+                    10 : "ecomeCustomField10"
+                ],
+                orderNumber: "ORDER_NUMBER",
+                products: [
+                    EcommerceProperties.Product(
+                        name: "productName1",
+                        categories: [
+                            11: "productCat11",
+                            12: "productCat12"
+                        ],
+                        price:"100",
+                        quantity: 1
+                    ),
+                    EcommerceProperties.Product(
+                        name: "productName2",
+                        categories: [
+                            11: "productCat21",
+                            12: "productCat22"
+                        ],
+                        price:"200",
+                        quantity: 2
+                    )
+                ],
+                totalValue: "ORDER_TOTAL",
+                voucherValue: "VOUCHER_VALUE",
+                status: .viewed
+            )
+
+            let pagePropertiesL = PageProperties(
+                name: "pageNameNotauto",
+                groups: [
+                    10: "pageCat10",
+                    11: "pageCat11"
+                ],
+                internalSearch: "InternalSearch",
+                url: "http://www.webrekk.com",
+                details: [
+                    30: "pageCustom30",
+                    31: "pageCustom31"
+                ]
+            )
+
+            let advertisementPropertiesL = AdvertisementProperties(
+                id: "ADVERTISEMENT",
+                action: "ADVERTISEMENT_ACTION",
+                details: [
+                    10: "advertCustom10",
+                    11: "advertCustom11"
+                ]
+            )
+
+            let sessionDetailsL = [
+                10: "sessionCustom10",
+                11: "sessionCustom11"
+            ]
+
+            let pageEvent = PageViewEvent(
+                pageProperties: pagePropertiesL,
+                advertisementProperties: advPropertiesL,
+                ecommerceProperties: ecomPropertiesL,
+                sessionDetails: sessionDetailsL,
+                userProperties: userPropertiesL
+            )
             
-            tracker.ecommerceProperties.currencyCode = "CURRENCYCodeIgnore"
-            tracker.ecommerceProperties.details = [10 : "ecomeCustomField10"]
-            tracker.ecommerceProperties.orderNumber = "ORDER_NUMBER"
-            tracker.ecommerceProperties.products = [EcommerceProperties.Product(name: "productName1", categories: [11: "productCat11", 12: "productCat12"], price:"100", quantity: 1),
-                EcommerceProperties.Product(name: "productName2", categories: [11: "productCat21", 12: "productCat22"], price:"200", quantity: 2)]
-            tracker.ecommerceProperties.totalValue = "ORDER_TOTAL"
-            tracker.ecommerceProperties.voucherValue = "VOUCHER_VALUE"
-            tracker.ecommerceProperties.status = .viewed
-            
-            
-            tracker.pageProperties.name = "pageNameNotauto"
-            tracker.pageProperties.groups = [10: "pageCat10", 11: "pageCat11"]
-            tracker.pageProperties.internalSearch = "InternalSearch"
-            tracker.pageProperties.url = "http://www.webrekk.com"
-            tracker.pageProperties.details = [30: "pageCustom30", 31: "pageCustom31"]
-            
-            tracker.advertisementProperties.id = "ADVERTISEMENT"
-            tracker.advertisementProperties.action = "ADVERTISEMENT_ACTION"
-            tracker.advertisementProperties.details = [10: "advertCustom10", 11: "advertCustom11"]
-            
-            tracker.sessionDetails = [10: "sessionCustom10", 11: "sessionCustom11"]
+            tracker.trackPageView(pageEvent)
             
             self.mainViewController.endAppearanceTransition()
         }
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("autoPageName"))
             expect(parametersArr["uc707"]).to(equal("19860411"))
             expect(parametersArr["uc708"]).to(equal("CITY"))
@@ -280,21 +366,45 @@ class ParameterTest: WTBaseTestNew {
         doURLSendTestAction(){
             let tracker = WebtrekkTracking.instance()
             
-            tracker.global.userProperties.details = [3: "customUser3"]
-            tracker.global.sessionDetails = [1: "shouldBeIgnored"]
-            tracker.global.pageProperties.internalSearch = "ShouldBeIgnoredIS"
-            tracker.global.advertisementProperties.details = [23: "customAdv23"]
+            tracker.global = [
+                userProperties: [
+                    details = [
+                        3: "customUser3"
+                    ]
+                ],
+                sessionDetails: [
+                    1: "shouldBeIgnored"
+                ],
+                pageProperties: [
+                    internalSearch: "ShouldBeIgnoredIS"
+                ],
+                advertisementProperties: [
+                    details: [
+                        23: "customAdv23"
+                    ]
+                ]
+            ]
             
-            tracker["CURRENCY"] = "CURRENCYGlobalParIgnore"
-            tracker["INTERN_SEARCH"] = "InternalSearch"
+            tracker = [
+                "CURRENCY": "CURRENCYGlobalParIgnore",
+                "INTERN_SEARCH": "InternalSearch",
+                pageUrl: nil
+            ]
             
-            tracker.pageURL = nil
             let pagePropertiesL = PageProperties(
                 name: "pageNameNotauto",
-                details: [30: "pageCustom30", 31: "pageCustom31"],
-                groups: [10: "pageCat10", 11: "pageCat11"],
+                details: [
+                    30: "pageCustom30",
+                    31: "pageCustom31"
+                ],
+                groups: [
+                    10: "pageCat10",
+                    11: "pageCat11"
+                ],
                 internalSearch: nil,
-                url: "http://www.webrekk.com")
+                url: "http://www.webrekk.com"
+            )
+            
             let userPropertiesL = UserProperties(
                 birthday: UserProperties.Birthday(day: 11, month: 4, year: 1986),
                 city: "CITY",
@@ -310,37 +420,70 @@ class ParameterTest: WTBaseTestNew {
                 phoneNumber: "123456789",
                 street: "STREET",
                 streetNumber: "123a",
-                zipCode: "10115")
+                zipCode: "10115"
+            )
             
             let advPropertiesL = AdvertisementProperties(
                 id: "ADVERTISEMENT",
                 action: "ADVERTISEMENT_ACTION",
-                details: [10: "advertCustom10", 11: "advertCustom11"])
+                details: [
+                    10: "advertCustom10",
+                    11: "advertCustom11"
+                ]
+            )
             
             let ecomPropertiesL = EcommerceProperties(
                 currencyCode: "CURRENCY",
-                details: [10 : "ecomeCustomField10"],
+                details: [
+                    10 : "ecomeCustomField10"
+                ],
                 orderNumber: "ORDER_NUMBER",
-                products: [EcommerceProperties.Product(name: "productName1", categories: [11: "productCat11", 12: "productCat12"], price:"100", quantity: 1),
-                    EcommerceProperties.Product(name: "productName2", categories: [11: "productCat21", 12: "productCat22"], price:"200", quantity: 2)],
+                products: [
+                    EcommerceProperties.Product(
+                        name: "productName1",
+                        categories: [
+                            11: "productCat11",
+                            12: "productCat12"
+                        ],
+                        price:"100",
+                        quantity: 1),
+                    EcommerceProperties.Product(
+                        name: "productName2",
+                        categories: [
+                            11: "productCat21",
+                            12: "productCat22"
+                        ],
+                        price:"200",
+                        quantity: 2
+                    )
+                ],
                 status: .viewed,
                 totalValue: "ORDER_TOTAL",
-                voucherValue: "VOUCHER_VALUE")
+                voucherValue: "VOUCHER_VALUE"
+            )
+            
+            let sessionDetailsL = [
+                10: "sessionCustom10",
+                11: "sessionCustom11"
+            ]
+            
+            let ipAddressL = "IP_ADDRESS"
  
             
             let pageEvent = PageViewEvent(
                 pageProperties: pagePropertiesL,
                 advertisementProperties: advPropertiesL,
                 ecommerceProperties: ecomPropertiesL,
-                ipAddress: "IP_ADDRESS",
-                sessionDetails: [10: "sessionCustom10", 11: "sessionCustom11"],
-                userProperties: userPropertiesL)
+                userProperties: userPropertiesL,
+                sessionDetails: sessionDetailsL,
+                ipAddress: ipAddressL
+            )
             
             tracker.trackPageView(pageEvent)
         }
         
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("pageNameNotauto"))
             expect(parametersArr["uc707"]).to(equal("19860411"))
             expect(parametersArr["uc708"]).to(equal("CITY"))
@@ -385,8 +528,6 @@ class ParameterTest: WTBaseTestNew {
             expect(parametersArr["cs10"]).to(equal("sessionCustom10"))
             expect(parametersArr["cs1"]).to(equal("test_sessionparam1"))
             expect(parametersArr["uc3"]).to(equal("customUser3"))
-            
         }
-        
     }
 }
