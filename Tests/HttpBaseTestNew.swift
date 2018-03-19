@@ -43,13 +43,12 @@ class HttpBaseTestNew: XCTestCase {
         closure()
     }
     
-    func doURLnotSendTestCheck(_ timeout: TimeInterval = 10){
-        expect(HTTPTester.request).toEventually(beNil(), timeout:timeout)
+    func doURLnotSendTestCheck(_ timeout: TimeInterval = 10) {
+        expect(HTTPTester.request).toEventually(beNil(), timeout: timeout)
         
     }
     
-    func doURLSendTestCheck(_ closure: (_ parameters: [String: String])->())
-    {
+    func doURLSendTestCheck(_ closure: (_ parameters: [String: String])->()) {
         expect(HTTPTester.request).toEventuallyNot(beNil(), timeout:self.timeout, pollInterval: 0.1)
         
         guard let _ = HTTPTester.request else{
@@ -61,7 +60,7 @@ class HttpBaseTestNew: XCTestCase {
     }
 }
 
-internal extension Optional where Wrapped == String{
+internal extension Optional where Wrapped == String {
     internal var simpleDescription: String {
         return map { String(describing: $0) } ?? "<nil>"
     }

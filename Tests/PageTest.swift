@@ -187,7 +187,7 @@ class PageTest: WTBaseTestNew {
             self.mainViewController = ViewController()
         }
 
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let pageTracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
             pageTracker.variables["Key1"]="value1"
             pageTracker.variables["Key2"]="value2"
@@ -197,10 +197,11 @@ class PageTest: WTBaseTestNew {
             self.mainViewController.endAppearanceTransition()
         }
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestOverride______________")
+            
             for (key, value) in parametersArr{
-                print(key+"="+value)
+                print(key + "=" + value)
             }
             expect(parametersArr["cp2"]).to(equal("overValue1"))
             expect(parametersArr["cb2"]).to(equal("overValue1"))
@@ -238,90 +239,86 @@ class PageTest: WTBaseTestNew {
     }
     
     #if !os(tvOS)
-    func testOrientation(){
+    func testOrientation() {
            let parOrientation = "cp783"
         
           if self.mainViewController == nil {
               self.mainViewController = ViewController()
           }
 
-            doURLSendTestAction(){
+            doURLSendTestAction() {
                 self.mainViewController.beginAppearanceTransition(true, animated: false)
                 self.mainViewController.endAppearanceTransition()
             }
         
-            doURLSendTestCheck(){parametersArr in
+            doURLSendTestCheck() { parametersArr in
                 expect(parametersArr[parOrientation]).to(equal("portrait"))
             }
-           doURLSendTestAction(){
+           doURLSendTestAction() {
                self.mainViewController.beginAppearanceTransition(true, animated: false)
                let value = UIInterfaceOrientation.landscapeLeft.rawValue
                UIDevice.current.setValue(value, forKey: "orientation")
                self.mainViewController.endAppearanceTransition()
            }
         
-           doURLSendTestCheck(){parametersArr in
+           doURLSendTestCheck() { parametersArr in
                expect(parametersArr[parOrientation]).to(equal("landscape"))
            }
         
-            doURLSendTestAction(){
+            doURLSendTestAction() {
                 self.mainViewController.beginAppearanceTransition(true, animated: false)
                 let value = UIInterfaceOrientation.portrait.rawValue
                 UIDevice.current.setValue(value, forKey: "orientation")
                 self.mainViewController.endAppearanceTransition()
             }
             
-            doURLSendTestCheck(){parametersArr in
+            doURLSendTestCheck() { parametersArr in
                 expect(parametersArr[parOrientation]).to(equal("portrait"))
             }
     }
     #endif
     
-    func testOptOut()
-    {
-        doURLSendTestAction(){
+    func testOptOut() {
+        doURLSendTestAction() {
             WebtrekkTracking.isOptedOut = true
             WebtrekkTracking.instance().trackPageView("pageName")
         }
         
         self.doURLnotSendTestCheck()
         
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             WebtrekkTracking.isOptedOut = false
             WebtrekkTracking.instance().trackPageView("pageName")
         }
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() {parametersArr in
                 expect(parametersArr["p"]).notTo(beNil())
             }
     }
     
     // MARK: auto track test
-    func testAutoTrack(){
+    func testAutoTrack() {
         
         if self.mainViewController == nil {
             self.mainViewController = ViewController()
         }
 
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             self.mainViewController.beginAppearanceTransition(true, animated: false)
             self.mainViewController.endAppearanceTransition()
         }
         
         self.timeout = 10
             doURLSendTestCheck(){parametersArr in
-                
-                
                 expect(parametersArr["p"]).to(contain("autoPageName"))
                 expect(parametersArr["p"]).to(contain(self.libraryVersion!))
             }
 
     }
     
-    func testPageURLOverrideTest()
-    {
-        // test incorrect pu parameter is set
-        doURLSendTestAction(){
+    func testPageURLOverrideTest() {
+            // test incorrect pu parameter is set
+            doURLSendTestAction() {
             
             let track = WebtrekkTracking.instance()
             
@@ -329,22 +326,27 @@ class PageTest: WTBaseTestNew {
             track.trackPageView(PageProperties(name: "SomePageName", url: "http://www.sample.com"))
         }
 
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() {parametersArr in
                 expect(parametersArr["pu"]).to(contain("http%3A%2F%2Fwww.sample.com"))
         }
         
         // test correct pu parameter is set
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             
             let track = WebtrekkTracking.instance()
             
+            let pagePropertiesL = PageProperties(
+                name: "SomePageName",
+                url: "http://www.sample.com"
+            )
+            
             track.pageURL = "https://www.webtrekk.com"
-            track.trackPageView(PageProperties(name: "SomePageName", url: "http://www.sample.com"))
+            
+            track.trackPageView(pagePropertiesL)
         }
 
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
                 expect(parametersArr["pu"]).to(contain("https%3A%2F%2Fwww.webtrekk.com"))
         }
     }
 }
-

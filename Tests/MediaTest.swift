@@ -31,7 +31,7 @@ class MediaTest: WTBaseTestNew {
 
     func testMedia() {
         
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let track = WebtrekkTracking.instance()
             
             track.trackMediaAction(MediaEvent(
@@ -40,14 +40,18 @@ class MediaTest: WTBaseTestNew {
                     name: "mpName",
                     bandwidth: 22.2,
                     duration: TimeInterval(33.6),
-                    groups: [20: "group20"],
+                    groups: [
+                        20: "group20"
+                    ],
                     position: TimeInterval(44.5),
                     soundIsMuted: true,
-                    soundVolume: 9.9),
-                pageName: "mediaPage"))
+                    soundVolume: 9.9
+                ),
+                pageName: "mediaPage"
+            ))
         }
         
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("mediaPage"))
             expect(parametersArr["mk"]).to(equal("play"))
             expect(parametersArr["mt1"]).to(equal("44"))
@@ -60,6 +64,7 @@ class MediaTest: WTBaseTestNew {
             expect(parametersArr["mut"]).to(equal("1"))
         }
     }
+    
     #if !os(tvOS)
     func testAVPlayer(){
         
@@ -67,7 +72,10 @@ class MediaTest: WTBaseTestNew {
             self.mainViewController = ViewController()
         }
         
-        guard let videoUrl = Bundle.main.url(forResource: "Video", withExtension: "mp4") else {
+        guard let videoUrl = Bundle.main.url(
+                forResource: "Video",
+                withExtension: "mp4"
+            ) else {
             return
         }
         
@@ -92,7 +100,7 @@ class MediaTest: WTBaseTestNew {
         
         
         self.httpTester.removeStub()
-        self.httpTester.addNormalStub(){query in
+        self.httpTester.addNormalStub() { query in
             let parametersArr = self.httpTester.getReceivedURLParameters((query.url?.query!)!)
             
             expect(parametersArr["mg2"]).to(equal("KeyValueFor_Key2"))
@@ -134,10 +142,16 @@ class MediaTest: WTBaseTestNew {
         let meiaName = "mediaName"
         var mediaProperties = MediaProperties(name: meiaName)
 
-        mediaProperties.groups = [5: .constant("5Value")]
+        mediaProperties.groups = [
+            5: .constant("5Value")
+        ]
 
-        let _ = tracker.trackerForMedia("mediaName", pageName: "mediaPageName", automaticallyTrackingPlayer: player, mediaProperties: mediaProperties)
-        
+        let _ = tracker.trackerForMedia(
+            "mediaName",
+            pageName: "mediaPageName",
+            automaticallyTrackingPlayer: player,
+            mediaProperties: mediaProperties
+        )
         
         // start play
         player.play()
@@ -161,5 +175,4 @@ class MediaTest: WTBaseTestNew {
         playerLayer.player = nil
     }
     #endif
-
 }
