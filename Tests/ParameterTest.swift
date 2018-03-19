@@ -22,7 +22,6 @@ import Nimble
 import Webtrekk
 
 class ParameterTest: WTBaseTestNew {
-    
     var mainViewController: ViewController!
     
     override func getConfigName() -> String? {
@@ -30,7 +29,6 @@ class ParameterTest: WTBaseTestNew {
     }
 
     func testVariablesParameterGlobal() {
-        
         doURLSendTestAction(){
             let tracker = WebtrekkTracking.instance()
 
@@ -163,7 +161,7 @@ class ParameterTest: WTBaseTestNew {
             )
 
             let pageEvent = PageViewEvent(
-                ecommerceProperties: ecomPropertiesL
+                ecommerceProperties: ecommercePropertiesL
             )
             
             tracker.trackPageView(pageEvent)
@@ -173,7 +171,7 @@ class ParameterTest: WTBaseTestNew {
         
         self.timeout = 10
 
-        doURLSendTestCheck(){parametersArr in
+        doURLSendTestCheck() { parametersArr in
 //          expect(parametersArr["mc"]).to(equal("ADVERTISEMENT"))
 //          expect(parametersArr["mca"]).to(equal("ADVERTISEMENT_ACTION"))
             expect(parametersArr["uc707"]).to(equal("19761008"))
@@ -212,15 +210,37 @@ class ParameterTest: WTBaseTestNew {
         
         doURLSendTestAction(){
             self.mainViewController.beginAppearanceTransition(true, animated: false)
-            let tracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
+            let pageTracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
             
             WebtrekkTracking.instance().pageURL = nil
-            tracker = [
+            
+            pageTracker = [
                 "CURRENCYOver": "CURRENCY",
                 "CURRENCY": "GlobalIgnore"
             ]
 
-            //uncomment after fix with default memberwise initializer is done.
+            let pagePropertiesL = PageProperties(
+                name: "pageNameNotauto",
+                groups: [
+                    10: "pageCat10",
+                    11: "pageCat11"
+                ],
+                internalSearch: "InternalSearch",
+                url: "http://www.webrekk.com",
+                details: [
+                    30: "pageCustom30",
+                    31: "pageCustom31"
+                ]
+            )
+            
+            let advertisementPropertiesL = AdvertisementProperties(
+                id: "ADVERTISEMENT",
+                action: "ADVERTISEMENT_ACTION",
+                details: [
+                    10: "advertCustom10",
+                    11: "advertCustom11"
+                ]
+            )
             
             let userPropertiesL = UserProperties(
                 birthday: UserProperties.Birthday(
@@ -277,29 +297,6 @@ class ParameterTest: WTBaseTestNew {
                 status: .viewed
             )
 
-            let pagePropertiesL = PageProperties(
-                name: "pageNameNotauto",
-                groups: [
-                    10: "pageCat10",
-                    11: "pageCat11"
-                ],
-                internalSearch: "InternalSearch",
-                url: "http://www.webrekk.com",
-                details: [
-                    30: "pageCustom30",
-                    31: "pageCustom31"
-                ]
-            )
-
-            let advertisementPropertiesL = AdvertisementProperties(
-                id: "ADVERTISEMENT",
-                action: "ADVERTISEMENT_ACTION",
-                details: [
-                    10: "advertCustom10",
-                    11: "advertCustom11"
-                ]
-            )
-
             let sessionDetailsL = [
                 10: "sessionCustom10",
                 11: "sessionCustom11"
@@ -313,7 +310,7 @@ class ParameterTest: WTBaseTestNew {
                 userProperties: userPropertiesL
             )
             
-            tracker.trackPageView(pageEvent)
+            pageTracker.trackPageView(pageEvent)
             
             self.mainViewController.endAppearanceTransition()
         }
