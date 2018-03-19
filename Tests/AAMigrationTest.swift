@@ -26,15 +26,22 @@ class AAMigrationTest: HttpBaseTestNew {
     
     override func setUp() {
         super.setUp()
-        Webtrekk.start(withServerUrl: URL(string: "https://q3.webtrekk.net"), trackId: "123451234512345", samplingRate: 0, sendDelay: 5, appVersionParameter: "100")
+        Webtrekk.start(
+            withServerUrl:
+                URL(string: "https://q3.webtrekk.net"),
+                trackId: "123451234512345",
+                samplingRate: 0,
+                sendDelay: 5,
+                appVersionParameter: "100"
+            )
     }
 
     func testMigration(){
-        self.doURLSendTestAction(){
+        self.doURLSendTestAction() {
             Webtrekk.trackContent("pageNameOld")
         }
         
-        self.doURLSendTestCheck(){_ in
+        self.doURLSendTestCheck() {_ in
             
         }
     }

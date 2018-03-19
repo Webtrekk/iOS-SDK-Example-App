@@ -22,20 +22,15 @@ import Nimble
 @testable import Webtrekk
 
 class CDBResendTest: WTBaseTestNew {
-    
-    
     override func setUp() {
         super.setUp()
         clearLocalSettings()
     }
     
-    
     override func tearDown() {
         super.tearDown()
         clearLocalSettings()
     }
-
-    
     
     /// reset relevant local settings on the device:
     private func clearLocalSettings() {
@@ -43,45 +38,47 @@ class CDBResendTest: WTBaseTestNew {
         Foundation.UserDefaults.standard.removeObject(forKey: "webtrekk.lastCdbPropertiesSentTime")
     }
     
-    
-    
     /// simulate that at least one day has passed since the cdb properties were set:
     private func simulateThatOneDayHasPassed() {
         let before25Hours = Int(Date().timeIntervalSince1970) - 90000 // current time minus 25h (90000s)
         Foundation.UserDefaults.standard.set(before25Hours, forKey: "webtrekk.lastCdbPropertiesSentTime")
     }
     
-    
-    
     /// define crossDeviceProperties used by these tests:
     private func generateTestCrossDeviceProperties() -> CrossDeviceProperties {
         let crossDeviceProperties = CrossDeviceProperties(
-            address: .plain(CrossDeviceProperties.Address(
-                firstName: "Elmo",
-                lastName: "Monster",
-                street: "Sesame Street",
-                streetNumber: "5",
-                zipCode: "90210"
-            )),
+            address: .plain(
+                CrossDeviceProperties.Address(
+                    firstName: "Elmo",
+                    lastName: "Monster",
+                    street: "Sesame Street",
+                    streetNumber: "5",
+                    zipCode: "90210"
+                )
+            ),
             androidId: "12345",
             emailAddress: .plain("mail@test.de"),
             facebookId: "facebookId123",
             googlePlusId: "googlePlusId123",
             iosId: "iOSId123",
             linkedInId: "linkedInId123",
-            phoneNumber: .hashed(md5: "55512345".md5(), sha256: nil),
+            phoneNumber: .hashed(
+                md5: "55512345".md5(),
+                sha256: nil
+            ),
             twitterId: "twitterId123",
             windowsId: "windowsId123",
-            custom: [3:"three333",8:"eight888"]
+            custom: [
+                3:"three333",
+                8:"eight888"
+            ]
         )
+        
         return crossDeviceProperties
     }
   
-    
-    
     /// Test to make sure that the CDB properties are not resent before one day has passed
-    func testCDB1NoResend(){
-        
+    func testCDB1NoResend() {
         // do a CDB tracking request:
         doURLSendTestAction() {
             let crossDeviceProperties = generateTestCrossDeviceProperties()
@@ -89,7 +86,7 @@ class CDBResendTest: WTBaseTestNew {
         }
         
         // validate that all CDB properties were sent:
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateAllCDBParasSent(parameters: parametersArr)
         }
         
@@ -99,7 +96,7 @@ class CDBResendTest: WTBaseTestNew {
         }
 
         // validate that all CDB properties were sent:
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateAllCDBParasSent(parameters: parametersArr)
         }
 
@@ -109,12 +106,10 @@ class CDBResendTest: WTBaseTestNew {
         }
         
         // valiadate that the CDB properties are NOT resent:
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateNoCDBParasSent(parameters: parametersArr)
         }
     }
-    
-    
     
     /// Test to make sure that the CDB properties are resent after one day has passed
     func testCDB2Resend(){
@@ -145,8 +140,6 @@ class CDBResendTest: WTBaseTestNew {
         }
     }
 
-    
-    
     /// Test to make sure that new CDB properties are merged with properties existing on the device
     func testCDB3Merge(){
         
@@ -181,58 +174,153 @@ class CDBResendTest: WTBaseTestNew {
             self.processResultAndValidateMergedCDBParasSent(parameters: parametersArr)
         }
     }
-    
-    
+
     /// check the result of a request and validate that all CDB properties are sent
-    private func processResultAndValidateAllCDBParasSent(parameters: [String:String]) {
-        validate("Elmo|Monster|90210|SesameStreet|5", is: parameters["cdb5"], "md5")
-        validate("12345", is: parameters["cdb7"])
-        validate("mail@test.de", is: parameters["cdb1"], "md5")
-        validate("mail@test.de", is: parameters["cdb2"], "md256")
-        validate("facebookId123", is: parameters["cdb10"], "sha256")
-        validate("googlePlusId123", is: parameters["cdb12"], "sha256")
-        validate("iOSId123", is: parameters["cdb8"])
-        validate("linkedInId123", is: parameters["cdb13"], "sha256")
-        validate("55512345", is: parameters["cdb3"], "md5")
-        validate("55512345", is: parameters["cdb4"], "md256")
-        validate("twitterId123", is: parameters["cdb11"], "sha256")
-        validate("windowsId123", is: parameters["cdb9"])
-        validate("three333", is: parameters["cdb53"])
-        validate("eight888", is: parameters["cdb58"])
+    private func processResultAndValidateAllCDBParasSent(parameters: [String: String]) {
+        validate(
+            "Elmo|Monster|90210|SesameStreet|5",
+            is: parameters["cdb5"],
+            "md5"
+        )
+        validate(
+            "12345",
+            is: parameters["cdb7"]
+        )
+        validate(
+            "mail@test.de",
+            is: parameters["cdb1"],
+            "md5"
+        )
+        validate(
+            "mail@test.de",
+            is: parameters["cdb2"],
+            "md256"
+        )
+        validate(
+            "facebookId123",
+            is: parameters["cdb10"],
+            "sha256"
+        )
+        validate(
+            "googlePlusId123",
+            is: parameters["cdb12"],
+            "sha256"
+        )
+        validate(
+            "iOSId123",
+            is: parameters["cdb8"]
+        )
+        validate(
+            "linkedInId123",
+            is: parameters["cdb13"],
+            "sha256"
+        )
+        validate(
+            "55512345",
+            is: parameters["cdb3"],
+            "md5"
+        )
+        validate(
+            "55512345",
+            is: parameters["cdb4"],
+            "md256"
+        )
+        validate(
+            "twitterId123",
+            is: parameters["cdb11"],
+            "sha256"
+        )
+        validate(
+            "windowsId123",
+            is: parameters["cdb9"]
+        )
+        validate(
+            "three333",
+            is: parameters["cdb53"]
+        )
+        validate(
+            "eight888",
+            is: parameters["cdb58"]
+        )
     }
-    
-    
-    
+
     /// check the result of a request and validate that no CDB properties are sent
-    private func processResultAndValidateNoCDBParasSent(parameters: [String:String]) {
+    private func processResultAndValidateNoCDBParasSent(parameters: [String: String]) {
         for i in 1...59 {
-            expect(parameters["cdb"+String(i)]).to(beNil())
+            expect(parameters["cdb" + String(i)]).to(beNil())
         }
     }
 
-    
-    
     /// check the result of a request and validate that the merged CDB properties are sent
-    private func processResultAndValidateMergedCDBParasSent(parameters: [String:String]) {
-        validate("Elmo|Monster|90210|SesameStreet|5", is: parameters["cdb5"], "md5")
-        validate("12345", is: parameters["cdb7"])
-        validate("mail@test.de", is: parameters["cdb1"], "md5")
-        validate("mail@test.de", is: parameters["cdb2"], "md256")
-        validate("facebookId123", is: parameters["cdb10"], "sha256")
-        validate("googlePlusId123", is: parameters["cdb12"], "sha256")
-        validate("iOSId123", is: parameters["cdb8"])
-        validate("linkedInId123", is: parameters["cdb13"], "sha256")
-        validate("55512345", is: parameters["cdb3"], "md5")
-        validate("55512345", is: parameters["cdb4"], "md256")
-        validate("newTwitterId", is: parameters["cdb11"], "sha256")
-        validate("windowsId123", is: parameters["cdb9"])
-        validate("three333", is: parameters["cdb53"])
-        validate("eight888", is: parameters["cdb58"])
+    private func processResultAndValidateMergedCDBParasSent(parameters: [String: String]) {
+        validate(
+            "Elmo|Monster|90210|SesameStreet|5",
+            is: parameters["cdb5"],
+            "md5"
+        )
+        validate(
+            "12345",
+            is: parameters["cdb7"]
+        )
+        validate(
+            "mail@test.de",
+            is: parameters["cdb1"],
+            "md5"
+        )
+        validate(
+            "mail@test.de",
+            is: parameters["cdb2"],
+            "md256"
+        )
+        validate(
+            "facebookId123",
+            is: parameters["cdb10"],
+            "sha256"
+        )
+        validate(
+            "googlePlusId123",
+            is: parameters["cdb12"],
+            "sha256"
+        )
+        validate(
+            "iOSId123",
+            is: parameters["cdb8"]
+        )
+        validate(
+            "linkedInId123",
+            is: parameters["cdb13"],
+            "sha256"
+        )
+        validate(
+            "55512345",
+            is: parameters["cdb3"],
+            "md5"
+        )
+        validate(
+            "55512345",
+            is: parameters["cdb4"],
+            "md256"
+        )
+        validate(
+            "newTwitterId",
+            is: parameters["cdb11"],
+            "sha256"
+        )
+        validate(
+            "windowsId123",
+            is: parameters["cdb9"]
+        )
+        validate(
+            "three333",
+            is: parameters["cdb53"]
+        )
+        validate(
+            "eight888",
+            is: parameters["cdb58"]
+        )
     }
-    
-    
 
-    private func validate(_ expectedValue: String, is cdbParam : String?, _ encode: String? = nil) {
+    private func validate(_ expectedValue: String, is cdbParam: String?, _ encode: String? = nil) {
         if encode == nil {
             expect(expectedValue.lowercased()).to(equal(cdbParam!.lowercased()))
         } else if encode == "sha256" {
