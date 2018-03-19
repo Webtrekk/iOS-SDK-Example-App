@@ -22,18 +22,16 @@ import Nimble
 import Webtrekk
 
 class MediaTest: WTBaseTestNew {
-    
     var mainViewController: ViewController!
-    
-    override func getConfigName() -> String?{
+
+    override func getConfigName() -> String? {
         return String("webtrekk_config_no_completely_autoTrack")
     }
 
     func testMedia() {
-        
         doURLSendTestAction() {
             let track = WebtrekkTracking.instance()
-            
+
             track.trackMediaAction(MediaEvent(
                 action: .play,
                 mediaProperties: MediaProperties(
@@ -50,7 +48,7 @@ class MediaTest: WTBaseTestNew {
                 pageName: "mediaPage"
             ))
         }
-        
+
         doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("mediaPage"))
             expect(parametersArr["mk"]).to(equal("play"))
@@ -64,51 +62,48 @@ class MediaTest: WTBaseTestNew {
             expect(parametersArr["mut"]).to(equal("1"))
         }
     }
-    
+
     #if !os(tvOS)
-    func testAVPlayer(){
-        
+    func testAVPlayer() {
         if self.mainViewController == nil {
             self.mainViewController = ViewController()
         }
-        
+
         guard let videoUrl = Bundle.main.url(
                 forResource: "Video",
                 withExtension: "mp4"
             ) else {
             return
         }
-        
+
         let player = AVPlayer(url: videoUrl)
-        
+
         let playerLayer = AVPlayerLayer(player: player)
-        
+
         self.mainViewController.beginAppearanceTransition(true, animated: false)
         self.mainViewController.endAppearanceTransition()
 
-        
         playerLayer.frame = self.mainViewController.view.bounds
         self.mainViewController.view.layer.addSublayer(playerLayer)
-        
+
         let tracker = WebtrekkTracking.instance()
-        
+
         tracker["Key2"] = "KeyValueFor_Key2"
-        
+
         var requestNumber: Int = 1
         enum TestPhase { case _init, play, pause, pos, finish}
         var platPhase: TestPhase = ._init
-        
-        
+
         self.httpTester.removeStub()
         self.httpTester.addNormalStub() { query in
             let parametersArr = self.httpTester.getReceivedURLParameters((query.url?.query!)!)
-            
+
             expect(parametersArr["mg2"]).to(equal("KeyValueFor_Key2"))
             expect(parametersArr["p"]).to(contain("mediaPageName"))
             expect(parametersArr["mi"]).to(equal("mediaName"))
             expect(parametersArr["mg5"]).to(equal("5Value"))
-            
-            switch (platPhase, requestNumber){
+
+            switch (platPhase, requestNumber) {
             case (._init, 1):
                 expect(parametersArr["mk"]).to(equal("init"))
                 expect(parametersArr["mt1"]).to(equal("0"))
@@ -134,11 +129,12 @@ class MediaTest: WTBaseTestNew {
                 expect(Int(parametersArr["mt1"]!)).to(beGreaterThan(0))
                 expect(parametersArr["mk"]).to(equal("finish"))
             default:
-                break;
+                break
             }
-            
+
             requestNumber = requestNumber + 1
         }
+
         let meiaName = "mediaName"
         var mediaProperties = MediaProperties(name: meiaName)
 
@@ -146,13 +142,13 @@ class MediaTest: WTBaseTestNew {
             5: .constant("5Value")
         ]
 
-        let _ = tracker.trackerForMedia(
+        _ = tracker.trackerForMedia(
             "mediaName",
             pageName: "mediaPageName",
             automaticallyTrackingPlayer: player,
             mediaProperties: mediaProperties
         )
-        
+
         // start play
         player.play()
         doSmartWait(sec: 3)

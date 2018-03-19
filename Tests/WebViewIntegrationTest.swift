@@ -22,42 +22,42 @@ import Nimble
 import WebKit
 import Webtrekk
 
-class WebViewIntegrationTest: WTBaseTestNew, WKScriptMessageHandler  {
-    
+class WebViewIntegrationTest: WTBaseTestNew, WKScriptMessageHandler {
+
     var mainViewController: ViewController!
     var everId: String?
-    
-    override func getConfigName() -> String?{
+
+    override func getConfigName() -> String? {
         return String("webtrekk_config_no_completely_autoTrack")
     }
-    
-    func testIntegration(){
+
+    func testIntegration() {
         if self.mainViewController == nil {
             self.mainViewController = ViewController()
         }
-        
+
         self.everId = nil
         let expectedEverId = WebtrekkTracking.instance().everId
-        
+
         //add listener interface to WKWebView
         let theConfiguration =  WebtrekkTracking.updateWKWebViewConfiguration()
-        
+
         self.mainViewController.configuration = theConfiguration
 
         theConfiguration?.userContentController.add(self, name: "appCallback")
 
-        doURLSendTestAction(){
+        doURLSendTestAction() {
            self.mainViewController.beginAppearanceTransition(true, animated: false)
            self.mainViewController.endAppearanceTransition()
         }
 
-        expect(self.everId).toEventuallyNot(beNil(), timeout:3)
-        
+        expect(self.everId).toEventuallyNot(beNil(), timeout: 3)
+
         expect(self.everId).to(equal(expectedEverId))
     }
-    
+
     // impement WKScriptMessageHandler
-    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage){
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "appCallback" {
             self.everId = message.body as? String
         }

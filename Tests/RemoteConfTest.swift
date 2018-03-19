@@ -22,9 +22,8 @@ import Nimble
 @testable import Webtrekk
 
 class RemoteConfTest: WTBaseTestNew {
-    
-    override func getConfigName() -> String?{
-        
+    override func getConfigName() -> String? {
+
         switch self.name {
         case let name where name.range(of: "testConfigOK") != nil:
             return "webtrekk_config_remote_test_exists"
@@ -45,74 +44,62 @@ class RemoteConfTest: WTBaseTestNew {
             return nil
         }
     }
-    
-    
+
     override func tearDown() {
         self.removeDefSetting(setting: "configuration")
         super.tearDown()
     }
 
-    
-    
-    func testConfigOK()
-    {
-        commonTest(isLocalShouldUse: false);
+    func testConfigOK() {
+        commonTest(isLocalShouldUse: false)
     }
-    
-    func testLoadDefaultOK()
-    {
-        commonTest(isLocalShouldUse: true);
+
+    func testLoadDefaultOK() {
+        commonTest(isLocalShouldUse: true)
     }
-    
-    func testBrokenConfigLoad()
-    {
-        commonTest(isLocalShouldUse: true);
+
+    func testBrokenConfigLoad() {
+        commonTest(isLocalShouldUse: true)
     }
-    
-    func testEmptyConfigLoad()
-    {
-        commonTest(isLocalShouldUse: true);
+
+    func testEmptyConfigLoad() {
+        commonTest(isLocalShouldUse: true)
     }
-    
-    func testLocked()
-    {
-        commonTest(isLocalShouldUse: true);
+
+    func testLocked() {
+        commonTest(isLocalShouldUse: true)
     }
-    
-    func testLargeSize()
-    {
-        commonTest(isLocalShouldUse: true);
+
+    func testLargeSize() {
+        commonTest(isLocalShouldUse: true)
     }
-    
-    func testTagIntegration()
-    {
-        commonTest(isLocalShouldUse: false);
+
+    func testTagIntegration() {
+        commonTest(isLocalShouldUse: false)
     }
-    
-    func commonTest(isLocalShouldUse: Bool){
-        
+
+    func commonTest(isLocalShouldUse: Bool) {
         // wait for update configuration
         var attempt: Int = 0
         WebtrekkTracking.defaultLogger.logDebug("start wait for configuration update")
-        while (!checkDefSetting(setting: "configuration") && attempt < 16){
+        while !checkDefSetting(setting: "configuration") && attempt < 16 {
             doSmartWait(sec: 2)
             attempt += 1
         }
         WebtrekkTracking.defaultLogger.logDebug("end wait for configuration update")
-        
-        doURLSendTestAction(){
+
+        doURLSendTestAction() {
             let defTracker = WebtrekkTracking.instance()
             defTracker["localUsed"] = "localConfUsed"
             defTracker.trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             if isLocalShouldUse {
                 expect(parametersArr["cs3"]).to(equal("localConfUsed"))
-            }else {
+            } else {
                 expect(parametersArr["cs3"]).to(beNil())
             }
         }
     }
-    
 }

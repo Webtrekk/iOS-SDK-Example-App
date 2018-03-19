@@ -21,15 +21,13 @@ import XCTest
 import Nimble
 @testable import Webtrekk
 
-
 class PageTest: WTBaseTestNew {
-    
     var mainViewController: ViewController!
-    
-    func testKeyValue(){
-        doURLSendTestAction(){
+
+    func testKeyValue() {
+        doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             tracker.global = [
                 variables: [
                     "Key1": "value1",
@@ -43,7 +41,7 @@ class PageTest: WTBaseTestNew {
         doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestSimple______________")
 
-            for (key, value) in parametersArr{
+            for (key, value) in parametersArr {
                 print(key + "=" + value)
             }
 
@@ -55,7 +53,7 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["ca2"]).to(equal("value2"))
             expect(parametersArr["cg2"]).to(equal("value2"))
             expect(parametersArr["uc2"]).to(equal("value2"))
-            
+
             expect(parametersArr["cp20"]).to(equal("test_pageparam2"))
             expect(parametersArr["cb1"]).to(equal("test_ecomparam1"))
             expect(parametersArr["cc1"]).to(equal("test_adparam1"))
@@ -64,11 +62,10 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["cg1"]).to(equal("test_pagecategory1"))
             expect(parametersArr["uc1"]).to(equal("test_usercategory1"))
         }
-        
-        
+
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             let pagePropertiesL = PageProperties(
                 name: "PageName",
                 details: [
@@ -86,7 +83,7 @@ class PageTest: WTBaseTestNew {
         doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestSimple______________")
 
-            for (key, value) in parametersArr{
+            for (key, value) in parametersArr {
                 print(key + "=" + value)
             }
 
@@ -117,24 +114,24 @@ class PageTest: WTBaseTestNew {
         coddedSymbols.forEach { (ch) in
             allAllowedSymbols.remove(ch.unicodeScalars.first!)
         }
-        
+
         var allASCIISympbols1 = ""
         var allASCIISympbols2 = ""
 
         for i in 0...127 {
             allASCIISympbols1 = allASCIISympbols1 + String(UnicodeScalar(i)!)
         }
-        
-        for i in 128...255{
+
+        for i in 128...255 {
             allASCIISympbols2 = allASCIISympbols2 + String(UnicodeScalar(i)!)
         }
 
         let codedASCIISymbols1 = allASCIISympbols1.addingPercentEncoding(withAllowedCharacters: allAllowedSymbols)
         let codedASCIISymbols2 = allASCIISympbols2.addingPercentEncoding(withAllowedCharacters: allAllowedSymbols)
 
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             tracker.global = [
                 variables: [
                     "Key1": allASCIISympbols1,
@@ -144,14 +141,14 @@ class PageTest: WTBaseTestNew {
 
             tracker.trackPageView("page,Name")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestSimple______________")
-            
+
             for (key, value) in parametersArr {
                 print(key + "=" + value)
             }
-            
+
             expect(parametersArr["cp1"]).to(equal(codedASCIISymbols1))
             expect(parametersArr["cp2"]).to(equal(codedASCIISymbols2))
             expect(parametersArr["cb2"]).to(equal(codedASCIISymbols2))
@@ -160,20 +157,20 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["ca2"]).to(equal(codedASCIISymbols2))
             expect(parametersArr["cg2"]).to(equal(codedASCIISymbols2))
             expect(parametersArr["uc2"]).to(equal(codedASCIISymbols2))
-            
+
             let pPar = parametersArr["p"] ?? ""
-            let comaChar : [Character] = pPar.filter{ $0 == "," }
+            let comaChar: [Character] = pPar.filter{ $0 == "," }
 
             expect(pPar.split(separator: ",").count).to(equal(10))
             expect(comaChar.count).to(equal(9))
             expect(pPar).to(contain("page%2CName"))
         }
     }
-    
-    func testUserAgent(){
-        doURLSendTestAction(){
+
+    func testUserAgent() {
+        doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             tracker.trackPageView("pageName")
         }
 
@@ -199,12 +196,17 @@ class PageTest: WTBaseTestNew {
 
         let version = ProcessInfo().operatingSystemVersion
 
-        doURLSendTestCheck(){parametersArr in
-            expect(parametersArr["X-WT-UA"]?.removingPercentEncoding!).to(equal("Tracking Library \(WebtrekkTracking.version) (\(operatingSystemName) \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(modelNumber); \(Locale.current.identifier))"))
+        doURLSendTestCheck() { parametersArr in
+            expect(
+                parametersArr["X-WT-UA"]?.removingPercentEncoding!
+            ).to(
+                equal("Tracking Library \(WebtrekkTracking.version) (\(operatingSystemName) \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(modelNumber); \(Locale.current.identifier))"
+                )
+            )
         }
     }
-    
-    func testKeyValueOverride(){
+
+    func testKeyValueOverride() {
 
         if self.mainViewController == nil {
             self.mainViewController = ViewController()
@@ -212,7 +214,7 @@ class PageTest: WTBaseTestNew {
 
         doURLSendTestAction() {
             let pageTracker = WebtrekkTracking.trackerForAutotrackedViewController(self.mainViewController)
-            
+
             pageTracker.variables = [
                 "Key1": "value1",
                 "Key2": "value2",
@@ -220,21 +222,22 @@ class PageTest: WTBaseTestNew {
             ]
 
             pageTracker.pageProperties = [
-                details : [
+                details: [
                     1: "don't Override"
                 ]
             ]
-            
+
             self.mainViewController.beginAppearanceTransition(true, animated: false)
             self.mainViewController.endAppearanceTransition()
         }
-        
+
         doURLSendTestCheck() { parametersArr in
             print("key value print for keyValueTestOverride______________")
-            
-            for (key, value) in parametersArr{
+
+            for (key, value) in parametersArr {
                 print(key + "=" + value)
             }
+
             expect(parametersArr["cp2"]).to(equal("overValue1"))
             expect(parametersArr["cb2"]).to(equal("overValue1"))
             expect(parametersArr["cc2"]).to(equal("overValue1"))
@@ -244,7 +247,7 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["cg2"]).to(equal("overValue1"))
             expect(parametersArr["uc2"]).to(equal("overValue1"))
             //expect(parametersArr["mg2"]).to(equal("overValue1"))
-            
+
             expect(parametersArr["cp1"]).to(equal("test_pageparam2Override"))
             expect(parametersArr["cb1"]).to(equal("test_ecomparam1Override"))
             expect(parametersArr["cc1"]).to(equal("test_adparam1Override"))
@@ -256,79 +259,79 @@ class PageTest: WTBaseTestNew {
             //expect(parametersArr["mg1"]).to(equal("test_mediacategory1Override"))
         }
     }
-    
+
     //To be done
     private func oneTest() {
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             tracker.trackPageView("pageName")
         }
-        
+
         doURLSendTestCheck() { parametersArr in
             expect(parametersArr["one"]).to(equal("1"))
             expect(parametersArr["fns"]).to(equal("1"))
         }
     }
-    
+
     #if !os(tvOS)
     func testOrientation() {
-           let parOrientation = "cp783"
-        
-          if self.mainViewController == nil {
-              self.mainViewController = ViewController()
-          }
+        let parOrientation = "cp783"
 
-            doURLSendTestAction() {
-                self.mainViewController.beginAppearanceTransition(true, animated: false)
-                self.mainViewController.endAppearanceTransition()
-            }
-        
-            doURLSendTestCheck() { parametersArr in
-                expect(parametersArr[parOrientation]).to(equal("portrait"))
-            }
-           doURLSendTestAction() {
-               self.mainViewController.beginAppearanceTransition(true, animated: false)
-               let value = UIInterfaceOrientation.landscapeLeft.rawValue
-               UIDevice.current.setValue(value, forKey: "orientation")
-               self.mainViewController.endAppearanceTransition()
-           }
-        
-           doURLSendTestCheck() { parametersArr in
-               expect(parametersArr[parOrientation]).to(equal("landscape"))
-           }
-        
-            doURLSendTestAction() {
-                self.mainViewController.beginAppearanceTransition(true, animated: false)
-                let value = UIInterfaceOrientation.portrait.rawValue
-                UIDevice.current.setValue(value, forKey: "orientation")
-                self.mainViewController.endAppearanceTransition()
-            }
-            
-            doURLSendTestCheck() { parametersArr in
-                expect(parametersArr[parOrientation]).to(equal("portrait"))
-            }
+        if self.mainViewController == nil {
+          self.mainViewController = ViewController()
+        }
+
+        doURLSendTestAction() {
+            self.mainViewController.beginAppearanceTransition(true, animated: false)
+            self.mainViewController.endAppearanceTransition()
+        }
+
+        doURLSendTestCheck() { parametersArr in
+            expect(parametersArr[parOrientation]).to(equal("portrait"))
+        }
+        doURLSendTestAction() {
+            self.mainViewController.beginAppearanceTransition(true, animated: false)
+            let value = UIInterfaceOrientation.landscapeLeft.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+            self.mainViewController.endAppearanceTransition()
+        }
+
+        doURLSendTestCheck() { parametersArr in
+            expect(parametersArr[parOrientation]).to(equal("landscape"))
+        }
+
+        doURLSendTestAction() {
+            self.mainViewController.beginAppearanceTransition(true, animated: false)
+            let value = UIInterfaceOrientation.portrait.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+            self.mainViewController.endAppearanceTransition()
+        }
+
+        doURLSendTestCheck() { parametersArr in
+            expect(parametersArr[parOrientation]).to(equal("portrait"))
+        }
     }
     #endif
-    
+
     func testOptOut() {
         doURLSendTestAction() {
             WebtrekkTracking.isOptedOut = true
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
+
         self.doURLnotSendTestCheck()
-        
+
         doURLSendTestAction() {
             WebtrekkTracking.isOptedOut = false
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
+
         doURLSendTestCheck() { parametersArr in
-                expect(parametersArr["p"]).notTo(beNil())
-            }
+            expect(parametersArr["p"]).notTo(beNil())
+        }
     }
-    
+
     // MARK: auto track test
     func testAutoTrack() {
         if self.mainViewController == nil {
@@ -339,25 +342,25 @@ class PageTest: WTBaseTestNew {
             self.mainViewController.beginAppearanceTransition(true, animated: false)
             self.mainViewController.endAppearanceTransition()
         }
-        
-        self.timeout = 10
-            doURLSendTestCheck() { parametersArr in
-                expect(parametersArr["p"]).to(contain("autoPageName"))
-                expect(parametersArr["p"]).to(contain(self.libraryVersion!))
-            }
 
+        self.timeout = 10
+
+        doURLSendTestCheck() { parametersArr in
+            expect(parametersArr["p"]).to(contain("autoPageName"))
+            expect(parametersArr["p"]).to(contain(self.libraryVersion!))
+        }
     }
-    
+
     func testPageURLOverrideTest() {
         // test incorrect pu parameter is set
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             let pagePropertiesL = PageProperties(
                 name: "SomePageName",
                 url: "http://www.sample.com"
             )
-                
+
             tracker.pageURL = "some incorrect url"
 
             let pageEvent = PageViewEvent(
@@ -370,27 +373,27 @@ class PageTest: WTBaseTestNew {
         doURLSendTestCheck() { parametersArr in
                 expect(parametersArr["pu"]).to(contain("http%3A%2F%2Fwww.sample.com"))
         }
-        
+
         // test correct pu parameter is set
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
-            
+
             let pagePropertiesL = PageProperties(
                 name: "SomePageName",
                 url: "http://www.sample.com"
             )
-            
+
             tracker.pageURL = "https://www.webtrekk.com"
-            
+
             let pageEvent = PageViewEvent(
                 pageProperties: pagePropertiesL
             )
-            
+
             tracker.trackPageView(pageEvent)
         }
 
         doURLSendTestCheck() { parametersArr in
-                expect(parametersArr["pu"]).to(contain("https%3A%2F%2Fwww.webtrekk.com"))
+            expect(parametersArr["pu"]).to(contain("https%3A%2F%2Fwww.webtrekk.com"))
         }
     }
 }

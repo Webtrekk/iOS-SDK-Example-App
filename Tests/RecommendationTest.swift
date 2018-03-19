@@ -21,38 +21,45 @@ import Nimble
 import Webtrekk
 
 class RecommendationTest: WTBaseTestNew {
-    
+
     override func getConfigName() -> String? {
         return String("webtrekk_config_recommendations")
     }
-    
-    
-    func testComplexRecommendations(){
-        recoTestBasic(name: "complexReco", productID: "085cc2g007")
+
+    func testComplexRecommendations() {
+        recoTestBasic(
+            name: "complexReco",
+            productID: "085cc2g007"
+        )
     }
-    
-    func testSimpleRecommendations(){
-        recoTestBasic(name: "simpleReco")
+
+    func testSimpleRecommendations() {
+        recoTestBasic(
+            name: "simpleReco"
+        )
     }
-    
-    func testEmptyRecommendations(){
-        recoTestBasic(name: "emptyTest", productID: nil, countValidation: 0)
+
+    func testEmptyRecommendations() {
+        recoTestBasic(
+            name: "emptyTest",
+            productID: nil,
+            countValidation: 0
+        )
     }
-    
+
     //will crash if test not passed.
-    func recoTestBasic(name: String, productID: String? = nil, countValidation count: Int = 1){
-        
+    func recoTestBasic(name: String, productID: String? = nil, countValidation count: Int = 1) {
+
         let recoController = RecommendationTableViewController()
-        
+
         recoController.productId = productID
         recoController.recommendationName = name
-        
+
         recoController.beginAppearanceTransition(true, animated: false)
         recoController.endAppearanceTransition()
-        
-        
+
         expect(recoController.lastResult).toEventually(equal(RecommendationQueryResult.ok), timeout: 5)
-        
+
         if count > 0 {
             expect(recoController.products?.count).to(beGreaterThanOrEqualTo(count))
         } else {

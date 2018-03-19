@@ -22,21 +22,19 @@ import Nimble
 import Webtrekk
 
 class ParametersPriorityTest: WTBaseTestNew {
-    
     override func getConfigName() -> String? {
             return "webtrekk_prioritization_test"
     }
-    
+
     //do just global parameter test
     func testGlobalParameter() {
         doURLSendTestAction {
             let tracker = WebtrekkTracking.instance()
             setupGlobal(global: tracker.global)
-            
+
             tracker.trackPageView("trackPageName")
         }
-        
-        
+
         doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("trackPageName"))
             expect(parametersArr["uc707"]).to(equal("19860411"))
@@ -81,26 +79,26 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["cs11"]).to(equal("GLsessionCustom11"))
             expect(parametersArr["cb10"]).to(equal("GLecomeCustomField10"))
             expect(parametersArr["cb11"]).to(equal("GLecomeCustomField11"))
-            
+
             //check that autoParameters overrided some
             expect(parametersArr["cs804"]).notTo(equal("GLsessionCustom804"))
             expect(parametersArr["cs809"]).notTo(equal("GLsessionCustom809"))
             expect(parametersArr["cp784"]).notTo(equal("GLpageCustom784"))
         }
     }
-    
+
     //override it with GlobalConfParameter
-    func testGlobalConfParameter(){
+    func testGlobalConfParameter() {
         doURLSendTestAction {
             let tracker = WebtrekkTracking.instance()
-            
+
             setupGlobal(global: tracker.global)
             setupGlobalConf(tracker: tracker)
-            
+
             tracker.trackPageView("trackPageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("trackPageName"))
             expect(parametersArr["uc707"]).to(equal("19860412"))
             expect(parametersArr["uc708"]).to(equal("GLConfCITY"))
@@ -120,7 +118,7 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["uc711"]).to(equal("GLConfSTREETKey"))
             expect(parametersArr["uc712"]).to(equal("GLConf123a"))
             expect(parametersArr["uc710"]).to(equal("20115"))
-            
+
             expect(parametersArr["ba"]).to(equal("GLConfProductName"))
             expect(parametersArr["ca11"]).to(equal("GLConfproductCat11"))
             expect(parametersArr["ca12"]).to(equal("GLproductCat12"))
@@ -130,19 +128,19 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["ov"]).to(equal("GLConfORDER_TOTAL"))
             expect(parametersArr["cb563"]).to(equal("GLConfVOUCHER_VALUE"))
             expect(parametersArr["oi"]).to(equal("GLConfORDER_NUMBER"))
-            
+
             expect(parametersArr["cp30"]).to(equal("GLConfpageCustom30"))
             expect(parametersArr["cp31"]).to(equal("GLpageCustom31"))
             expect(parametersArr["cp3"]).to(equal("PageGlobalConfStaticValue"))
-            
+
             expect(parametersArr["cg10"]).to(equal("GLConfpageCat10"))
             expect(parametersArr["cg11"]).to(equal("GLpageCat11"))
             expect(parametersArr["cg3"]).to(equal("PageCatGlobalConfStaticValue"))
-            
+
             expect(parametersArr["cs10"]).to(equal("GLConfsessionCustom10"))
             expect(parametersArr["cs11"]).to(equal("GLsessionCustom11"))
             expect(parametersArr["cs3"]).to(equal("SessionGlobalConfStaticValue"))
-            
+
             expect(parametersArr["cb10"]).to(equal("GLConfecomeCustomField10"))
             expect(parametersArr["cb11"]).to(equal("GLecomeCustomField11"))
             expect(parametersArr["cb3"]).to(equal("EconGlobalConfStaticValue"))
@@ -150,34 +148,32 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["uc10"]).to(equal("GLConfuserCustomField10"))
             expect(parametersArr["uc11"]).to(equal("GLuserCustomField11"))
             expect(parametersArr["uc3"]).to(equal("UserGlobalConfStaticValue"))
-            
+
             expect(parametersArr["mc"]).to(equal("GLConfADVERTISEMENT"))
             expect(parametersArr["mca"]).to(equal("GLConfADVERTISEMENT_ACTION"))
             expect(parametersArr["cc10"]).to(equal("GLConfadvertCustom10"))
             expect(parametersArr["cc11"]).to(equal("GLadvertCustom11"))
             expect(parametersArr["cc3"]).to(equal("AdvGlobalConfStaticValue"))
-            
+
             //auto tracking parameters check
             expect(parametersArr["cp784"]).to(equal("RequestSizeConf"))
             expect(parametersArr["cs804"]).to(equal("VersionOverGlobalConf"))
             expect(parametersArr["cs809"]).to(equal("AdvertizingIDGlobalConf"))
-           
         }
     }
-    
+
     //check that code is overrided
-    func testParameterFromCode(){
+    func testParameterFromCode() {
         doURLSendTestAction {
             let tracker = WebtrekkTracking.instance()
-            
+
             setupGlobal(global: tracker.global)
             setupGlobalConf(tracker: tracker)
-            
+
             tracker.trackPageView(setupCodeConf())
         }
-        
-        doURLSendTestCheck(){parametersArr in
-            
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("CodepageNameNotauto"))
             expect(parametersArr["uc707"]).to(equal("19860412"))
             expect(parametersArr["uc708"]).to(equal("CodeCITY"))
@@ -221,32 +217,31 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["cs11"]).to(equal("GLsessionCustom11"))
             expect(parametersArr["cb10"]).to(equal("CodeecomeCustomField10"))
             expect(parametersArr["cb11"]).to(equal("GLecomeCustomField11"))
-            
+
             //auto tracking parameters check
             expect(parametersArr["cp784"]).to(equal("RequestSizeConf"))
             expect(parametersArr["cs804"]).to(equal("VersionOverGlobalConf"))
             expect(parametersArr["cs809"]).to(equal("AdvertizingIDGlobalConf"))
-            
         }
     }
-    
+
     //check that screen conf is overrided
-    func testParametersFromScreenConf(){
+    func testParametersFromScreenConf() {
         let mainViewController = ViewController()
-        
+
         doURLSendTestAction {
             mainViewController.beginAppearanceTransition(true, animated: false)
-            
+
             let tracker = WebtrekkTracking.instance()
-            
+
             setupGlobal(global: tracker.global)
             setupGlobalConf(tracker: tracker)
             addScreenConf(tracker: tracker)
-            
+
             mainViewController.endAppearanceTransition()
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["p"]).to(contain("autoPageName"))
             expect(parametersArr["uc707"]).to(equal("19860413"))
             expect(parametersArr["uc708"]).to(equal("SCConfCITY"))
@@ -266,7 +261,7 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["uc711"]).to(equal("SCConfSTREETKey"))
             expect(parametersArr["uc712"]).to(equal("SCConf123a"))
             expect(parametersArr["uc710"]).to(equal("30115"))
-            
+
             expect(parametersArr["ba"]).to(equal("SCConfProductName"))
             expect(parametersArr["ca11"]).to(equal("SCConfproductCat11"))
             expect(parametersArr["ca12"]).to(equal("GLproductCat12"))
@@ -277,27 +272,27 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["ov"]).to(equal("SCConfORDER_TOTAL"))
             expect(parametersArr["cb563"]).to(equal("SCConfVOUCHER_VALUE"))
             expect(parametersArr["oi"]).to(equal("SCConfORDER_NUMBER"))
-            
+
             expect(parametersArr["cp30"]).to(equal("SCConfpageCustom30"))
             expect(parametersArr["cp31"]).to(equal("GLpageCustom31"))
             expect(parametersArr["cp3"]).to(equal("PageScreenConfStaticValue"))
-            
+
             expect(parametersArr["cg10"]).to(equal("SCConfpageCat10"))
             expect(parametersArr["cg11"]).to(equal("GLpageCat11"))
             expect(parametersArr["cg3"]).to(equal("PageCatScreenConfStaticValue"))
-            
+
             expect(parametersArr["cs10"]).to(equal("SCConfsessionCustom10"))
             expect(parametersArr["cs11"]).to(equal("GLsessionCustom11"))
             expect(parametersArr["cs3"]).to(equal("SessionScreenConfStaticValue"))
-            
+
             expect(parametersArr["cb10"]).to(equal("SCConfecomeCustomField10"))
             expect(parametersArr["cb11"]).to(equal("GLecomeCustomField11"))
             expect(parametersArr["cb3"]).to(equal("EconScreenConfStaticValue"))
-            
+
             expect(parametersArr["uc10"]).to(equal("SCConfuserCustomField10"))
             expect(parametersArr["uc11"]).to(equal("GLuserCustomField11"))
             expect(parametersArr["uc3"]).to(equal("UserScreenConfStaticValue"))
-            
+
             expect(parametersArr["mc"]).to(equal("SCConfADVERTISEMENT"))
             expect(parametersArr["mca"]).to(equal("SCConfADVERTISEMENT_ACTION"))
             expect(parametersArr["cc10"]).to(equal("SCConfadvertCustom10"))
@@ -305,9 +300,8 @@ class ParametersPriorityTest: WTBaseTestNew {
             expect(parametersArr["cc3"]).to(equal("AdvScreenConfStaticValue"))
         }
     }
-    
-    private func addScreenConf(tracker: Tracker){
-        
+
+    private func addScreenConf(tracker: Tracker) {
         tracker["SCBIRTHDAYKey"] = "19860413"
         tracker["SCCITYKey"] = "SCConfCITY"
         tracker["SCCOUNTRYKey"] = "SCConfCOUNTRY"
@@ -343,10 +337,9 @@ class ParametersPriorityTest: WTBaseTestNew {
         tracker["KeyAdvScreenConfOver"] = "SCConfadvertCustom10"
         tracker["KeyPrCatScreenConfOver"] = "SCConfproductCat11"
     }
-    
+
     //set keys from code
-    private func setupCodeConf() -> PageViewEvent{
-        
+    private func setupCodeConf() -> PageViewEvent {
         let userProperties = UserProperties(
             birthday: UserProperties.Birthday(
                 day: 12,
@@ -370,12 +363,13 @@ class ParametersPriorityTest: WTBaseTestNew {
             streetNumber: "Code123a",
             zipCode: "10116"
         )
-        
-        
+
         // TODO Product merge
         let ecomProperties = EcommerceProperties(
             currencyCode: "CodeCURRENCY",
-            details: [10 : "CodeecomeCustomField10"],
+            details: [
+                10: "CodeecomeCustomField10"
+            ],
             orderNumber: "CodeORDER_NUMBER",
             products: [
                 EcommerceProperties.Product(
@@ -384,7 +378,7 @@ class ParametersPriorityTest: WTBaseTestNew {
                         11: "CodeproductCat11",
                         12: "CodeproductCat12"
                     ],
-                    price:"300",
+                    price: "300",
                     quantity: 3
                 ),
                 EcommerceProperties.Product(
@@ -393,7 +387,7 @@ class ParametersPriorityTest: WTBaseTestNew {
                         11: "CodeproductCat21",
                         12: "CodeproductCat22"
                     ],
-                    price:"400",
+                    price: "400",
                     quantity: 4
                 )
             ],
@@ -401,7 +395,7 @@ class ParametersPriorityTest: WTBaseTestNew {
             totalValue: "CodeORDER_TOTAL",
             voucherValue: "CodeVOUCHER_VALUE"
         )
-        
+
         let pageProperties = PageProperties(
             name: "CodepageNameNotauto",
             details: [
@@ -414,7 +408,6 @@ class ParametersPriorityTest: WTBaseTestNew {
             url: "Codehttp://www.webrekk.com"
         )
 
-        
         let advProperties = AdvertisementProperties(
             id: "CodeADVERTISEMENT",
             action: "CodeADVERTISEMENT_ACTION",
@@ -433,14 +426,12 @@ class ParametersPriorityTest: WTBaseTestNew {
             ],
             userProperties: userProperties
         )
-        
+
         return pageEvent
     }
-    
-    
+
     //set keys for global conf settings
-    private func setupGlobalConf(tracker: Tracker){
-        
+    private func setupGlobalConf(tracker: Tracker) {
         tracker["GLBIRTHDAYKey"] = "19860412"
         tracker["GLCITYKey"] = "GLConfCITY"
         tracker["GLCOUNTRYKey"] = "GLConfCOUNTRY"
@@ -475,94 +466,98 @@ class ParametersPriorityTest: WTBaseTestNew {
         tracker["GLADVERTISEMENT_ACTIONKey"] = "GLConfADVERTISEMENT_ACTION"
         tracker["KeyAdvGlobalConfOver"] = "GLConfadvertCustom10"
         tracker["KeyPrCatGlobalConfOver"] = "GLConfproductCat11"
-        
+
         //auto tracking parameters setup
         tracker["KeyRequestSizeConf"] = "RequestSizeConf"
         tracker["KeyVersionOverGlobalConf"] = "VersionOverGlobalConf"
         tracker["KeyAdvertizingIDGlobalConf"] = "AdvertizingIDGlobalConf"
-        
     }
-    
+
     // set global code parameters
-    private func setupGlobal(global: GlobalProperties){
-        
-        global.userProperties.birthday = UserProperties.Birthday(
-            day: 11,
-            month: 4,
-            year: 1986
-        )
-        global.userProperties.city = "GLCITY"
-        global.userProperties.country = "GLCOUNTRY"
-        global.userProperties.details = [
-            10: "GLuserCustomField10",
-            11: "GLuserCustomField11"
-        ]
-        global.userProperties.emailAddress = "GLsomeaddress@domain.com"
-        global.userProperties.emailReceiverId = "GLEMAIL_RID"
-        global.userProperties.firstName = "GLNAME"
-        global.userProperties.gender = .female
-        global.userProperties.id = "GLuserID"
-        global.userProperties.lastName = "GLSNAME"
-        global.userProperties.newsletterSubscribed = false
-        global.userProperties.phoneNumber = "123456789"
-        global.userProperties.street = "GLSTREET"
-        global.userProperties.streetNumber = "GL123a"
-        global.userProperties.zipCode = "10115"
-        
-        
-        global.ecommerceProperties.currencyCode = "GLCURRENCY"
-        global.ecommerceProperties.details = [
-            10 : "GLecomeCustomField10",
-            11 : "GLecomeCustomField11"
-        ]
-        global.ecommerceProperties.orderNumber = "GLORDER_NUMBER"
-        global.ecommerceProperties.products = [
-            EcommerceProperties.Product(
-                name: "GLproductName1",
-                categories: [
-                    11: "GLproductCat11",
-                    12: "GLproductCat12"
-                ],
-                price: "100",
-                quantity: 1
+    private func setupGlobal(global: GlobalProperties) {
+        global.userProperties = UserProperties(
+            birthday: UserProperties.Birthday(
+                day: 11,
+                month: 4,
+                year: 1986
             ),
-            EcommerceProperties.Product(
-                name: "GLproductName2",
-                categories: [
-                    11: "GLproductCat21",
-                    12: "GLproductCat22"
-                ],
-                price: "200",
-                quantity: 2
-            )
-        ]
-        global.ecommerceProperties.totalValue = "GLORDER_TOTAL"
-        global.ecommerceProperties.voucherValue = "GLVOUCHER_VALUE"
-        global.ecommerceProperties.status = .viewed
-        
-        
-        global.pageProperties.name = "GLpageNameNotauto"
-        global.pageProperties.groups = [
-            10: "GLpageCat10",
-            11: "GLpageCat11"
-        ]
-        global.pageProperties.internalSearch = "GLInternalSearch"
-        global.pageProperties.url = "GLhttp://www.webrekk.com"
-        global.pageProperties.details = [
-            30: "GLpageCustom30",
-            31: "GLpageCustom31",
-            784: "GLpageCustom784"
-        ]
-        
-        global.advertisementProperties.id = "GLADVERTISEMENT"
-        global.advertisementProperties.action = "GLADVERTISEMENT_ACTION"
-        global.advertisementProperties.details = [
-            10: "GLadvertCustom10",
-            11: "GLadvertCustom11"
-        ]
-        
+            city: "GLCITY",
+            country: "GLCOUNTRY",
+            details: [
+                10: "GLuserCustomField10",
+                11: "GLuserCustomField11"
+            ],
+            emailAddress: "GLsomeaddress@domain.com",
+            emailReceiverId: "GLEMAIL_RID",
+            firstName: "GLNAME",
+            gender: .female,
+            id: "GLuserID",
+            lastName: "GLSNAME",
+            newsletterSubscribed: false,
+            phoneNumber: "123456789",
+            street: "GLSTREET",
+            streetNumber: "GL123a",
+            zipCode: "10115"
+        )
+
+        global.ecommerceProperties = EcommerceProperties(
+            currencyCode: "GLCURRENCY",
+            details: [
+                10: "GLecomeCustomField10",
+                11: "GLecomeCustomField11"
+            ],
+            orderNumber: "GLORDER_NUMBER",
+            products: [
+                EcommerceProperties.Product(
+                    name: "GLproductName1",
+                    categories: [
+                        11: "GLproductCat11",
+                        12: "GLproductCat12"
+                    ],
+                    price: "100",
+                    quantity: 1
+                ),
+                EcommerceProperties.Product(
+                    name: "GLproductName2",
+                    categories: [
+                        11: "GLproductCat21",
+                        12: "GLproductCat22"
+                    ],
+                    price: "200",
+                    quantity: 2
+                )
+            ],
+            status: .viewed,
+            totalValue: "GLORDER_TOTAL",
+            voucherValue: "GLVOUCHER_VALUE"
+        )
+
+        global.pageProperties = PageProperties(
+            name: "GLpageNameNotauto",
+            details: [
+                30: "GLpageCustom30",
+                31: "GLpageCustom31",
+                784: "GLpageCustom784"
+            ],
+            groups: [
+                10: "GLpageCat10",
+                11: "GLpageCat11"
+            ],
+            internalSearch: "GLInternalSearch",
+            url: "GLhttp://www.webrekk.com"
+        )
+
+        global.advertisementProperties = AdvertisementProperties(
+            id: "GLADVERTISEMENT",
+            action: "GLADVERTISEMENT_ACTION",
+            details: [
+                10: "GLadvertCustom10",
+                11: "GLadvertCustom11"
+            ]
+        )
+
         global.ipAddress = "127.0.0.1"
-        
+
         global.sessionDetails = [
             10: "GLsessionCustom10",
             11: "GLsessionCustom11",

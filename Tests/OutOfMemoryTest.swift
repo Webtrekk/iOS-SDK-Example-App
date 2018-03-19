@@ -21,14 +21,14 @@ import XCTest
 import Webtrekk
 
 class OutOfMemoryTest: WTBaseTestNew {
-    
+
     override func tearDown() {
         super.tearDown()
         switch self.name {
         case _ where name.range(of: "testOutOfMemory") != nil:
             // at the end unmount should be done
             self.log(text: "testOutOfMemory has been finished")
-            
+
             //wait for unmount
             sleep(2)
         default:
@@ -36,32 +36,30 @@ class OutOfMemoryTest: WTBaseTestNew {
         }
     }
 
-    
-    
     override func getConfigName() -> String? {
         return "webtrekk_config_error_log_disabled"
     }
-    
-    func testGetPath(){
+
+    func testGetPath() {
         let finalURL = WTBaseTestNew.getNewQueueBackFolderURL()
-        
+
         guard let url = finalURL else {
             return
         }
-        
+
         WebtrekkTracking.defaultLogger.logDebug("Folder for queue:=\(url.path)")
     }
-    
+
     // this test shouldn't crash that is main idea. Before this test should be descrease memory for storing queue file
     func testOutOfMemory() {
-        
+
         //do test
         self.httpTester.removeStub()
         self.httpTester.addConnectionInterruptionStub()
-        
+
         let tracker = WebtrekkTracking.instance()
         let maxRequestsFirst = 100
-        
+
         for i in 0..<maxRequestsFirst {
             tracker.trackPageView(PageProperties(
                 name: "intrupConnection",
@@ -71,21 +69,22 @@ class OutOfMemoryTest: WTBaseTestNew {
                 url: nil))
             doSmartWait(sec: 0.0001)
         }
-        
+
         let lock = NSLock()
-        
+
         self.httpTester.removeStub()
-        self.httpTester.addNormalStub(){query in
+        self.httpTester.addNormalStub() { query in
             lock.lock()
-            defer{
-                
+
+            defer {
                 lock.unlock()
             }
+
             let parameters = self.httpTester.getReceivedURLParameters((query.url?.query!)!)
-            
+
             WebtrekkTracking.defaultLogger.logDebug("message with ID: \(parameters["cp101"].simpleDescription) is received")
         }
-        
+
         doSmartWait(sec: 10)
     }
 }
