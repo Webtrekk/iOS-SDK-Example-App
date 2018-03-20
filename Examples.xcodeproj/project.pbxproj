@@ -115,6 +115,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5A0153D32060934700867E34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 495161AF1D1DFB0F0006A82D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC1837F1DAE1D64000F6106;
+			remoteInfo = SampleTVApp;
+		};
 		9F415F711D5CAD45002CB83F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 495161AF1D1DFB0F0006A82D /* Project object */;
@@ -653,6 +660,7 @@
 			);
 			dependencies = (
 				9F415F721D5CAD45002CB83F /* PBXTargetDependency */,
+				5A0153D42060934700867E34 /* PBXTargetDependency */,
 			);
 			name = Tests;
 			productName = Tests;
@@ -781,7 +789,6 @@
 						DevelopmentTeam = EZPY3L3K5H;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 9F415F531D5CAD09002CB83F;
 					};
 					9F415F531D5CAD09002CB83F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1316,6 +1323,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5A0153D42060934700867E34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FC1837F1DAE1D64000F6106 /* SampleTVApp */;
+			targetProxy = 5A0153D32060934700867E34 /* PBXContainerItemProxy */;
+		};
 		9F415F721D5CAD45002CB83F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9F415F531D5CAD09002CB83F /* ModuleTest */;
@@ -1469,7 +1481,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A18E2020C0C8D790D45199E /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1492,7 +1503,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModuleTest.app/ModuleTest";
 			};
 			name = Debug;
 		};
@@ -1500,7 +1510,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D29455AE99F8B7F5F76E838A /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1522,7 +1531,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModuleTest.app/ModuleTest";
 			};
 			name = Release;
 		};

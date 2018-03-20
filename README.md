@@ -1,4 +1,4 @@
-# Example Webtrekk iOS SDK with Unit Tests
+# Example App with the Webtrekk iOS SDK implemented (incl. Unit Tests)
 
 With this example you can:
 
@@ -7,7 +7,7 @@ With this example you can:
 -	run examples
 
 ```shell
-# install CocoaPods 1.2.0 or newer (unless you already did)
+# install CocoaPods > 1.2.0
 sudo gem install cocoapods
 
 # clone this repository
