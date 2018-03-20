@@ -22,30 +22,28 @@ import Webtrekk
 import WebKit
 
 class ViewController: UIViewController, WKScriptMessageHandler, WKNavigationDelegate {
-
     var webView: WKWebView?
     @IBOutlet var containerView: UIView!
     var configuration: WKWebViewConfiguration?
 
-    override func loadView(){
+    override func loadView() {
         super.loadView()
-        
-        
+
         guard  WebtrekkTracking.isInitialized() else {
             return
         }
-        
-        if self.configuration == nil{
+
+        if self.configuration == nil {
             self.configuration = WKWebViewConfiguration()
             WebtrekkTracking.updateWKWebViewConfiguration(self.configuration)
         }
-        
+
         let rect = self.containerView?.frame ?? CGRect(origin: CGPoint(x: 100, y: 300), size: CGSize(width: 100, height: 300))
 
         self.webView = WKWebView(frame: rect, configuration: self.configuration!)
         self.view.addSubview(self.webView!)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = URL(string: "http://jenkins-yat-dev-01.webtrekk.com/web/hello.html")
@@ -53,46 +51,43 @@ class ViewController: UIViewController, WKScriptMessageHandler, WKNavigationDele
         self.webView?.navigationDelegate = self
         self.webView?.load(req)
     }
-    
-    
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "appCallback"{
+        if message.name == "appCallback" {
             WebtrekkTracking.defaultLogger.logDebug("message body " + (message.body as! String))
         }
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     internal func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         WebtrekkTracking.defaultLogger.logDebug("webView fail with error:\(error.localizedDescription) ")
     }
-    
+
     #if TEST_APP
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBAction func adClearProcess(_ sender: UIButton) {
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
-        
+
         self.activityIndicator.startAnimating()
-        
-        delegate.initWithConfig(configName: "webtrekk_config_AdClearId_integration_test")
-        WebtrekkTracking.instance().mediaCode = "wt_mc=de.inapp.webtrekkiOSTest"
-        WebtrekkTracking.instance().trackPageView("pageName")
-        WebtrekkTracking.instance().sendPendingEvents()
-        sleep(5)
-        delegate.initWithConfig()
-        self.activityIndicator.stopAnimating()
-        let alert = UIAlertController(title: "Alert", message: "AdClear URL has been sent", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+            delegate.initWithConfig(configName: "webtrekk_config_AdClearId_integration_test")
+            WebtrekkTracking.instance().mediaCode = "wt_mc=de.inapp.webtrekkiOSTest"
+            WebtrekkTracking.instance().trackPageView("pageName")
+            WebtrekkTracking.instance().sendPendingEvents()
+            sleep(5)
+            delegate.initWithConfig()
+            self.activityIndicator.stopAnimating()
+            let alert = UIAlertController(title: "Alert", message: "AdClear URL has been sent", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
-    
+
     @IBAction func crashProceed(_ sender: UIButton) {
-        if let delegate = UIApplication.shared.delegate as? AppDelegate{
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
             delegate.setAfterCrashMode()
             DispatchQueue.global(qos: .background).async {
                 let exception = ExceptionCreator()
@@ -102,4 +97,3 @@ class ViewController: UIViewController, WKScriptMessageHandler, WKNavigationDele
     }
    #endif
 }
-

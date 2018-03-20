@@ -21,48 +21,46 @@ import UIKit
 import Webtrekk
 
 class RecommendationTableViewController: UITableViewController, RecommendationCallback {
-    
     var products: [RecommendationProduct]?
     var requestFinished = false
     var lastResult: RecommendationQueryResult?
     var recommendationName = "complexReco"
     var productId: String? = "085cc2g007"
 
-    
     /** returns list of RecommendationProducts and query result from server and connection error in case of connection error*/
     public func onReceiveRecommendations(products: [RecommendationProduct]?, result: RecommendationQueryResult, error: Error?) {
-        
+
         self.lastResult = result
         self.requestFinished = true
         guard result == .ok else {
             WebtrekkTracking.defaultLogger.logDebug("error getting products. Result: \(result), error: \(error?.localizedDescription ?? "nil")")
             return
         }
-        
+
         guard let productsResult = products else {
             WebtrekkTracking.defaultLogger.logDebug("error getting products, with OK result")
             return
         }
-        
+
         self.products = productsResult
         tableView.reloadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let wt = WebtrekkTracking.instance()
-        
+
         guard let recommendation = wt.getRecommendations() else {
             print("getting recommendation error")
             return
         }
-        
+
         guard let _ = recommendation.queryRecommendation(callback: self, name: self.recommendationName)?.setProductID(id: self.productId).call() else {
             print("calling recommendation error")
             return
         }
-        
+
         //tableView.estimatedRowHeight = 150
         //tableView.rowHeight = UITableViewAutomaticDimension
 
@@ -91,7 +89,6 @@ class RecommendationTableViewController: UITableViewController, RecommendationCa
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cellIdentifier = "RecoItemTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! RecoItemTableViewCell
 
@@ -99,23 +96,23 @@ class RecommendationTableViewController: UITableViewController, RecommendationCa
             print("no products yet")
             return cell
         }
-        
+
         guard indexPath.row < products.count else {
             print("no product for row \(indexPath.row)")
             return cell
         }
-        
+
         let product = products[indexPath.row]
         cell.id.text = product.id
         cell.title.text = product.title
-        
+
         guard let cellTable = cell.viewWithTag(1) else {
             print("can't find table in view")
             return cell
         }
-        
+
         var prevView: UIView? = nil
-    
+
         for productItem in product.values {
             let textItem = UILabel()
             textItem.text = "id:\(productItem.key) type:\(productItem.value.type) value:\(product[productItem.key]!.value)"
@@ -124,17 +121,70 @@ class RecommendationTableViewController: UITableViewController, RecommendationCa
             textItem.font = UIFont.systemFont(ofSize: 4.0)
             //textItem.adjustsFontSizeToFitWidth = true
             cellTable.addSubview(textItem)
+
             if prevView == nil {
-                cellTable.addConstraint(NSLayoutConstraint(item: textItem, attribute: .top, relatedBy: .equal, toItem: cellTable, attribute: .top, multiplier: 1.0, constant: 0.0))
+                cellTable.addConstraint(
+                    NSLayoutConstraint(
+                        item: textItem,
+                        attribute: .top,
+                        relatedBy: .equal,
+                        toItem: cellTable,
+                        attribute: .top,
+                        multiplier: 1.0,
+                        constant: 0.0
+                    )
+                )
             } else {
-                cellTable.addConstraint(NSLayoutConstraint(item: textItem, attribute: .top, relatedBy: .equal, toItem: prevView, attribute: .bottom, multiplier: 1.0, constant: 0.0))
+                cellTable.addConstraint(
+                    NSLayoutConstraint(
+                        item: textItem,
+                        attribute: .top,
+                        relatedBy: .equal,
+                        toItem: prevView,
+                        attribute: .bottom,
+                        multiplier: 1.0,
+                        constant: 0.0
+                    )
+                )
             }
-            cellTable.addConstraint(NSLayoutConstraint(item: textItem, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 6.0))
-            cellTable.addConstraint(NSLayoutConstraint(item: textItem, attribute: .width, relatedBy: .equal, toItem: cellTable, attribute: .width, multiplier: 1.0, constant: 0))
-            cellTable.addConstraint(NSLayoutConstraint(item: textItem, attribute: .leading, relatedBy: .equal, toItem: cellTable, attribute: .leading, multiplier: 1.0, constant: 0))
+
+            cellTable.addConstraint(
+                NSLayoutConstraint(
+                    item: textItem,
+                    attribute: .height,
+                    relatedBy: .equal,
+                    toItem: nil,
+                    attribute: .notAnAttribute,
+                    multiplier: 1.0,
+                    constant: 6.0
+                )
+            )
+            cellTable.addConstraint(
+                NSLayoutConstraint(
+                    item: textItem,
+                    attribute: .width,
+                    relatedBy: .equal,
+                    toItem: cellTable,
+                    attribute: .width,
+                    multiplier: 1.0,
+                    constant: 0
+                )
+            )
+            cellTable.addConstraint(
+                NSLayoutConstraint(
+                    item: textItem,
+                    attribute: .leading,
+                    relatedBy: .equal,
+                    toItem: cellTable,
+                    attribute: .leading,
+                    multiplier: 1.0,
+                    constant: 0
+                )
+            )
 
             prevView = textItem
         }
+
         return cell
     }
 
@@ -182,5 +232,4 @@ class RecommendationTableViewController: UITableViewController, RecommendationCa
         // Pass the selected object to the new view controller.
     }
     */
-
 }

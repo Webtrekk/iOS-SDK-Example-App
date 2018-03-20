@@ -22,13 +22,11 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     static let isAfterCrashSettings: String = "isAfterCrashSettings"
 
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:[UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         if ProcessInfo.processInfo.environment["XCInjectBundleInto"] == nil {
             if isAfterCrashStart() {
                 WebtrekkTracking.defaultLogger.minimumLevel = .debug
@@ -39,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 initWithConfig()
             }
         }
+
         return true
     }
 
@@ -63,20 +62,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
     func application(_ application: UIApplication,
-                     continue userActivity: NSUserActivity,
-                                          restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
-        
+        continue userActivity: NSUserActivity,
+        restorationHandler: @escaping ([Any]?
+        ) -> Void) -> Bool {
+
         print("Original Selector is called")
-        
-        
+
         // test if this is deep link
         if userActivity.activityType == NSUserActivityTypeBrowsingWeb,
             let url = userActivity.webpageURL,
-            let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-            let queryItems = components.queryItems{
-            
+            let components = URLComponents(
+                url: url,
+                resolvingAgainstBaseURL: true
+            ),
+            let queryItems = components.queryItems {
+
             var everID: String? = nil
             var mediaCode: String? = nil
             let everIDName = "wt_everID", mediaCodeName = "wt_mediaCode"
@@ -96,26 +98,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case (mediaCodeName, let value):
                     mediaCode = value
                 default:
-                    break;
-                    
+                    break
                 }
              }
-            
+
             if let id = everID, let code = mediaCode {
                 WebtrekkTracking.defaultLogger.logDebug("\(everIDName)=\(id), \(mediaCodeName)=\(code)")
             } else {
                 WebtrekkTracking.defaultLogger.logDebug("no deep link info")
             }
         }
+
         return true
     }
-    
+
     func initWithConfig(configName name: String? = nil) {
-        
         if let _ = WebtrekkTracking.tracker {
             releaseWebtrekkInstance()
         }
-        
+
         do {
             WebtrekkTracking.defaultLogger.minimumLevel = .debug
             WebtrekkTracking.defaultLogger.testMode = true
@@ -125,32 +126,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 try WebtrekkTracking.initTrack()
             }
-        }catch let error as TrackerError {
-        WebtrekkTracking.defaultLogger.logError("Error Webtrekk SDK initialization: \(error.message)")
-        }catch {
-        WebtrekkTracking.defaultLogger.logError("Unkown error during Webtrekk SDK initialization")
+        } catch let error as TrackerError {
+            WebtrekkTracking.defaultLogger.logError("Error Webtrekk SDK initialization: \(error.message)")
+        } catch {
+            WebtrekkTracking.defaultLogger.logError("Unkown error during Webtrekk SDK initialization")
         }
     }
 
-    private func releaseWebtrekkInstance(){
+    private func releaseWebtrekkInstance() {
         weak var weakTracker = WebtrekkTracking.tracker
         WebtrekkTracking.tracker = nil
-        
+
         while weakTracker != nil {
-             RunLoop.current.run(mode: .defaultRunLoopMode, before: Date(timeIntervalSinceNow:2))
+             RunLoop.current.run(mode: .defaultRunLoopMode, before: Date(timeIntervalSinceNow: 2))
         }
     }
-    
-    private func isAfterCrashStart() -> Bool{
+
+    private func isAfterCrashStart() -> Bool {
         if let value = UserDefaults.standard.object(forKey: AppDelegate.isAfterCrashSettings) as? Bool, value {
             UserDefaults.standard.removeObject(forKey: AppDelegate.isAfterCrashSettings)
+
             return true
         } else {
             return false
         }
     }
-    
-    func setAfterCrashMode(){
+
+    func setAfterCrashMode() {
          UserDefaults.standard.set(true, forKey: AppDelegate.isAfterCrashSettings)
     }
 }

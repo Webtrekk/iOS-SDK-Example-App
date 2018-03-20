@@ -20,21 +20,18 @@
 import WatchKit
 import Webtrekk
 
-
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
-
     func applicationDidFinishLaunching() {
         changeDefSettings(setting: "campaignHasProcessed", value: true)
         WebtrekkTracking.defaultLogger.minimumLevel = .debug
         WebtrekkTracking.defaultLogger.testMode = true
         try? WebtrekkTracking.initTrack()
         // Perform any final initialization of your application.
-        
+
         self.log("applicationDidFinishLaunching called")
     }
 
     func applicationDidBecomeActive() {
-        
         self.log("applicationDidBecomeActive called")
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
@@ -44,8 +41,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         // Use this method to pause ongoing tasks, disable timers, etc.
         self.log("applicationWillResignActive called")
     }
-    
-    
+
     func applicationDidEnterBackground() {
         self.log("applicationDidEnterBackground called")
     }
@@ -73,16 +69,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             }
         }
     }
-    
-    private func log(_ text: String){
+
+    private func log(_ text: String) {
         WebtrekkTracking.defaultLogger.logDebug(text)
     }
-    
-    func changeDefSettings(setting: String, value: Bool){
+
+    func changeDefSettings(setting: String, value: Bool) {
         Foundation.UserDefaults.standard.set(value, forKey: getKeyForDefSetting(setting: setting))
     }
-    
-    private func getKeyForDefSetting(setting: String)->String {
+
+    private func getKeyForDefSetting(setting: String) -> String {
         return "webtrekk.\(setting)"
     }
 }

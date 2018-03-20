@@ -20,30 +20,27 @@ import WatchKit
 import Foundation
 import Webtrekk
 
-
 class NextPageInterfaceController: WKInterfaceController {
-    
     var doPop: Bool = true
-    
+
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
+
         doPop = context == nil
-        
         // Configure interface objects here.
     }
-    
+
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
-    
+
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-    
-    override func didAppear(){
+
+    override func didAppear() {
         if doPop {
             pop()
         }
