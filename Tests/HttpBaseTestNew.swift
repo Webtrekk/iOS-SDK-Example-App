@@ -22,40 +22,40 @@ import Nimble
 import Webtrekk
 
 class HttpBaseTestNew: XCTestCase {
-    
+
     var timeout: TimeInterval = 12
     let httpTester = HTTPTester()
 
     override func setUp() {
         super.setUp()
         httpTester.initHTTPServer()
-        print("Test \""+self.name+"\" is started----------------------------------")
+        print("Test \"" + self.name + "\" is started----------------------------------")
     }
-    
+
     override func tearDown() {
         httpTester.releaseHTTPServer()
-        print("Test \""+self.name+"\" is finished----------------------------------")
+        print("Test \"" + self.name + "\" is finished----------------------------------")
         super.tearDown()
     }
-    
-    func doURLSendTestAction(_ closure: ()->()){
+
+    func doURLSendTestAction(_ closure: () -> Void ) {
         HTTPTester.request = nil
         closure()
     }
-    
+
     func doURLnotSendTestCheck(_ timeout: TimeInterval = 10) {
         expect(HTTPTester.request).toEventually(beNil(), timeout: timeout)
-        
     }
-    
-    func doURLSendTestCheck(_ closure: (_ parameters: [String: String])->()) {
-        expect(HTTPTester.request).toEventuallyNot(beNil(), timeout:self.timeout, pollInterval: 0.1)
-        
-        guard let _ = HTTPTester.request else{
+
+    func doURLSendTestCheck(_ closure: (_ parameters: [String: String]) -> Void ) {
+        expect(HTTPTester.request).toEventuallyNot(beNil(), timeout: self.timeout, pollInterval: 0.1)
+
+        guard let _ = HTTPTester.request else {
             return
         }
+
         WebtrekkTracking.defaultLogger.logDebug("Send URL is:" + (HTTPTester.request?.url?.absoluteString ?? "null"))
-        
+
         closure(httpTester.getReceivedURLParameters((HTTPTester.request?.url?.query ?? "")))
     }
 }

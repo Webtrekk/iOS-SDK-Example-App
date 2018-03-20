@@ -30,7 +30,6 @@ import Nimble
 import Foundation
 
 class AdClearIDTest: WTBaseTestNew {
-    
     override func getConfigName() -> String? {
         switch self.name {
         case let name where name.range(of: "testNoAdClearIdRequiredPageRequest") != nil || name.range(of: "testNoAdClearIdRequiredActionRequest") != nil:
@@ -39,44 +38,41 @@ class AdClearIDTest: WTBaseTestNew {
             return "webtrekk_config_auto_parameter_complex"
         }
     }
-    
+
     private func checkIfAdClearIdExists() -> Bool {
         let adClearId = Foundation.UserDefaults.standard.value(forKey: "webtrekk.adClearId")
-        
+
         return adClearId != nil
     }
-    
+
     private func removeAdClearId() {
         Foundation.UserDefaults.standard.removeObject(forKey: "webtrekk.adClearId")
     }
-    
+
     func testAdClearIdGenerationPageRequest() {
-        
+
         if checkIfAdClearIdExists() {
             removeAdClearId()
         }
-        
+
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             let adStr = parametersArr["cs808"]
             expect(adStr).toNot(beNil())
-            
+
             if let _ = adStr {
                 expect(UInt64(adStr!)).toNot(beNil())
                 if let adNum = UInt64(adStr!) {
-                    
-                    
                     let maskAppID: UInt64 = ((UInt64(1) << 10) - 1) << 4
                     let maskMilisek: UInt64 = ((UInt64(1) << 39) - 1) << 24
-                    
+
                     expect((adNum & maskAppID) >> 4).to(equal(713))
-                    
+
                     let miliSec = Double((adNum & maskMilisek) >> 24)
-                    
+
                     var dateComponents = DateComponents()
                     dateComponents.year = 2011
                     dateComponents.month = 01
@@ -84,61 +80,67 @@ class AdClearIDTest: WTBaseTestNew {
                     dateComponents.timeZone = TimeZone.current
                     dateComponents.hour = 0
                     dateComponents.minute = 0
-                    
+
                     let miliSecNow = Date().timeIntervalSince(Calendar.current.date(from: dateComponents)!) * 1000
                     let miliSec5MinuteAgo = miliSecNow - 5*60*1000
+
                     expect(miliSec).to(beGreaterThan(miliSec5MinuteAgo))
                     expect(miliSec).to(beLessThan(miliSecNow + 1000))
                 }
             }
-        
         }
     }
-    
+
     func testNoAdClearIdRequiredPageRequest() {
         if checkIfAdClearIdExists() {
             removeAdClearId()
         }
-        
+
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cs808"]).to(beNil())
         }
     }
-    
+
     func testAdClearIdGenerationActionRequest() {
-        
         if checkIfAdClearIdExists() {
             removeAdClearId()
         }
-        
+
         doURLSendTestAction() {
-            WebtrekkTracking.instance().trackAction(ActionEvent(actionProperties: ActionProperties(name: "actionName", details: [:]),
-                                                                pageProperties: PageProperties(name: "someName"),
-                                                                sessionDetails: [1: "sessionpar1", 2: "sessionpar2"]))
+            WebtrekkTracking.instance().trackAction(ActionEvent(
+                actionProperties: ActionProperties(
+                    name: "actionName",
+                    details: [:]
+                ),
+                pageProperties: PageProperties(
+                    name: "someName"
+                ),
+                sessionDetails: [
+                    1: "sessionpar1",
+                    2: "sessionpar2"
+                ]
+            ))
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cs808"]).toNot(beNil())
         }
     }
-    
+
     func testNoAdClearIdRequiredActionRequest() {
         if checkIfAdClearIdExists() {
             removeAdClearId()
         }
-        
+
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cs808"]).to(beNil())
         }
     }

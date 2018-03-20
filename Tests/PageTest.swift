@@ -28,13 +28,16 @@ class PageTest: WTBaseTestNew {
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
 
-            tracker.global = [
-                variables: [
-                    "Key1": "value1",
-                    "Key2": "value2",
-                    "KeyOver1": "overValue1"
-                ]
+            let globalTrackerVariablesData = [
+                "Key1": "value1",
+                "Key2": "value2",
+                "KeyOver1": "overValue1"
             ]
+
+            for (key, value) in globalTrackerVariablesData {
+                tracker.global.variables[key] = value
+            }
+
             tracker.trackPageView("pageName")
         }
 
@@ -132,12 +135,14 @@ class PageTest: WTBaseTestNew {
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
 
-            tracker.global = [
-                variables: [
-                    "Key1": allASCIISympbols1,
-                    "Key2": allASCIISympbols2
-                ]
+            let globalTrackerVariablesData = [
+                "Key1": allASCIISympbols1,
+                "Key2": allASCIISympbols2
             ]
+
+            for (key, value) in globalTrackerVariablesData {
+                tracker.global.variables[key] = value
+            }
 
             tracker.trackPageView("page,Name")
         }
@@ -159,7 +164,7 @@ class PageTest: WTBaseTestNew {
             expect(parametersArr["uc2"]).to(equal(codedASCIISymbols2))
 
             let pPar = parametersArr["p"] ?? ""
-            let comaChar: [Character] = pPar.filter{ $0 == "," }
+            let comaChar: [Character] = pPar.filter { $0 == "," }
 
             expect(pPar.split(separator: ",").count).to(equal(10))
             expect(comaChar.count).to(equal(9))
@@ -221,10 +226,8 @@ class PageTest: WTBaseTestNew {
                 "KeyOver1": "overValue1"
             ]
 
-            pageTracker.pageProperties = [
-                details: [
-                    1: "don't Override"
-                ]
+            pageTracker.pageProperties.details = [
+                1: "don't Override"
             ]
 
             self.mainViewController.beginAppearanceTransition(true, animated: false)

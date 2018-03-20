@@ -21,65 +21,61 @@
 import Nimble
 
 class CryptoTest: WTBaseTestNew {
-    
-    func testCrypto(){
+    func testCrypto() {
         //generate rundom string
         let random = randomString(length: randomInt(min: 1, max: 256))
         let md5Orig = getMD5(string: random)
         let sha256Orig = getSHA256(string: random)
-        
-        
-        let md5 : String = random.md5()
-        let sha256 : String = random.sha256()
-        
-        
+
+        let md5: String = random.md5()
+        let sha256: String = random.sha256()
+
         expect(md5Orig).to(equal(md5))
         expect(sha256Orig).to(equal(sha256))
     }
-    
+
     private func getMD5(string: String) -> String {
-        let messageData = string.data(using:.utf8)!
+        let messageData = string.data(using: .utf8)!
         var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-        
-        _ = digestData.withUnsafeMutableBytes {digestBytes in
-            messageData.withUnsafeBytes {messageBytes in
+
+        _ = digestData.withUnsafeMutableBytes { digestBytes in
+            messageData.withUnsafeBytes { messageBytes in
                 CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
             }
         }
+
         return digestData.map { String(format: "%02hhx", $0) }.joined()
     }
 
-    private func getSHA256(string: String) -> String{
-        let messageData = string.data(using:.utf8)!
+    private func getSHA256(string: String) -> String {
+        let messageData = string.data(using: .utf8)!
         var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
-        
-        _ = digestData.withUnsafeMutableBytes {digestBytes in
-            messageData.withUnsafeBytes {messageBytes in
+
+        _ = digestData.withUnsafeMutableBytes { digestBytes in
+            messageData.withUnsafeBytes { messageBytes in
                 CC_SHA256(messageBytes, CC_LONG(messageData.count), digestBytes)
             }
         }
+
         return digestData.map { String(format: "%02hhx", $0) }.joined()
     }
-    
-    
+
     func randomString(length: Int) -> String {
-        
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let letters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let len = UInt32(letters.length)
-        
+
         var randomString = ""
-        
+
         for _ in 0 ..< length {
             let rand = arc4random_uniform(len)
             var nextChar = letters.character(at: Int(rand))
             randomString += NSString(characters: &nextChar, length: 1) as String
         }
-        
+
         return randomString
     }
-    
-    func randomInt(min: Int, max:Int) -> Int {
+
+    func randomInt(min: Int, max: Int) -> Int {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }
 }
-

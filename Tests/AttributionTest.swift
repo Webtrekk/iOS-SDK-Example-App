@@ -25,137 +25,129 @@ import UIKit
 import Webtrekk
 
 class AttributionTest: WTBaseTestNew {
-    
     private let mediaCode = "media_code"
     private let mediaCodePostBack = "media_code_postback"
-    
 
-    override func getConfigName() -> String?{
+    override func getConfigName() -> String? {
         return "webtrekk_config_no_completely_autoTrack"
     }
-    
+
     //do just global parameter test
-    func testStartAttributionWithIDFA(){
+    func testStartAttributionWithIDFA() {
         startAttributionTest(useIDFA: true)
     }
-    
+
     //do just global parameter test
-    func testStartAttributionWithoutIDFA(){
+    func testStartAttributionWithoutIDFA() {
         startAttributionTest(useIDFA: false)
     }
-    
+
     override func setUp() {
         if self.name.range(of: "testAppInstallFirstInstallation") != nil || self.name.range(of: "testAppInstallWithPostCallback") != nil {
             self.removeDefSetting(setting: "appinstallGoalProcessed")
         }
-        
+
         if self.name.range(of: "testStartAttributionWithIDFA") != nil || self.name.range(of: "testStartAttributionWithoutIDFA") != nil {
             self.isWaitForCampaignFinished = false
         }
-        
+
         if self.name.range(of: "testAppInstallWithPostCallback") != nil {
             self.removeDefSetting(setting: "campaignHasProcessed")
             self.removeDefSetting(setting: "mediaCode")
-            
+
             self.doPostCall()
-            
         }
 
         super.setUp()
     }
-    
-    private func startAttributionTest(useIDFA: Bool){
-        
+
+    private func startAttributionTest(useIDFA: Bool) {
         // get track id
         let trackerID = "123451234512345"
-        
+
         // get adv
         let advID = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        
-        
-        var url = "https://appinstall.webtrekk.net/appinstall/v1/redirect?mc="+mediaCode+"&trackid="+trackerID+"&as2=https%3A//itunes.apple.com/de/app/apple-store/id375380948%3Fmt%3D8"
-        
+
+        var url = "https://appinstall.webtrekk.net/appinstall/v1/redirect?mc=" +
+            mediaCode +
+            "&trackid=" +
+            trackerID +
+            "&as2=https%3A//itunes.apple.com/de/app/apple-store/id375380948%3Fmt%3D8"
+
         if useIDFA && advID != "00000000-0000-0000-0000-000000000000" {
             url = url + "&aid=" + advID
         }
-        
-        WebtrekkTracking.defaultLogger.logDebug("open url for installation test:"+url)
-        
-        UIApplication.shared.openURL(URL(string:url)!)
+
+        WebtrekkTracking.defaultLogger.logDebug("open url for installation test:" + url)
+
+        UIApplication.shared.openURL(URL(string: url)!)
     }
-    
 
     func testInstallation() {
-        
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["mc"]).to(equal(mediaCode))
             expect(parametersArr["mca"]).to(equal("c"))
             expect(parametersArr["cb900"]).to(equal("1"))
         }
-        
+
         //wait till message is processed and deleted from queue
         doSmartWait(sec: 2)
     }
-    
-    //test should be done with already installes and started application
-    func testAppInstallNoFirstInstallation(){
 
-        doURLSendTestAction(){
+    //test should be done with already installes and started application
+    func testAppInstallNoFirstInstallation() {
+        doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cb900"]).to(beNil())
         }
     }
 
-    func testAppInstallFirstInstallation(){
-        
-        doURLSendTestAction(){
+    func testAppInstallFirstInstallation() {
+        doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cb900"]).to(equal("1"))
         }
     }
-    
-    func testAppInstallWithPostCallback(){
-        
-        doURLSendTestAction(){
+
+    func testAppInstallWithPostCallback() {
+        doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["mc"]).to(equal(mediaCodePostBack))
             expect(parametersArr["mca"]).to(equal("c"))
             expect(parametersArr["cb900"]).to(equal("1"))
         }
     }
-    
-    private func doPostCall(){
+
+    private func doPostCall() {
         let session = URLSession.shared
-        
         let trackerId = "123451234512345"
-        
+
         // get adv
         let advID = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        
+
         let url = "https://appinstall.webtrekk.net/appinstall/v1/postback?mc=\(mediaCodePostBack)&trackid=\(trackerId)&app_name=null&aid=\(advID)"
-        
+
         NSLog("call postback url: \(url)")
-        
+
         let task = session.dataTask(with: URLRequest(url: URL(string: url)!)) { data, response, error in
             if let error = error {
                 NSLog("incorrect post request \(error.localizedDescription)")
             }
         }
-        
+
         task.resume()
     }
-    
 }

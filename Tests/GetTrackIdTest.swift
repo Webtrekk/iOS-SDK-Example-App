@@ -22,7 +22,6 @@ import Nimble
 import Webtrekk
 
 class GetTrackIdTest: WTBaseTestNew {
-    
     override func getConfigName() -> String? {
         switch self.name {
         case let name where name.range(of: "test1") != nil:
@@ -33,20 +32,18 @@ class GetTrackIdTest: WTBaseTestNew {
             return "webtrekk_config_recommendations"
         }
     }
-    
-    
+
     /// Getting the trackIds from an xml config that contains a list of trackIds
-    func test1MultipleTrackIds(){
+    func test1MultipleTrackIds() {
         let trackIds = WebtrekkTracking.instance().trackIds
         expect(trackIds[0]).to(equal("123456789012341"))
         expect(trackIds[1]).to(equal("123456789012342"))
         expect(trackIds[2]).to(equal("123456789012343"))
         expect(trackIds[3]).to(equal("123456789012344"))
     }
-    
-    
+
     /// Getting the trackIds from an xml config that contains only one trackId
-    func test2OneTrackId(){
+    func test2OneTrackId() {
         let trackIds = WebtrekkTracking.instance().trackIds
         expect(trackIds[0]).to(equal("123451234512345"))
     }

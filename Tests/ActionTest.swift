@@ -22,12 +22,10 @@ import Nimble
 import Webtrekk
 
 class ActionTest: WTBaseTestNew {
-    
     func testAction() {
-        
         doURLSendTestAction() {
             let track = WebtrekkTracking.instance()
-        
+
             let actionPropertiesL = ActionProperties(
                 name: "actionName",
                 details: [
@@ -35,30 +33,31 @@ class ActionTest: WTBaseTestNew {
                     2: "actionPar2"
                 ]
             )
-            
+
             let pagePropertiesL = PageProperties(
                 name: "someName"
             )
-            
-            let sessionDetailsL = [
-                1: "sessionpar1",
-                2: "sessionpar2"
+
+            let sessionDetailsL: [Int: TrackingValue] = [
+                1: .constant("sessionpar1"),
+                2: .constant("sessionpar2")
             ]
-            
+
             let actionEvent = ActionEvent(
                 actionProperties: actionPropertiesL,
                 pageProperties: pagePropertiesL,
                 sessionDetails: sessionDetailsL
             )
-            
+
             track.trackAction(actionEvent)
         }
-        
+
         doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("actionName"))
             expect(parametersArr["ck1"]).to(equal("actionpar1"))
             expect(parametersArr["ck2"]).to(equal("actionPar2"))
             expect(parametersArr["cs1"]).to(equal("sessionpar1"))
+            expect(parametersArr["cs2"]).to(equal("sessionpar2"))
             expect(parametersArr["cs34"]).to(beNil())
         }
 

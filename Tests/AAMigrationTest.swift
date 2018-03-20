@@ -20,10 +20,7 @@
 import Nimble
 //import WebtrekkOld
 
-
 class AAMigrationTest: HttpBaseTestNew {
-
-    
     override func setUp() {
         super.setUp()
         Webtrekk.start(
@@ -36,14 +33,12 @@ class AAMigrationTest: HttpBaseTestNew {
             )
     }
 
-    func testMigration(){
+    func testMigration() {
         self.doURLSendTestAction() {
             Webtrekk.trackContent("pageNameOld")
         }
-        
-        self.doURLSendTestCheck() {_ in
-            
+
+        self.doURLSendTestCheck() { _ in
         }
     }
-
 }

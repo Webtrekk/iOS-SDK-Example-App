@@ -21,51 +21,47 @@ import Webtrekk
 import Foundation
 import Nimble
 
-
-fileprivate func signalHandler(signalNum: Int32){
+private func signalHandler(signalNum: Int32) {
     print("old signal handler is called with num: \(signalNum) and default \(String(describing: SIG_DFL))")
 }
 
-
-fileprivate func exceptionHandler(exception: NSException){
+private func exceptionHandler(exception: NSException) {
     print("old exception handler is called")
 }
 
-
 class ExceptionTrackingTest: WTBaseTestNew {
-    
     private var applicationSupportDir: URL? = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
-    
+
     override func getConfigName() -> String? {
         switch self.name {
-            case let name where name.range(of: "testNoErrorLog") != nil:
+        case let name where name.range(of: "testNoErrorLog") != nil:
             return "webtrekk_config_error_log_no"
-            case let name where name.range(of: "testErrorLogDisable") != nil:
+        case let name where name.range(of: "testErrorLogDisable") != nil:
             return "webtrekk_config_error_log_disabled"
-            case let name where name.range(of: "testCrashException") != nil:
+        case let name where name.range(of: "testCrashException") != nil:
             return "webtrekk_config_error_log_fatal"
-            case let name where name.range(of: "testCrashSignal") != nil:
+        case let name where name.range(of: "testCrashSignal") != nil:
             return "webtrekk_config_error_log_fatal"
-            case let name where name.range(of: "testAfterExceptionCrash") != nil:
+        case let name where name.range(of: "testAfterExceptionCrash") != nil:
             return "webtrekk_config_error_log_fatal"
-            case let name where name.range(of: "testAfterSignalCrash") != nil:
+        case let name where name.range(of: "testAfterSignalCrash") != nil:
             return "webtrekk_config_error_log_fatal"
-            case let name where name.range(of: "testInfoErrorLog") != nil:
+        case let name where name.range(of: "testInfoErrorLog") != nil:
             return "webtrekk_config_error_log_info"
-            case let name where name.range(of: "testExceptionTracking") != nil:
+        case let name where name.range(of: "testExceptionTracking") != nil:
             return "webtrekk_config_error_log_exception"
-            case let name where name.range(of: "testErrorTracking") != nil:
+        case let name where name.range(of: "testErrorTracking") != nil:
             return "webtrekk_config_error_log_exception"
-            case let name where name.range(of: "testNSErrorTracking") != nil:
+        case let name where name.range(of: "testNSErrorTracking") != nil:
             return "webtrekk_config_error_log_exception"
-            case let name where name.range(of: "testNoExceptionTracking") != nil:
+        case let name where name.range(of: "testNoExceptionTracking") != nil:
             return "webtrekk_config_error_log_fatal"
-            default:
-                WebtrekkTracking.defaultLogger.logError("This test use incorrect configuration")
+        default:
+            WebtrekkTracking.defaultLogger.logError("This test use incorrect configuration")
             return nil
         }
     }
-    
+
     override func setUp() {
         switch self.name {
         case _ where name.range(of: "testCrashSignal") != nil:
@@ -79,6 +75,7 @@ class ExceptionTrackingTest: WTBaseTestNew {
         default:
             break
         }
+
         super.setUp()
     }
 
@@ -95,60 +92,56 @@ class ExceptionTrackingTest: WTBaseTestNew {
             break
         }
     }
-    
-    func testErrorLogDisable(){
+
+    func testErrorLogDisable() {
         doURLSendTestAction() {
             WebtrekkTracking.instance().exceptionTracker.trackInfo("ErrorName", message: "ErrorMessage")
         }
-        
-        doURLnotSendTestCheck()
-    }
-    
-    func testNoErrorLog(){
-        doURLSendTestAction() {
-            WebtrekkTracking.instance().exceptionTracker.trackInfo("ErrorName", message: "ErrorMessage")
-        }
-        
+
         doURLnotSendTestCheck()
     }
 
-    
+    func testNoErrorLog() {
+        doURLSendTestAction() {
+            WebtrekkTracking.instance().exceptionTracker.trackInfo("ErrorName", message: "ErrorMessage")
+        }
+
+        doURLnotSendTestCheck()
+    }
+
     // just crash everything with exception
     //name of this test function should be the same as in script on Jenkins server
     func testCrashException() {
-        
         clearSavedCrashes()
         DispatchQueue.global(qos: .background).async {
             let exception = ExceptionCreator()
-            
+
             exception.throwCocoaPod()
         }
     }
 
-    
     // just crash everything with signal 4
     //name of this test function should be the same as in script on Jenkins server
     func testCrashSignal() {
         clearSavedCrashes()
         let arr: [Int] = [1, 2, 3]
-        
+
         //generate error
-        let _ = arr[3]
+        _ = arr[3]
     }
-    
-    func testAfterExceptionCrash(){
-        
+
+    func testAfterExceptionCrash() {
         self.httpTester.removeStub()
         var requestNum: Int = 0
         var requestsAreDone = false
-        
-        self.httpTester.addNormalStub(){query in
+
+        self.httpTester.addNormalStub() { query in
             let parametersArr = self.httpTester.getReceivedURLParameters((query.url?.query!)!)
-            
+
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("1"))
-            
-            switch requestNum{
+
+            switch requestNum {
             case 0:
                 expect(parametersArr["ck911"]).to(equal("Example_of_uncatched_exception"))
                 expect(parametersArr["ck912"]).to(equal("Just_for_test"))
@@ -164,20 +157,19 @@ class ExceptionTrackingTest: WTBaseTestNew {
             }
             requestNum = requestNum + 1
         }
-        
+
         doURLSendTestAction() {
             initWebtrekk()
         }
-        
+
         // wait while all requests are procedded
         doSmartWait(sec: 10)
-        
+
         expect(requestsAreDone).to(equal(true))
     }
 
-    func testAfterSignalCrash(){
-        doURLSendTestCheck() {
-            parametersArr in
+    func testAfterSignalCrash() {
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("1"))
             expect(parametersArr["ck911"]).to(equal("Signal%3A%20SIGILL"))
@@ -187,15 +179,14 @@ class ExceptionTrackingTest: WTBaseTestNew {
             expect(parametersArr["ck917"]).to(beNil())
         }
     }
-    
-    func testInfoErrorLog(){
+
+    func testInfoErrorLog() {
         // normal test
         doURLSendTestAction() {
             WebtrekkTracking.instance().exceptionTracker.trackInfo("ErrorName", message: "ErrorMessage")
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("3"))
             expect(parametersArr["ck911"]).to(equal("ErrorName"))
@@ -204,18 +195,27 @@ class ExceptionTrackingTest: WTBaseTestNew {
             expect(parametersArr["ck916"]).to(beNil())
             expect(parametersArr["ck917"]).to(beNil())
             let pPar = parametersArr["p"] ?? ""
-            let comaChar : [Character] = pPar.filter{ $0 == "," }
+            let comaChar: [Character] = pPar.filter { $0 == "," }
+
             expect(comaChar.count).to(equal(9))
         }
-        
+
         // 255 cut test
         let charName = "n", charMessage = "m"
         doURLSendTestAction() {
-            WebtrekkTracking.instance().exceptionTracker.trackInfo(String(repeating: charName, count: 300), message: String(repeating: charMessage, count: 300))
+            WebtrekkTracking.instance().exceptionTracker.trackInfo(
+                String(
+                    repeating: charName,
+                    count: 300
+                ),
+                message: String(
+                    repeating: charMessage,
+                    count: 300
+                )
+            )
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("3"))
             expect(parametersArr["ck911"]).to(equal(String(repeating: charName, count: 255)))
@@ -225,18 +225,25 @@ class ExceptionTrackingTest: WTBaseTestNew {
             expect(parametersArr["ck917"]).to(beNil())
         }
     }
-    
-    func testExceptionTracking(){
-        
+
+    func testExceptionTracking() {
         let char = "2"
         doURLSendTestAction() {
-                let exception = NSException(name: NSExceptionName(rawValue: "Swift Exception"), reason: "unit test", userInfo: ["key1":String(repeating: char, count: 300), "key2":"value2"])
-                
+                let exception = NSException(
+                        name: NSExceptionName(
+                            rawValue: "Swift Exception"
+                        ),
+                        reason: "unit test",
+                        userInfo: [
+                            "key1": String(repeating: char, count: 300),
+                            "key2": "value2"
+                        ]
+                )
+
             WebtrekkTracking.instance().exceptionTracker.trackException(exception)
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("2"))
             expect(parametersArr["ck911"]).to(equal("Swift%20Exception"))
@@ -245,27 +252,42 @@ class ExceptionTrackingTest: WTBaseTestNew {
             expect(parametersArr["ck917"]).to(beNil())
         }
     }
-    
+
     // configuration prohibit tracking
-    func testNoExceptionTracking(){
+    func testNoExceptionTracking() {
         doURLSendTestAction() {
-            let exception = NSException(name: NSExceptionName(rawValue: "Swift Exception"), reason: "unit test", userInfo: ["key1":"value1", "key2":"value2"])
-            
+            let exception = NSException(
+                    name: NSExceptionName(
+                        rawValue: "Swift Exception"
+                    ),
+                    reason: "unit test",
+                    userInfo: [
+                        "key1": "value1",
+                        "key2": "value2"
+                    ]
+            )
+
             WebtrekkTracking.instance().exceptionTracker.trackException(exception)
         }
-        
+
         doURLnotSendTestCheck()
     }
-    
-    func testNSErrorTracking(){
+
+    func testNSErrorTracking() {
         doURLSendTestAction() {
-            let error = NSError(domain: "SomeDomain", code: 2, userInfo: ["key1":"NSError", "key2":"value2"] )
-            
+            let error = NSError(
+                    domain: "SomeDomain",
+                    code: 2,
+                    userInfo: [
+                        "key1": "NSError",
+                        "key2": "value2"
+                    ]
+            )
+
             WebtrekkTracking.instance().exceptionTracker.trackNSError(error)
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("2"))
             expect(parametersArr["ck911"]).to(equal("NSError"))
@@ -274,26 +296,25 @@ class ExceptionTrackingTest: WTBaseTestNew {
             expect(parametersArr["ck917"]).to(beNil())
         }
     }
-    
+
     class ErrorExample: Error {
         var localizedDescription: String
-        
+
         init() {
             localizedDescription = ""
         }
     }
-    
-    func testErrorTracking(){
+
+    func testErrorTracking() {
         doURLSendTestAction() {
             do {
                 throw ErrorExample()
-            }catch let error {
+            } catch let error {
                 WebtrekkTracking.instance().exceptionTracker.trackError(error)
             }
         }
-        
-        doURLSendTestCheck() {
-            parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["ct"]).to(equal("webtrekk_ignore"))
             expect(parametersArr["ck910"]).to(equal("2"))
             expect(parametersArr["ck911"]).to(equal("Error"))
@@ -301,25 +322,23 @@ class ExceptionTrackingTest: WTBaseTestNew {
             expect(parametersArr["ck916"]).to(beNil())
             expect(parametersArr["ck917"]).to(beNil())
         }
-        
     }
-    
+
     //TODO add test for other signals
-    private func clearSavedCrashes(){
+    private func clearSavedCrashes() {
         let enumerator = FileManager.default.enumerator(atPath: applicationSupportDir!.path)
-        
-        enumerator?.forEach(){value in
-            if let strValue = value as? String, strValue.contains("webtrekk_exception"){
+
+        enumerator?.forEach() { value in
+            if let strValue = value as? String, strValue.contains("webtrekk_exception") {
                 do {
                     if let removedPath = applicationSupportDir?.appendingPathComponent(strValue).path {
                         WebtrekkTracking.defaultLogger.logDebug("delete file \(removedPath)")
                         try FileManager.default.removeItem(atPath: removedPath)
                     }
-                }catch let error{
+                } catch let error {
                     WebtrekkTracking.defaultLogger.logDebug("error deleting file exception is: \(error)")
                 }
             }
         }
-
     }
 }

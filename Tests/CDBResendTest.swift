@@ -26,24 +26,24 @@ class CDBResendTest: WTBaseTestNew {
         super.setUp()
         clearLocalSettings()
     }
-    
+
     override func tearDown() {
         super.tearDown()
         clearLocalSettings()
     }
-    
+
     /// reset relevant local settings on the device:
     private func clearLocalSettings() {
         Foundation.UserDefaults.standard.removeObject(forKey: "webtrekk.CrossDeviceProperties")
         Foundation.UserDefaults.standard.removeObject(forKey: "webtrekk.lastCdbPropertiesSentTime")
     }
-    
+
     /// simulate that at least one day has passed since the cdb properties were set:
     private func simulateThatOneDayHasPassed() {
         let before25Hours = Int(Date().timeIntervalSince1970) - 90000 // current time minus 25h (90000s)
         Foundation.UserDefaults.standard.set(before25Hours, forKey: "webtrekk.lastCdbPropertiesSentTime")
     }
-    
+
     /// define crossDeviceProperties used by these tests:
     private func generateTestCrossDeviceProperties() -> CrossDeviceProperties {
         let crossDeviceProperties = CrossDeviceProperties(
@@ -69,14 +69,14 @@ class CDBResendTest: WTBaseTestNew {
             twitterId: "twitterId123",
             windowsId: "windowsId123",
             custom: [
-                3:"three333",
-                8:"eight888"
+                3: "three333",
+                8: "eight888"
             ]
         )
-        
+
         return crossDeviceProperties
     }
-  
+
     /// Test to make sure that the CDB properties are not resent before one day has passed
     func testCDB1NoResend() {
         // do a CDB tracking request:
@@ -84,12 +84,12 @@ class CDBResendTest: WTBaseTestNew {
             let crossDeviceProperties = generateTestCrossDeviceProperties()
             WebtrekkTracking.instance().trackCDB(crossDeviceProperties)
         }
-        
+
         // validate that all CDB properties were sent:
         doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateAllCDBParasSent(parameters: parametersArr)
         }
-        
+
         // do a normal page view request:
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("some page view")
@@ -104,27 +104,26 @@ class CDBResendTest: WTBaseTestNew {
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("some other page view")
         }
-        
+
         // valiadate that the CDB properties are NOT resent:
         doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateNoCDBParasSent(parameters: parametersArr)
         }
     }
-    
+
     /// Test to make sure that the CDB properties are resent after one day has passed
-    func testCDB2Resend(){
-        
+    func testCDB2Resend() {
         // do a CDB tracking request:
         doURLSendTestAction() {
             let crossDeviceProperties = generateTestCrossDeviceProperties()
             WebtrekkTracking.instance().trackCDB(crossDeviceProperties)
         }
-        
+
         // validate that all CDB properties were sent:
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateAllCDBParasSent(parameters: parametersArr)
         }
-        
+
         // simulate, that enough time has passed, so that CDB properties will be resent
         simulateThatOneDayHasPassed()
 
@@ -132,34 +131,33 @@ class CDBResendTest: WTBaseTestNew {
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("some page view")
         }
-        
+
         // valiadate that the CDB properties ARE resent:
         // (This test simulates, that more than one day has passed, so the CDB properties should be resent with a page view request)
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateAllCDBParasSent(parameters: parametersArr)
         }
     }
 
     /// Test to make sure that new CDB properties are merged with properties existing on the device
-    func testCDB3Merge(){
-        
+    func testCDB3Merge() {
         // do a CDB tracking request to store some properties on the device:
         doURLSendTestAction() {
             let crossDeviceProperties = generateTestCrossDeviceProperties()
             WebtrekkTracking.instance().trackCDB(crossDeviceProperties)
         }
-        
+
         // just make sure, that this request is sent, but don't check it yet:
         doURLSendTestCheck() { parametersArr in ()
         }
-      
+
         // do a second CDB tracking request with a different twitterId (this should be merged on the device):
         doURLSendTestAction() {
             var crossDeviceProperties = CrossDeviceProperties()
             crossDeviceProperties.twitterId = "newTwitterId"
             WebtrekkTracking.instance().trackCDB(crossDeviceProperties)
         }
-        
+
         // just make sure, that this request is sent, but don't check it yet:
         doURLSendTestCheck() { parametersArr in ()
         }
@@ -168,9 +166,9 @@ class CDBResendTest: WTBaseTestNew {
         doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("some page view")
         }
-   
+
         // validate that all stored CDB properties were sent with the last request (including the merged twitterId and windowsId):
-        doURLSendTestCheck() {parametersArr in
+        doURLSendTestCheck() { parametersArr in
             self.processResultAndValidateMergedCDBParasSent(parameters: parametersArr)
         }
     }

@@ -48,7 +48,7 @@ class RecommendationTest: WTBaseTestNew {
     }
 
     //will crash if test not passed.
-    func recoTestBasic(name: String, productID: String? = nil, countValidation count: Int = 1) {
+    func recoTestBasic(name: String, productID: String? = nil, countValidation totalCount: Int = 1) {
 
         let recoController = RecommendationTableViewController()
 
@@ -60,8 +60,8 @@ class RecommendationTest: WTBaseTestNew {
 
         expect(recoController.lastResult).toEventually(equal(RecommendationQueryResult.ok), timeout: 5)
 
-        if count > 0 {
-            expect(recoController.products?.count).to(beGreaterThanOrEqualTo(count))
+        if totalCount > 0 {
+            expect(recoController.products?.count).to(beGreaterThanOrEqualTo(totalCount))
         } else {
             expect(recoController.products?.count).to(equal(0))
         }

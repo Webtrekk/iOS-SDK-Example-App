@@ -27,15 +27,14 @@ import Webtrekk
  */
 class BackToForegroundTest: WTBaseTestNew {
     let maxRequestsFirst = 1000
-    
- 
-    func testPutMesaageToQueue(){
+
+    func testPutMesaageToQueue() {
         // put meesage to queue
         self.httpTester.removeStub()
         self.httpTester.addConnectionInterruptionStub()
-        
+
         let tracker = WebtrekkTracking.instance()
-        
+
         for i in 0..<maxRequestsFirst {
             tracker.trackPageView(PageProperties(
                 name: "testFromBackground",
@@ -45,41 +44,39 @@ class BackToForegroundTest: WTBaseTestNew {
                 url: nil))
             doSmartWait(sec: 0.0001)
         }
-        
+
         self.isCheckFinishCondition = false
     }
 
-    func testAllMessageHasBeenReceived(){
-        
+    func testAllMessageHasBeenReceived() {
         var passed = false
         var lastMessageIsReceived = false
-        
+
         let lock = NSLock()
-        
+
         self.httpTester.removeStub()
-        self.httpTester.addNormalStub(){query in
+        self.httpTester.addNormalStub() { query in
             lock.lock()
-            defer{
+
+            defer {
                 lock.unlock()
             }
+
             let parameters = self.httpTester.getReceivedURLParameters((query.url?.query!)!)
-            
+
             WebtrekkTracking.defaultLogger.logDebug("message with ID: \(parameters["cp103"].simpleDescription) is received")
-            
+
             if let mesNum = Int(parameters["cp103"].simpleDescription), mesNum == (self.maxRequestsFirst - 1) {
                 lastMessageIsReceived = true
             }
+
             if let value = parameters["p"]?.contains("testFromBackground"), value, lastMessageIsReceived {
                 passed = true
             }
         }
-        
-        expect(passed).toEventually(equal(true), timeout:20)
-        
+
+        expect(passed).toEventually(equal(true), timeout: 20)
+
         WebtrekkTracking.defaultLogger.logDebug("all message are received")
-    }
-    
-    
-    func testDummy(){
     }
 }

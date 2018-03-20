@@ -22,23 +22,21 @@ import Nimble
 import Foundation
 
 class AutoParameterTest: WTBaseTestNew {
-    
-    override func getConfigName() -> String?{
+    override func getConfigName() -> String? {
         if name.range(of: "testAutoParameterComplex") != nil {
             return "webtrekk_config_auto_parameter_complex"
         } else {
             return nil
         }
     }
-    
+
     //
-    func testAutoParameterSimple()
-    {
-        doURLSendTestAction(){
+    func testAutoParameterSimple() {
+        doURLSendTestAction() {
             WebtrekkTracking.instance().trackPageView("pageName")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cs804"]).to(equal("1.0"))
             #if !os(tvOS)
                 expect(parametersArr["cs807"]).to(equal("WIFI"))
@@ -50,29 +48,28 @@ class AutoParameterTest: WTBaseTestNew {
         }
     }
 
-    func testAutoParameterComplex()
-    {
+    func testAutoParameterComplex() {
         let over804 = "versionOver"
         let over804Key = "versionOverKey"
         let over784 = "requestSizeOver"
         let over809 = "over809"
-        
-        doURLSendTestAction(){
+
+        doURLSendTestAction() {
             WebtrekkTracking.instance()[over804Key] = over804
-            WebtrekkTracking.instance().trackPageView("pageName", sessionDetails:[809: .constant(over809)])
+            WebtrekkTracking.instance().trackPageView("pageName", sessionDetails: [809: .constant(over809)])
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cs804"]).to(equal(over804))
+
             #if !os(tvOS)
                 expect(parametersArr["cs807"]).to(equal("WIFI"))
                 expect(parametersArr["cp783"]).toNot(beNil())
             #endif
+
             expect(parametersArr["cp784"]).toNot(equal(over784))
             expect(parametersArr["cs809"]).to(equal(over809))
             expect(parametersArr["cs813"]).toNot(beNil())
         }
     }
-
-
 }

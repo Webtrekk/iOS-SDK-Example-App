@@ -22,69 +22,62 @@ import Nimble
 import Webtrekk
 import WebKit
 
-
 class DeepLink: WTBaseTestNew {
-
     func testSetEverIDAndMediaCode() {
-        
         let everId = "1234567890123456789"
         let incorrectEverID = "12345653434"
         let mediaCode = "SomeCode"
-        
+
         // test correct EverID
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let track = WebtrekkTracking.instance()
-            
+
             track.everId = everId
             track.mediaCode = mediaCode
-            
+
             track.trackPageView("SomePage")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["mc"]).to(contain(mediaCode))
             expect(parametersArr["eid"]).to(equal(everId))
         }
-        
+
         //test incorrect EverID
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let track = WebtrekkTracking.instance()
-            
+
             track.everId = incorrectEverID
-            
             track.trackPageView("SomePage")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["mc"]).to(beNil())
             expect(parametersArr["eid"]).to(equal(everId))
         }
-        
     }
-    
-    func testDeepLink(){
-        
+
+    func testDeepLink() {
+
         // test With emulation of opening
         let everId = "1234567890123456700"
         let mediaCode = "mediaCodeURL"
 
-        doURLSendTestAction(){
+        doURLSendTestAction() {
             let url = URL(string: "https://www.webtrekk.com?wt_everID=\(everId)&wt_mediaCode=\(mediaCode)")
             let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
             userActivity.webpageURL = url
-            
-            let _ = UIApplication.shared.delegate?.application!(UIApplication.shared,
-            continue: userActivity){
-                (_: [Any]?) -> Void in
+
+            _ = UIApplication.shared.delegate?.application!(UIApplication.shared,
+            continue: userActivity) { (_: [Any]?) -> Void in
             }
-            
+
             WebtrekkTracking.instance().trackPageView("SomePage")
         }
-        
-        doURLSendTestCheck(){parametersArr in
+
+        doURLSendTestCheck() { parametersArr in
             expect(parametersArr["mc"]).to(contain(mediaCode))
             expect(parametersArr["eid"]).to(equal(everId))
         }
-
     }
 }

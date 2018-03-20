@@ -314,9 +314,9 @@ class ParameterTest: WTBaseTestNew {
                 voucherValue: "VOUCHER_VALUE"
             )
 
-            let sessionDetailsL = [
-                10: "sessionCustom10",
-                11: "sessionCustom11"
+            let sessionDetailsL: [Int: TrackingValue] = [
+                10: .constant("sessionCustom10"),
+                11: .constant("sessionCustom11")
             ]
 
             let pageEvent = PageViewEvent(
@@ -379,29 +379,17 @@ class ParameterTest: WTBaseTestNew {
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
 
-//            let globalTrackerData = PageViewEvent(
-//                userProperties: UserProperties(
-//                    details = [
-//                        3: "customUser3"
-//                    ]
-//                ),
-//                sessionDetails: [
-//                    1: "shouldBeIgnored"
-//                ],
-//                pageProperties: PageProperties(
-//                    internalSearch: "ShouldBeIgnoredIS"
-//                ),
-//                advertisementProperties: AdvertisementProperties(
-//                    details: [
-//                        23: "customAdv23"
-//                    ]
-//                )
-//            )
-//
-//            for (globalTrackerKey, globalTrackerValue) in globalTrackerData {
-//                tracker[globalTrackerKey] = globalTrackerValue
-//            }
-//
+            tracker.global.pageProperties.internalSearch = "ShouldBeIgnoredIS"
+            tracker.global.advertisementProperties.details = [
+                    23: "customAdv23"
+            ]
+            tracker.global.sessionDetails = [
+                    1: "shouldBeIgnored"
+            ]
+            tracker.global.userProperties.details = [
+                    3: "customUser3"
+            ]
+
             let trackerData = [
                 "CURRENCY": "CURRENCYGlobalParIgnore",
                 "INTERN_SEARCH": "InternalSearch"
@@ -489,9 +477,9 @@ class ParameterTest: WTBaseTestNew {
                 voucherValue: "VOUCHER_VALUE"
             )
 
-            let sessionDetailsL = [
-                10: "sessionCustom10",
-                11: "sessionCustom11"
+            let sessionDetailsL: [Int: TrackingValue] = [
+                10: .constant("sessionCustom10"),
+                11: .constant("sessionCustom11")
             ]
 
             let ipAddressL = "IP_ADDRESS"

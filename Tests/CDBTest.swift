@@ -64,7 +64,7 @@ class CDBTest: WTBaseTestNew {
         //31
         "custom29"
     ]
-    
+
     let parametersValue: [String] = [
         "test@tester.com",
         "TEST@TESTER.COM",
@@ -99,7 +99,7 @@ class CDBTest: WTBaseTestNew {
         "custom1Value",
         "custom29Value"
     ]
-    
+
     //sha256 or original value
     let firstOrSha256KeyName: [String?] = [
         "cdb2",
@@ -139,7 +139,7 @@ class CDBTest: WTBaseTestNew {
         "cdb51",
         "cdb79"
     ]
-    
+
     let mdKeyName: [String?] = [
         "cdb1",
         "cdb1",
@@ -171,7 +171,7 @@ class CDBTest: WTBaseTestNew {
         nil, nil, nil, nil,
         nil
     ]
-    
+
     let firstOrSha256Value: [String?] = [
         "1f9e575ad4234c30a81d30c70affd4bba7b0d57d8e8607ad255496863d72c8bb",
         "1f9e575ad4234c30a81d30c70affd4bba7b0d57d8e8607ad255496863d72c8bb",
@@ -206,21 +206,35 @@ class CDBTest: WTBaseTestNew {
         "custom1Value",
         "custom29Value"
     ]
-    
+
     let mdFieldValue: [String?] = [
-    "ef8ca1c0ff7d2e34dc0953d4222655b8", "ef8ca1c0ff7d2e34dc0953d4222655b8", "ef8ca1c0ff7d2e34dc0953d4222655b8", "ef8ca1c0ff7d2e34dc0953d4222655b8","ef8ca1c0ff7d2e34dc0953d4222655b8", nil,
-    "6af3cc537ab15ffb500167af24d2b9d6", "15a7498681d67ecc0b9c62c0087a9faa", "15a7498681d67ecc0b9c62c0087a9faa", "03f5113c45423448356b1c1c5a3e0027", "6af3cc537ab15ffb500167af24d2b9d6","6af3cc537ab15ffb500167af24d2b9d6", nil,
-    "756e1fd66e46d930707acd1b2d2dcc14", "756e1fd66e46d930707acd1b2d2dcc14", "756e1fd66e46d930707acd1b2d2dcc14", "756e1fd66e46d930707acd1b2d2dcc14",
-    "756e1fd66e46d930707acd1b2d2dcc14", "756e1fd66e46d930707acd1b2d2dcc14", "756e1fd66e46d930707acd1b2d2dcc14", "756e1fd66e46d930707acd1b2d2dcc14",
-    "756e1fd66e46d930707acd1b2d2dcc14", nil,
-    nil, nil, nil, nil,
-    nil, nil, nil, nil,
-    nil
+        "ef8ca1c0ff7d2e34dc0953d4222655b8",
+        "ef8ca1c0ff7d2e34dc0953d4222655b8",
+        "ef8ca1c0ff7d2e34dc0953d4222655b8",
+        "ef8ca1c0ff7d2e34dc0953d4222655b8",
+        "ef8ca1c0ff7d2e34dc0953d4222655b8",
+        nil,
+        "6af3cc537ab15ffb500167af24d2b9d6",
+        "15a7498681d67ecc0b9c62c0087a9faa",
+        "15a7498681d67ecc0b9c62c0087a9faa",
+        "03f5113c45423448356b1c1c5a3e0027",
+        "6af3cc537ab15ffb500167af24d2b9d6",
+        "6af3cc537ab15ffb500167af24d2b9d6",
+        nil,
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        "756e1fd66e46d930707acd1b2d2dcc14",
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
     ]
-    
-    
+
     let cycleTestArr: [[Int]]  = [
-        [0,6,13,23,24,25,26,27,28,29],
+        [0, 6, 13, 23, 24, 25, 26, 27, 28, 29],
         [1, 7, 14],
         [2, 8, 15],
         [3, 9, 16],
@@ -230,12 +244,9 @@ class CDBTest: WTBaseTestNew {
         [20],
         [21, 22],
         [30, 31]
-    ];
-    
-    
-    
-    
-    func testCDB(){
+    ]
+
+    func testCDB() {
         for cycle in 0...9 {
             doURLSendTestAction() {
                 self.doTest(cycle)
@@ -245,18 +256,18 @@ class CDBTest: WTBaseTestNew {
             }
         }
     }
-    
+
     private func doTest(_ cycle: Int) {
-        if (cycle == 0) {
+        if cycle == 0 {
             self.log(text: "Start CDB test -------------")
         }
-        
+
         self.log(text: "Start test cycle \(cycle)---------------------")
-        
+
         let track = WebtrekkTracking.instance()
-        
+
         expect(track).notTo(beNil())
-        
+
         switch cycle {
         case 0:
             track.trackCDB(CrossDeviceProperties(
@@ -320,7 +331,7 @@ class CDBTest: WTBaseTestNew {
                     sha256: parametersValue[cycleTestArr[cycle][1]]
                 )
             ))
-        case 6,7:
+        case 6, 7:
             track.trackCDB(CrossDeviceProperties(
                 address: .plain(
                     convertStringToAddress(
@@ -341,42 +352,40 @@ class CDBTest: WTBaseTestNew {
                 1: parametersValue[cycleTestArr[cycle][0]],
                 29: parametersValue[cycleTestArr[cycle][1]]
             ]
+
             track.trackCDB(CrossDeviceProperties(
                 custom: custom
             ))
         default:
             self.log(text: "Incorrect CDB case")
         }
-        
     }
-    
-    private func processResult (_ cycle: Int, parameters: [String: String]){
 
+    private func processResult (_ cycle: Int, parameters: [String: String]) {
         for index in cycleTestArr[cycle] {
-            
-            let parName = parametersName[index];
-            let parValue = parametersValue[index];
-            let firstKey = firstOrSha256KeyName[index];
-            let firstValue = firstOrSha256Value[index]?.lowercased();
-            let mdKey = mdKeyName[index];
-            let mdValue = mdFieldValue[index]?.lowercased();
-            
-            self.log(text: "test " + parName + " value:" + parValue+"\n")
-            
+            let parName = parametersName[index]
+            let parValue = parametersValue[index]
+            let firstKey = firstOrSha256KeyName[index]
+            let firstValue = firstOrSha256Value[index]?.lowercased()
+            let mdKey = mdKeyName[index]
+            let mdValue = mdFieldValue[index]?.lowercased()
+
+            self.log(text: "test " + parName + " value:" + parValue + "\n")
+
             if let key = firstKey {
                 expect(firstValue).to(equal(parameters[key]?.lowercased()),
-                                      description: "cycle: \(cycle) key:\(key) index: \(index). expected: \(firstValue.simpleDescription) actual:\(parameters[key].simpleDescription)"
+                                      description: "cycle: \(cycle) key: \(key) index: \(index). expected: \(firstValue.simpleDescription) actual: \(parameters[key].simpleDescription)"
                 )
             }
-            
+
             if let key = mdKey {
                 expect(mdValue).to(equal(parameters[key]?.lowercased()),
-                                   description: "cycle: \(cycle) key:\(key) index: \(index). expected: \(mdValue.simpleDescription) actual:\(parameters[key].simpleDescription)"
+                                   description: "cycle: \(cycle) key: \(key) index: \(index). expected: \(mdValue.simpleDescription) actual: \(parameters[key].simpleDescription)"
                 )
             }
         }
     }
-    
+
     private func convertStringToAddress(_ value: String) -> CrossDeviceProperties.Address {
         let addressConponents = value.split(separator: "|")
         return CrossDeviceProperties.Address(

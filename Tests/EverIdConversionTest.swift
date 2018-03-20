@@ -20,33 +20,33 @@ import XCTest
 import Nimble
 import Webtrekk
 
-class EverIdConversationTest : WTBaseTestNew {
-    
+class EverIdConversationTest: WTBaseTestNew {
     override func setUp() {
         self.initWebtrekkManualy = true
         super.setUp()
     }
-    
-    func testEverIdFromV2Conversion() {
 
+    func testEverIdFromV2Conversion() {
         var everId: String = ""
+
         doURLSendTestAction() {
             //delete current EverId
             self.removeDefSetting(setting: "everId")
             self.removeDefSetting(setting: "migrationCompleted")
+
             //setup EverId as in V2
             let everIdV2 = SetV2EverID()
             everId = everIdV2.createEverIDLikeV2()
             WebtrekkTracking.defaultLogger.logDebug("everId from V2: \(everId)")
+
             //do track
             self.initWebtrekk()
             let track = WebtrekkTracking.instance()
             track.trackPageView("someView")
         }
-        
+
         doURLSendTestCheck() { parametersArr in
             expect(parametersArr["eid"]).to(equal(everId))
         }
-        
     }
 }
