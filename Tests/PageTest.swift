@@ -28,15 +28,11 @@ class PageTest: WTBaseTestNew {
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
 
-            let globalTrackerVariablesData = [
+            tracker.global.variables = [
                 "Key1": "value1",
                 "Key2": "value2",
                 "KeyOver1": "overValue1"
             ]
-
-            for (key, value) in globalTrackerVariablesData {
-                tracker.global.variables[key] = value
-            }
 
             tracker.trackPageView("pageName")
         }
@@ -135,14 +131,10 @@ class PageTest: WTBaseTestNew {
         doURLSendTestAction() {
             let tracker = WebtrekkTracking.instance()
 
-            let globalTrackerVariablesData = [
+            tracker.global.variables = [
                 "Key1": allASCIISympbols1,
                 "Key2": allASCIISympbols2
             ]
-
-            for (key, value) in globalTrackerVariablesData {
-                tracker.global.variables[key] = value
-            }
 
             tracker.trackPageView("page,Name")
         }
