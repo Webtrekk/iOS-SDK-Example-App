@@ -4,7 +4,6 @@ install! "cocoapods", :share_schemes_for_development_pods => false
 
 pod "Webtrekk", '4.11'
 
-
 def base_pods
     inherit! :search_paths
     pod 'OHHTTPStubs', '~> 6.0.0'
