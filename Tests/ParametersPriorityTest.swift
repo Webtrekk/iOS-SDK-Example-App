@@ -471,6 +471,11 @@ class ParametersPriorityTest: WTBaseTestNew {
         tracker["KeyRequestSizeConf"] = "RequestSizeConf"
         tracker["KeyVersionOverGlobalConf"] = "VersionOverGlobalConf"
         tracker["KeyAdvertizingIDGlobalConf"] = "AdvertizingIDGlobalConf"
+        
+        tracker.global.variables = [
+            "GLBIRTHDAYKey": "19860412",
+            "GLCITYKey": "GLConfCITY"
+        ]
     }
 
     // set global code parameters
