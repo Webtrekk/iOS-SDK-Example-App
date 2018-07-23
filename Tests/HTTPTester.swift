@@ -84,14 +84,14 @@ class HTTPTester {
         let valueKeys = query.split(separator: "&")
         var keyValueMap = [String: String]()
 
-        for valueKey in valueKeys {
-            let keyValueArray: [AnySequence<Character>] = valueKey.split(separator: "=")
-            if keyValueArray.count == 2 {
-                keyValueMap[String(keyValueArray[0])] = String(keyValueArray[1])
-            } else {
-                WebtrekkTracking.defaultLogger.logDebug("incorrect parameter:" + String(valueKey))
-            }
-        }
+//        for valueKey in valueKeys {
+//            let keyValueArray: [AnySequence<Character>] = valueKey.split(separator: "=")
+//            if keyValueArray.count == 2 {
+//                keyValueMap[String(keyValueArray[0])] = String(keyValueArray[1])
+//            } else {
+//                WebtrekkTracking.defaultLogger.logDebug("incorrect parameter:" + String(valueKey))
+//            }
+//        }
 
         return keyValueMap
     }

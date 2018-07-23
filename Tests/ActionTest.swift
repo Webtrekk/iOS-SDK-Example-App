@@ -19,6 +19,7 @@
 
 import XCTest
 import Nimble
+import UIKit
 import Webtrekk
 
 class ActionTest: WTBaseTestNew {
@@ -61,5 +62,22 @@ class ActionTest: WTBaseTestNew {
             expect(parametersArr["cs34"]).to(beNil())
         }
 
+    }
+    
+    func testActionWithOnlyActionProperties() {
+        let track = WebtrekkTracking.instance()
+        let actionPropertiesL = ActionProperties(
+            name: "actionName",
+            details: [
+                1: "actionpar1",
+                2: "actionPar2"
+            ]
+        )
+        
+        let actionEvent = ActionEvent(
+            actionProperties: actionPropertiesL
+        )
+        
+        track.trackAction(actionEvent)
     }
 }

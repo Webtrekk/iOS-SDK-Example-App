@@ -106,6 +106,7 @@ class AttributionTest: WTBaseTestNew {
 
         doURLSendTestCheck() { parametersArr in
             expect(parametersArr["cb900"]).to(beNil())
+            XCTAssertNotNil(parametersArr["cb900"])
         }
     }
 

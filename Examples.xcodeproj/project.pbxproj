@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		28178808EE741308C90A2105 /* Pods_tvOS_SampleTVApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C545A3285EEC349D19BBAFE5 /* Pods_tvOS_SampleTVApp.framework */; };
 		4E5CDE7B178AC071E41B18DC /* Pods_WatchApp_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D69B1D268FC4FC9375115AC4 /* Pods_WatchApp_Extension.framework */; };
+		5A7068F120877DAD00364401 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7068F020877DAD00364401 /* Webtrekk.framework */; };
+		5A7068F320877DAD00364401 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7068F220877DAD00364401 /* Webtrekk.framework */; };
+		5A7068F520877DAD00364401 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7068F420877DAD00364401 /* Webtrekk.framework */; };
 		5A784BD2205A8B0200601EC3 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A784BD5205A8B0200601EC3 /* Webtrekk.framework */; };
 		5A784BD3205A8B0200601EC3 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A784BD6205A8B0200601EC3 /* Webtrekk.framework */; };
 		5A784BD4205A8B0200601EC3 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A784BD7205A8B0200601EC3 /* Webtrekk.framework */; };
@@ -205,6 +208,9 @@
 		497AAE311D22D2780094B8B4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		497AAE321D22D28A0094B8B4 /* Webtrekk.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Webtrekk.podspec; path = ../Webtrekk.podspec; sourceTree = "<group>"; };
 		5A5FD30387E23C3D47A6A426 /* Pods-iOS-Example-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-Example-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS-Example-Tests/Pods-iOS-Example-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		5A7068F020877DAD00364401 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A7068F220877DAD00364401 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A7068F420877DAD00364401 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A784BD5205A8B0200601EC3 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A784BD6205A8B0200601EC3 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A784BD7205A8B0200601EC3 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,6 +353,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7068F120877DAD00364401 /* Webtrekk.framework in Frameworks */,
+				5A7068F320877DAD00364401 /* Webtrekk.framework in Frameworks */,
+				5A7068F520877DAD00364401 /* Webtrekk.framework in Frameworks */,
 				9F5B49C21D65E5DD00E58E2B /* AdSupport.framework in Frameworks */,
 				D55A269483261A4B71D45B74 /* Pods_iOS_ModuleTest.framework in Frameworks */,
 			);
@@ -569,6 +578,9 @@
 		A3DFB00630AF1B828E7E41A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A7068F020877DAD00364401 /* Webtrekk.framework */,
+				5A7068F220877DAD00364401 /* Webtrekk.framework */,
+				5A7068F420877DAD00364401 /* Webtrekk.framework */,
 				5A784BD5205A8B0200601EC3 /* Webtrekk.framework */,
 				5A784BD6205A8B0200601EC3 /* Webtrekk.framework */,
 				5A784BD7205A8B0200601EC3 /* Webtrekk.framework */,

@@ -26,8 +26,8 @@ import Nimble
 //  Created by Timo Klein
 //
 
-@testable import Webtrekk
 import Foundation
+@testable import Webtrekk
 
 class AdClearIDTest: WTBaseTestNew {
     override func getConfigName() -> String? {
