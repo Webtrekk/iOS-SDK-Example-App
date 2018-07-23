@@ -2,7 +2,7 @@ use_frameworks!
 
 install! "cocoapods", :share_schemes_for_development_pods => false
 
-pod "Webtrekk", '4.11'
+pod "Webtrekk", '~> 4.12.0'
 
 def base_pods
     inherit! :search_paths
@@ -40,7 +40,7 @@ abstract_target "watchOS" do
     
     target "WatchApp" do
         target "WatchApp Extension" do
-        pod "Webtrekk", '4.11'
+        pod "Webtrekk", '~> 4.12.0'
         base_pods
         end
     end

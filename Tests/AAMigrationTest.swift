@@ -17,28 +17,30 @@
 //  Created by arsen.vartbaronov on 17/08/16.
 //
 
-import Nimble
-//import WebtrekkOld
-
-class AAMigrationTest: HttpBaseTestNew {
-    override func setUp() {
-        super.setUp()
-        Webtrekk.start(
-            withServerUrl:
-                URL(string: "https://q3.webtrekk.net"),
-                trackId: "123451234512345",
-                samplingRate: 0,
-                sendDelay: 5,
-                appVersionParameter: "100"
-            )
-    }
-
-    func testMigration() {
-        self.doURLSendTestAction() {
-            Webtrekk.trackContent("pageNameOld")
-        }
-
-        self.doURLSendTestCheck() { _ in
-        }
-    }
-}
+//import XCTest
+//import Nimble
+//import Webtrekk
+////import WebtrekkOld
+//
+//class AAMigrationTest: HttpBaseTestNew {
+//    override func setUp() {
+//        super.setUp()
+//        Webtrekk.start(
+//            withServerUrl:
+//                URL(string: "https://q3.webtrekk.net"),
+//                trackId: "123451234512345",
+//                samplingRate: 0,
+//                sendDelay: 5,
+//                appVersionParameter: "100"
+//            )
+//    }
+//
+//    func testMigration() {
+//        self.doURLSendTestAction() {
+//            Webtrekk.trackContent("pageNameOld")
+//        }
+//
+//        self.doURLSendTestCheck() { _ in
+//        }
+//    }
+//}
