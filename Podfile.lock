@@ -16,7 +16,7 @@ PODS:
   - OHHTTPStubs/Swift (6.0.0):
     - OHHTTPStubs/Default
   - ReachabilitySwift (3)
-  - Webtrekk (4.12.3):
+  - Webtrekk (4.12.4):
     - ReachabilitySwift (~> 3.0.0)
 
 DEPENDENCIES:
@@ -26,7 +26,7 @@ DEPENDENCIES:
   - Webtrekk (~> 4.12.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Nimble
     - OHHTTPStubs
     - ReachabilitySwift
@@ -36,8 +36,8 @@ SPEC CHECKSUMS:
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
-  Webtrekk: c967201c2d0a8572f32c9230348d7c385b406b13
+  Webtrekk: bacbd910a81ab0b042594bfa1604fc54b74fdd56
 
 PODFILE CHECKSUM: 2ea45f26e3d24db28fad1ae8707edebd099248ad
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
