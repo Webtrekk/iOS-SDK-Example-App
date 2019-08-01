@@ -197,7 +197,7 @@ class PageTest: WTBaseTestNew {
             expect(
                 parametersArr["X-WT-UA"]?.removingPercentEncoding!
             ).to(
-                equal("Tracking Library \(WebtrekkTracking.version) (\(operatingSystemName) \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(modelNumber); \(Locale.current.identifier))"
+                equal("Tracking Library test\(WebtrekkTracking.version) (\(operatingSystemName) \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(modelNumber); \(Locale.current.identifier))"
                 )
             )
         }

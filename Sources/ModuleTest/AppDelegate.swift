@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 WebtrekkTracking.defaultLogger.testMode = true
                 WebtrekkTracking.defaultLogger.logDebug("Start after crash. Initialize crash configuration.")
 
-                initWithConfig(configName: "webtrekk_config_error_log_integration_test")
+                initWithConfig(configName: "webtrekk_")
             } else {
                 initWithConfig()
             }

@@ -41,7 +41,7 @@ class InterfaceController: WKInterfaceController, RequestManager.Delegate {
         super.init()
 
         let version = ProcessInfo().operatingSystemVersion
-        self.userAgent = "Tracking Library \(WebtrekkTracking.version) (watchOS \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(Environment.deviceModelString); \(Locale.current.identifier))"
+        self.userAgent = "Tracking Library HALLOO \(WebtrekkTracking.version) (watchOS \(version.majorVersion).\(version.minorVersion)\(version.patchVersion == 0 ? "":".\(version.patchVersion)"); \(Environment.deviceModelString); \(Locale.current.identifier))"
     }
 
     override func awake(withContext context: Any?) {
