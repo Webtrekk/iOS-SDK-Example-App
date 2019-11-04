@@ -12,7 +12,7 @@ end
 
 def main_pods
     base_pods
-    pod 'Nimble', '~> 7.0.1'
+    pod 'Nimble', '~> 8.0.4'
 end
 
 abstract_target "iOS" do
@@ -46,15 +46,15 @@ abstract_target "watchOS" do
     end
 end
 
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            if target.name != 'Nimble-iOS' && target.name != 'Nimble-tvOS'
-                config.build_settings['SWIFT_VERSION'] = '4.0'
-                else
-                config.build_settings['SWIFT_VERSION'] = '3.2'
-            end
-        end
-    end
-end
+#post_install do |installer|
+#    installer.pods_project.targets.each do |target|
+#        target.build_configurations.each do |config|
+#            if target.name != 'Nimble-iOS' && target.name != 'Nimble-tvOS'
+#                config.build_settings['SWIFT_VERSION'] = '4.0'
+#                else
+#                config.build_settings['SWIFT_VERSION'] = '3.2'
+#            end
+#        end
+#    end
+#end
 
