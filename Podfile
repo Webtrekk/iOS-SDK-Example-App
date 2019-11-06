@@ -2,7 +2,7 @@ use_frameworks!
 
 install! "cocoapods", :share_schemes_for_development_pods => false
 
-pod "Webtrekk", '~> 4.12.0'
+pod "Webtrekk", '~> 4.15.12'
 
 def base_pods
     inherit! :search_paths
@@ -16,7 +16,7 @@ def main_pods
 end
 
 abstract_target "iOS" do
-	platform :ios, "8.0"
+	platform :ios, "9.0"
 
     target "ModuleTest" do
         target "Tests" do
@@ -36,11 +36,11 @@ abstract_target "tvOS" do
 end
 
 abstract_target "watchOS" do
-    platform :watchos, "2.0"
+    platform :watchos, "4.0"
     
     target "WatchApp" do
         target "WatchApp Extension" do
-        pod "Webtrekk", '~> 4.12.0'
+        pod "Webtrekk", '~> 4.15.12'
         base_pods
         end
     end

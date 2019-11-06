@@ -102,10 +102,6 @@
 		9FFF2E951DCCC5CB00DB0F84 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF2E941DCCC5CB00DB0F84 /* NotificationController.swift */; };
 		9FFF2E971DCCC5CC00DB0F84 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF2E961DCCC5CB00DB0F84 /* ComplicationController.swift */; };
 		9FFF2E991DCCC5CC00DB0F84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFF2E981DCCC5CC00DB0F84 /* Assets.xcassets */; };
-		A3C7856C23703D4B00266428 /* ReachabilitySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C7856B23703D4B00266428 /* ReachabilitySwift.framework */; };
-		A3C7856E23703D5700266428 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C7856D23703D5700266428 /* Webtrekk.framework */; };
-		A3C7857023703D5700266428 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C7856F23703D5700266428 /* Webtrekk.framework */; };
-		A3C7857223703D5700266428 /* Webtrekk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C7857123703D5700266428 /* Webtrekk.framework */; };
 		AD95DFA8F71D8D433EC2D4FF /* Pods_tvOS_SampleTVApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FD4AABB8F8A340303606454 /* Pods_tvOS_SampleTVApp.framework */; };
 		C2B77AAC1ECAEEC80054343D /* CDBResendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8D0931ECA059700A73ED5 /* CDBResendTest.swift */; };
 		C2C8D0941ECA059700A73ED5 /* CDBResendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8D0931ECA059700A73ED5 /* CDBResendTest.swift */; };
@@ -174,6 +170,26 @@
 				9FBA48111DD1FECA00956ACF /* WatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A36D688E237304B40026D3E4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A36D6896237305350026D3E4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -274,10 +290,6 @@
 		9FFF2E961DCCC5CB00DB0F84 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		9FFF2E981DCCC5CC00DB0F84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FFF2E9A1DCCC5CC00DB0F84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3C7856B23703D4B00266428 /* ReachabilitySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReachabilitySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3C7856D23703D5700266428 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3C7856F23703D5700266428 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3C7857123703D5700266428 /* Webtrekk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Webtrekk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B72368BA1D3F643100D64C63 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		B8B4F48F974AAD0ABF216D03 /* Pods-SampleTVAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleTVAppTests.debug.xcconfig"; path = "Target Support Files/Pods-SampleTVAppTests/Pods-SampleTVAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BBEDC83904CA525B1AAB0664 /* Pods_watchOS_WatchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_watchOS_WatchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -309,10 +321,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3C7856E23703D5700266428 /* Webtrekk.framework in Frameworks */,
-				A3C7857023703D5700266428 /* Webtrekk.framework in Frameworks */,
-				A3C7857223703D5700266428 /* Webtrekk.framework in Frameworks */,
-				A3C7856C23703D4B00266428 /* ReachabilitySwift.framework in Frameworks */,
 				9F5B49C21D65E5DD00E58E2B /* AdSupport.framework in Frameworks */,
 				1CFF025D89A9DF7F8FBC7F32 /* Pods_iOS_ModuleTest.framework in Frameworks */,
 			);
@@ -362,7 +370,6 @@
 				90FDC1998E52A171D8742C2D /* Pods-watchOS-WatchApp.debug.xcconfig */,
 				D3B65119765E3EC6C7850479 /* Pods-watchOS-WatchApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -555,10 +562,6 @@
 		A3DFB00630AF1B828E7E41A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A3C7856D23703D5700266428 /* Webtrekk.framework */,
-				A3C7856F23703D5700266428 /* Webtrekk.framework */,
-				A3C7857123703D5700266428 /* Webtrekk.framework */,
-				A3C7856B23703D4B00266428 /* ReachabilitySwift.framework */,
 				9FB10A031E28E6E9005D6656 /* AdSupport.framework */,
 				9F415FC21D5CDCCB002CB83F /* Nimble.framework */,
 				9F415F731D5CB508002CB83F /* CryptoSwift.framework */,
@@ -607,6 +610,7 @@
 				9F415F521D5CAD09002CB83F /* Resources */,
 				9FFF2EA51DCCC5CC00DB0F84 /* Embed Watch Content */,
 				F4DEDC85EBC6E6A52360D988 /* [CP] Embed Pods Frameworks */,
+				A36D688E237304B40026D3E4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -627,6 +631,7 @@
 				9FC1837D1DAE1D64000F6106 /* Frameworks */,
 				9FC1837E1DAE1D64000F6106 /* Resources */,
 				749474CAFA7514AC96F18530 /* [CP] Embed Pods Frameworks */,
+				A36D6896237305350026D3E4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -951,12 +956,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-tvOS-SampleTVApp/Pods-tvOS-SampleTVApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-tvOS/ReachabilitySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Webtrekk-tvOS/Webtrekk.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Webtrekk.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1055,12 +1058,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iOS-ModuleTest/Pods-iOS-ModuleTest-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS/ReachabilitySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Webtrekk-iOS/Webtrekk.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Webtrekk.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1561,7 +1562,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1583,7 +1584,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
